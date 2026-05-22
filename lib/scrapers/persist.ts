@@ -13,6 +13,9 @@ export async function persistGrants(
     .from('grants')
     .upsert(grants, { onConflict: 'content_hash', ignoreDuplicates: true })
 
-  if (error) return { inserted: 0, errors: grants.length }
+  if (error) {
+    console.error('[persist] supabase upsert failed', error)
+    return { inserted: 0, errors: grants.length }
+  }
   return { inserted: grants.length, errors: 0 }
 }

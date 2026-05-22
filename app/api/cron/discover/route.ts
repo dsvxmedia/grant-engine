@@ -10,7 +10,15 @@ import { normalizeGrant } from '@/lib/scrapers/normalize'
 import { filterNewGrants } from '@/lib/scrapers/deduplicate'
 import { persistGrants } from '@/lib/scrapers/persist'
 import { createServiceClient } from '@/lib/supabase/server'
-import type { RawGrant } from '@/lib/scrapers/types'
+import type { NormalizedGrant, RawGrant } from '@/lib/scrapers/types'
+
+type SourceResult = {
+  source: string
+  raw: RawGrant[]
+  normalized: NormalizedGrant[]
+  success: boolean
+  errorMessage: string | null
+}
 
 type ScraperJob = { source: string; run: () => Promise<RawGrant[]> }
 
@@ -63,7 +71,7 @@ export async function GET(request: Request) {
     }))
   )
 
-  const perSource: Array<{ source: string; raw: RawGrant[] }> = []
+  const perSource: SourceResult[] = []
   let succeeded = 0
   let failed = 0
 
@@ -72,37 +80,48 @@ export async function GET(request: Request) {
     const result = settled[i]
     if (result.status === 'fulfilled') {
       succeeded++
-      perSource.push({ source: job.source, raw: result.value.grants })
+      const raw = result.value.grants
+      perSource.push({
+        source: job.source,
+        raw,
+        normalized: raw.map(normalizeGrant),
+        success: true,
+        errorMessage: null,
+      })
     } else {
       failed++
       console.error(`[cron/discover] scraper ${job.source} failed`, result.reason)
-      perSource.push({ source: job.source, raw: [] })
+      const errorMessage =
+        result.reason instanceof Error
+          ? result.reason.message
+          : String(result.reason)
+      perSource.push({
+        source: job.source,
+        raw: [],
+        normalized: [],
+        success: false,
+        errorMessage,
+      })
     }
   }
 
   const rawAll = perSource.flatMap((s) => s.raw)
-  const normalized = rawAll.map(normalizeGrant)
+  const normalized = perSource.flatMap((s) => s.normalized)
   const newGrants = await filterNewGrants(normalized)
   const persistResult = await persistGrants(newGrants)
+  const newHashes = new Set(newGrants.map((g) => g.content_hash))
 
   await Promise.all(
-    perSource.map((s, i) => {
-      const result = settled[i]
-      const errorMessage =
-        result.status === 'rejected'
-          ? result.reason instanceof Error
-            ? result.reason.message
-            : String(result.reason)
-          : null
-      return logScraperRun({
+    perSource.map((s) =>
+      logScraperRun({
         source: s.source,
         startedAt,
         grantsFound: s.raw.length,
-        grantsNew: 0,
-        success: result.status === 'fulfilled',
-        errorMessage,
+        grantsNew: s.normalized.filter((g) => newHashes.has(g.content_hash)).length,
+        success: s.success,
+        errorMessage: s.errorMessage,
       })
-    })
+    )
   )
 
   return NextResponse.json({
@@ -117,6 +136,7 @@ export async function GET(request: Request) {
       normalized: normalized.length,
       new: newGrants.length,
       inserted: persistResult.inserted,
+      errors: persistResult.errors,
     },
     timestamp: new Date().toISOString(),
   })

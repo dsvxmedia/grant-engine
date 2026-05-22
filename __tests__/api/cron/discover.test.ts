@@ -140,6 +140,7 @@ describe('GET /api/cron/discover', () => {
       normalized: 8,
       new: 8,
       inserted: 8,
+      errors: 0,
     })
     expect(scrapeGrantsGov).toHaveBeenCalledTimes(1)
     expect(scrapeSamGov).toHaveBeenCalledTimes(1)
