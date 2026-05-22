@@ -55,3 +55,12 @@ export type CritiqueOutput = {
   overallScore: number     // 0-10 self-assessment
   summary: string          // 1-2 sentence summary of the draft's main weakness
 }
+
+export type RevisionOutput = {
+  sections: ApplicationSection[]   // revised sections
+  rawText: string                  // full revised text
+  changesLog: string[]             // list of what was changed and why
+  selectedAngles: string[]         // carried through from draft
+  selectedFramework: string        // carried through from draft
+  researchNotes: string            // carried through from draft
+}
