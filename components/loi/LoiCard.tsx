@@ -17,6 +17,7 @@ import {
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { DeadlineChip } from '@/components/shared/DeadlineChip'
 import { formatCurrency } from '@/lib/utils'
+import { toast } from 'sonner'
 
 export type LoiGrant = {
   id: string
@@ -80,7 +81,10 @@ export function LoiCard({ submission }: { submission: LoiSubmission }) {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ loi_content: editContent }),
       })
-      if (!res.ok) return
+      if (!res.ok) {
+        toast.error('Failed to save changes')
+        return
+      }
       setEditing(false)
       startTransition(() => router.refresh())
     } finally {
