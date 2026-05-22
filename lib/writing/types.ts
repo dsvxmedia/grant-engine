@@ -74,3 +74,15 @@ export type HumanizerOutput = {
   researchNotes: string
   humanizerApplied: boolean        // true on success, false on API failure
 }
+
+export type UniquenessOutput = {
+  sections: ApplicationSection[]
+  rawText: string
+  changesLog: string[]
+  selectedAngles: string[]
+  selectedFramework: string
+  researchNotes: string
+  humanizerApplied: boolean
+  uniquenessScore: number          // 1.0 = fully unique, lower = more similar to others
+  needsRevision: boolean           // true if similarity > 0.85
+}
