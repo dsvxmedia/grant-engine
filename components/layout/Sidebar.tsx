@@ -20,7 +20,7 @@ const nav = [
   { href: '/settings',      icon: Settings,        label: 'Settings' },
 ]
 
-export function Sidebar() {
+export function Sidebar({ unreadCount }: { unreadCount?: number }) {
   const pathname = usePathname()
   return (
     <aside className="flex h-screen w-56 flex-col border-r border-border bg-background px-3 py-4">
@@ -39,7 +39,14 @@ export function Sidebar() {
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground'
             )}
           >
-            <Icon className="h-4 w-4" />
+            <span className="relative flex-none">
+              <Icon className="h-4 w-4" />
+              {href === '/notifications' && unreadCount != null && unreadCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 flex size-3.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-medium text-white leading-none">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
+            </span>
             {label}
           </Link>
         ))}
