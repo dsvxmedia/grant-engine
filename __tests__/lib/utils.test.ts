@@ -1,13 +1,21 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { formatDeadline, isUrgent, scoreColor, formatCurrency } from '@/lib/utils'
 
 describe('formatDeadline', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-06-01T12:00:00.000Z'))
+  })
+  afterEach(() => vi.useRealTimers())
+
   it('returns "Today" for same-day deadline', () => {
-    expect(formatDeadline(new Date())).toBe('Today')
+    expect(formatDeadline(new Date('2026-06-01T18:00:00.000Z'))).toBe('Today')
   })
   it('returns days remaining for future date', () => {
-    const future = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
-    expect(formatDeadline(future)).toBe('5 days')
+    expect(formatDeadline(new Date('2026-06-06T12:00:00.000Z'))).toBe('5 days')
+  })
+  it('returns "Overdue" for past deadline', () => {
+    expect(formatDeadline(new Date('2026-05-28T12:00:00.000Z'))).toBe('Overdue')
   })
 })
 

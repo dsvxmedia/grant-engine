@@ -17,7 +17,7 @@ export function StatusBadge({ status }: { status: string }) {
       'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium capitalize',
       styles[status] ?? 'bg-slate-100 text-slate-500'
     )}>
-      {status.replace('_', ' ')}
+      {status.replace(/_/g, ' ')}
     </span>
   )
 }

@@ -9,6 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export function formatDeadline(deadline: Date): string {
   if (isToday(deadline)) return 'Today'
   const days = differenceInDays(deadline, new Date())
+  if (days < 0) return 'Overdue'
   return `${days} days`
 }
 
