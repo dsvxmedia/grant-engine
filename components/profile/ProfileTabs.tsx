@@ -15,35 +15,27 @@ import type { BusinessEntity } from './types'
 
 export function ProfileTabs() {
   const [entities, setEntities] = useState<BusinessEntity[]>([])
+  const [loading, setLoading] = useState(true)
 
   const loadEntities = useCallback(async () => {
+    setLoading(true)
     try {
       const res = await fetch('/api/profile/entities')
       if (!res.ok) return
-      const { entities } = await res.json()
-      setEntities(Array.isArray(entities) ? entities : [])
+      const data = await res.json() as { entities?: unknown }
+      setEntities(Array.isArray(data.entities) ? data.entities as BusinessEntity[] : [])
     } catch {
-      // Tab-level entity list is best-effort; EntityList surfaces its own errors.
+      // EntityList surfaces its own errors; this shared state is best-effort.
+    } finally {
+      setLoading(false)
     }
   }, [])
 
   useEffect(() => {
     let active = true
-    async function initialLoad() {
-      try {
-        const res = await fetch('/api/profile/entities')
-        if (!res.ok) return
-        const { entities } = await res.json()
-        if (active) setEntities(Array.isArray(entities) ? entities : [])
-      } catch {
-        // Best-effort; EntityList surfaces its own errors.
-      }
-    }
-    void initialLoad()
-    return () => {
-      active = false
-    }
-  }, [])
+    void loadEntities().finally(() => { if (!active) setLoading(false) })
+    return () => { active = false }
+  }, [loadEntities])
 
   return (
     <Tabs defaultValue="entities" className="gap-4">
@@ -55,7 +47,7 @@ export function ProfileTabs() {
       </TabsList>
 
       <TabsContent value="entities">
-        <EntityList onEntitiesChange={loadEntities} />
+        <EntityList entities={entities} loading={loading} onReload={loadEntities} />
       </TabsContent>
       <TabsContent value="founder">
         <FounderStory />
@@ -64,7 +56,7 @@ export function ProfileTabs() {
         <ImpactMetrics entities={entities} />
       </TabsContent>
       <TabsContent value="documents">
-        <DocumentUpload entities={entities} />
+        <DocumentUpload entities={entities} onUploadSuccess={loadEntities} />
       </TabsContent>
     </Tabs>
   )

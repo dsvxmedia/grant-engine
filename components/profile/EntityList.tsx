@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -31,55 +31,14 @@ function toAngleStrings(value: unknown): string[] {
 }
 
 type EntityListProps = {
-  onEntitiesChange?: () => void
+  entities: BusinessEntity[]
+  loading: boolean
+  onReload: () => void
 }
 
-export function EntityList({ onEntitiesChange }: EntityListProps) {
-  const [entities, setEntities] = useState<BusinessEntity[]>([])
-  const [loading, setLoading] = useState(true)
+export function EntityList({ entities, loading, onReload }: EntityListProps) {
   const [formOpen, setFormOpen] = useState(false)
   const [editing, setEditing] = useState<BusinessEntity | null>(null)
-
-  const load = useCallback(async () => {
-    setLoading(true)
-    try {
-      const res = await fetch('/api/profile/entities')
-      if (!res.ok) throw new Error('Failed to load entities')
-      const { entities } = await res.json()
-      setEntities(Array.isArray(entities) ? entities : [])
-      onEntitiesChange?.()
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Failed to load entities')
-    } finally {
-      setLoading(false)
-    }
-  }, [onEntitiesChange])
-
-  useEffect(() => {
-    let active = true
-    async function initialLoad() {
-      try {
-        const res = await fetch('/api/profile/entities')
-        if (!res.ok) throw new Error('Failed to load entities')
-        const { entities } = await res.json()
-        if (!active) return
-        setEntities(Array.isArray(entities) ? entities : [])
-        onEntitiesChange?.()
-      } catch (err) {
-        if (active) {
-          toast.error(
-            err instanceof Error ? err.message : 'Failed to load entities'
-          )
-        }
-      } finally {
-        if (active) setLoading(false)
-      }
-    }
-    void initialLoad()
-    return () => {
-      active = false
-    }
-  }, [onEntitiesChange])
 
   function openCreate() {
     setEditing(null)
@@ -103,7 +62,7 @@ export function EntityList({ onEntitiesChange }: EntityListProps) {
         throw new Error('Failed to delete entity')
       }
       toast.success('Entity deleted')
-      void load()
+      void onReload()
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to delete')
     }
@@ -217,7 +176,7 @@ export function EntityList({ onEntitiesChange }: EntityListProps) {
           open={formOpen}
           onOpenChange={setFormOpen}
           entity={editing}
-          onSuccess={load}
+          onSuccess={onReload}
         />
       )}
     </div>

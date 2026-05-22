@@ -27,6 +27,7 @@ const DOCUMENT_TYPES = [
 
 type DocumentUploadProps = {
   entities: BusinessEntity[]
+  onUploadSuccess?: () => void
 }
 
 function fileName(url: string): string {
@@ -38,7 +39,7 @@ function fileName(url: string): string {
   }
 }
 
-export function DocumentUpload({ entities }: DocumentUploadProps) {
+export function DocumentUpload({ entities, onUploadSuccess }: DocumentUploadProps) {
   const [entityId, setEntityId] = useState('')
   const [documentType, setDocumentType] = useState<string>('financials')
   const [file, setFile] = useState<File | null>(null)
@@ -75,6 +76,7 @@ export function DocumentUpload({ entities }: DocumentUploadProps) {
       toast.success('Document uploaded')
       setFile(null)
       if (fileInputRef.current) fileInputRef.current.value = ''
+      onUploadSuccess?.()
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Upload failed')
     } finally {
