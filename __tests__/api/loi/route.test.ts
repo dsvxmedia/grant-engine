@@ -47,6 +47,37 @@ describe('GET /api/loi', () => {
     expect(from).toHaveBeenCalledWith('loi_submissions')
     expect(order).toHaveBeenCalledWith('created_at', { ascending: false })
   })
+
+  it('returns joined grant and entity data in the select query', async () => {
+    const submissions = [
+      {
+        id: 's1',
+        grant_id: 'g1',
+        entity_id: 'e1',
+        status: 'draft',
+        grants: { id: 'g1', title: 'Tech Grant', funder_name: 'Funder A', award_min: 10000, award_max: 50000, loi_deadline: '2026-12-01' },
+        business_entities: { id: 'e1', name: 'Acme Corp' },
+      },
+    ]
+    const order = vi
+      .fn()
+      .mockResolvedValue({ data: submissions, error: null })
+    const select = vi.fn().mockReturnValue({ order })
+    const from = vi.fn().mockReturnValue({ select })
+    mockedCreateServiceClient.mockResolvedValue({ from } as any)
+
+    const { GET } = await import('@/app/api/loi/route')
+    const res = await GET()
+    expect(res.status).toBe(200)
+    const json = await res.json()
+    expect(json.submissions[0].grants).toBeDefined()
+    expect(json.submissions[0].grants.title).toBe('Tech Grant')
+    expect(json.submissions[0].business_entities).toBeDefined()
+    expect(json.submissions[0].business_entities.name).toBe('Acme Corp')
+    const selectArg: string = select.mock.calls[0][0]
+    expect(selectArg).toContain('grants(')
+    expect(selectArg).toContain('business_entities(')
+  })
 })
 
 describe('POST /api/loi', () => {

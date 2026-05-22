@@ -11,7 +11,7 @@ export async function GET() {
   // local Supabase is available to regenerate them.
   const { data, error } = await (supabase as any)
     .from('loi_submissions')
-    .select('*')
+    .select('*, grants(id, title, funder_name, award_min, award_max, loi_deadline), business_entities(id, name)')
     .order('created_at', { ascending: false })
 
   if (error) {
