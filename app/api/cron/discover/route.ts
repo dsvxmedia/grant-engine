@@ -9,6 +9,7 @@ import { scrapeStates } from '@/lib/scrapers/states'
 import { normalizeGrant } from '@/lib/scrapers/normalize'
 import { filterNewGrants } from '@/lib/scrapers/deduplicate'
 import { persistGrants } from '@/lib/scrapers/persist'
+import { sendScraperAlert } from '@/lib/scrapers/health'
 import { createServiceClient } from '@/lib/supabase/server'
 import type { NormalizedGrant, RawGrant } from '@/lib/scrapers/types'
 
@@ -123,6 +124,13 @@ export async function GET(request: Request) {
       })
     )
   )
+
+  if (failed > 0) {
+    const failures = perSource
+      .filter((s) => !s.success)
+      .map((s) => ({ source: s.source, error: s.errorMessage ?? 'unknown error' }))
+    await sendScraperAlert(failures)
+  }
 
   return NextResponse.json({
     ok: true,

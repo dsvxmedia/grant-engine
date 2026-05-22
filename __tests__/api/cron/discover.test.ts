@@ -10,6 +10,7 @@ import { normalizeGrant } from '@/lib/scrapers/normalize'
 import { filterNewGrants } from '@/lib/scrapers/deduplicate'
 import { persistGrants } from '@/lib/scrapers/persist'
 import { createServiceClient } from '@/lib/supabase/server'
+import { sendScraperAlert } from '@/lib/scrapers/health'
 import type { NormalizedGrant, RawGrant } from '@/lib/scrapers/types'
 
 vi.mock('@/lib/scrapers/grants-gov', () => ({ scrapeGrantsGov: vi.fn() }))
@@ -23,6 +24,7 @@ vi.mock('@/lib/scrapers/normalize', () => ({ normalizeGrant: vi.fn() }))
 vi.mock('@/lib/scrapers/deduplicate', () => ({ filterNewGrants: vi.fn() }))
 vi.mock('@/lib/scrapers/persist', () => ({ persistGrants: vi.fn() }))
 vi.mock('@/lib/supabase/server', () => ({ createServiceClient: vi.fn() }))
+vi.mock('@/lib/scrapers/health', () => ({ sendScraperAlert: vi.fn() }))
 vi.mock('server-only', () => ({}))
 
 function makeRaw(title: string): RawGrant {
@@ -149,6 +151,7 @@ describe('GET /api/cron/discover', () => {
     expect(scrapeCorporate).toHaveBeenCalledTimes(1)
     expect(scrapeNiche).toHaveBeenCalledTimes(1)
     expect(scrapeStates).toHaveBeenCalledTimes(1)
+    expect(sendScraperAlert).not.toHaveBeenCalled()
     vi.unstubAllEnvs()
   })
 
@@ -187,6 +190,11 @@ describe('GET /api/cron/discover', () => {
     expect(body.scrapers.succeeded).toBe(5)
     expect(body.scrapers.failed).toBe(2)
     expect(body.grants.raw).toBe(5)
+    expect(sendScraperAlert).toHaveBeenCalledTimes(1)
+    const failuresArg = vi.mocked(sendScraperAlert).mock.calls[0][0]
+    expect(failuresArg).toHaveLength(2)
+    const failedSources = failuresArg.map((f) => f.source).sort()
+    expect(failedSources).toEqual(['foundations', 'grants-gov'])
     vi.unstubAllEnvs()
   })
 })
