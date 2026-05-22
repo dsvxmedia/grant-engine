@@ -11,3 +11,7 @@ create index if not exists grants_embedding_idx
 create index if not exists entities_embedding_idx
   on business_entities using ivfflat (mission_embedding vector_cosine_ops)
   with (lists = 10);
+
+create index if not exists applications_embedding_idx
+  on grant_applications using ivfflat (content_embedding vector_cosine_ops)
+  with (lists = 50);
