@@ -42,3 +42,16 @@ export type PassInput = {
 }
 
 export type DraftOutput = ApplicationDraft
+
+export type CritiqueItem = {
+  section: string          // which section the critique applies to (or 'overall')
+  issue: string            // what is wrong or could be improved
+  suggestion: string       // specific actionable fix
+  severity: 'critical' | 'important' | 'minor'
+}
+
+export type CritiqueOutput = {
+  items: CritiqueItem[]
+  overallScore: number     // 0-10 self-assessment
+  summary: string          // 1-2 sentence summary of the draft's main weakness
+}
