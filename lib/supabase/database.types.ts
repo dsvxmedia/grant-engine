@@ -109,6 +109,27 @@ export type Database = {
         Insert: Partial<Database['public']['Tables']['scraper_runs']['Row']>
         Update: Partial<Database['public']['Tables']['scraper_runs']['Row']>
       }
+      video_submissions: {
+        Row: {
+          id: string
+          grant_id: string | null
+          grant_match_id: string | null
+          entity_id: string | null
+          script_content: string | null
+          video_url: string | null
+          heygen_video_id: string | null
+          voice_id: string | null
+          render_status: 'pending' | 'rendering' | 'ready' | 'approved' | 'rejected' | 'submitted'
+          ai_disclosure_included: boolean
+          duration_seconds: number | null
+          approved_at: string | null
+          submitted_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: Partial<Database['public']['Tables']['video_submissions']['Row']>
+        Update: Partial<Database['public']['Tables']['video_submissions']['Row']>
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
@@ -133,6 +154,7 @@ export type Database = {
         | 'rejected'
         | 'withdrawn'
       loi_status: 'draft' | 'submitted' | 'accepted' | 'rejected'
+      render_status: 'pending' | 'rendering' | 'ready' | 'approved' | 'rejected' | 'submitted'
     }
   }
 }
