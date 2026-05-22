@@ -6,6 +6,7 @@ import { scrapeFoundations } from '@/lib/scrapers/foundations'
 import { scrapeCorporate } from '@/lib/scrapers/corporate'
 import { scrapeNiche } from '@/lib/scrapers/niche'
 import { scrapeStates } from '@/lib/scrapers/states'
+import { scrapeFederalRegister } from '@/lib/scrapers/federal-register'
 import { normalizeGrant } from '@/lib/scrapers/normalize'
 import { filterNewGrants } from '@/lib/scrapers/deduplicate'
 import { persistGrants } from '@/lib/scrapers/persist'
@@ -31,6 +32,7 @@ const SCRAPERS: ScraperJob[] = [
   { source: 'corporate', run: scrapeCorporate },
   { source: 'niche', run: scrapeNiche },
   { source: 'states', run: scrapeStates },
+  { source: 'federal-register', run: scrapeFederalRegister },
 ]
 
 async function logScraperRun(input: {
