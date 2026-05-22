@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { del } from '@vercel/blob'
 import { createServiceClient } from '@/lib/supabase/server'
+import { env } from '@/lib/env'
 import {
   uploadDocument,
   ALLOWED_DOCUMENT_TYPES,
@@ -72,18 +74,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 })
   }
 
-  // No array-append in the JS client: read the current array, push, write back.
-  const current: string[] =
-    (entity as { uploaded_documents?: string[] | null }).uploaded_documents ??
-    []
-  const { error: updateError } = await (
-    supabase.from('business_entities') as any
+  // Atomic array append via Postgres RPC avoids the lost-update race that a
+  // read-modify-write would have under concurrent uploads. Cast because the
+  // placeholder database.types (generated without a live Supabase) does not
+  // include this function in its Functions map.
+  const { error: rpcError } = await (supabase.rpc as any)(
+    'append_entity_document',
+    {
+      entity_id: entityId,
+      doc_url: document.url,
+    }
   )
-    .update({ uploaded_documents: [...current, document.url] })
-    .eq('id', entityId)
-
-  if (updateError) {
-    return NextResponse.json({ error: updateError.message }, { status: 500 })
+  if (rpcError) {
+    // clean up the orphaned blob since DB update failed
+    await del(document.url, { token: env.BLOB_READ_WRITE_TOKEN })
+    return NextResponse.json(
+      { error: 'Failed to save document URL' },
+      { status: 500 }
+    )
   }
 
   return NextResponse.json({ document }, { status: 201 })

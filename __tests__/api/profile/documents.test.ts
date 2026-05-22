@@ -1,7 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { del } from '@vercel/blob'
 import { createServiceClient } from '@/lib/supabase/server'
 import { uploadDocument } from '@/lib/profile/documents'
 
+vi.mock('@vercel/blob', () => ({ put: vi.fn(), del: vi.fn() }))
+vi.mock('@/lib/env', () => ({ env: { BLOB_READ_WRITE_TOKEN: 'test-token' } }))
 vi.mock('@/lib/supabase/server', () => ({ createServiceClient: vi.fn() }))
 vi.mock('server-only', () => ({}))
 vi.mock('@/lib/profile/documents', () => ({
@@ -17,6 +20,7 @@ vi.mock('@/lib/profile/documents', () => ({
 
 const mockedCreateServiceClient = vi.mocked(createServiceClient)
 const mockedUploadDocument = vi.mocked(uploadDocument)
+const mockedDel = vi.mocked(del)
 
 beforeEach(() => {
   vi.clearAllMocks()
@@ -40,19 +44,20 @@ function formRequest(fields: {
   }
 }
 
-function mockEntityFound(currentDocs: string[] | null = []) {
+function mockEntityFound(
+  currentDocs: string[] | null = [],
+  rpcResult: { error: unknown } = { error: null }
+) {
   const single = vi
     .fn()
     .mockResolvedValue({ data: { id: 'e1', uploaded_documents: currentDocs }, error: null })
   const selectEq = vi.fn().mockReturnValue({ single })
   const select = vi.fn().mockReturnValue({ eq: selectEq })
 
-  const updateEq = vi.fn().mockResolvedValue({ data: null, error: null })
-  const update = vi.fn().mockReturnValue({ eq: updateEq })
-
-  const from = vi.fn().mockReturnValue({ select, update })
-  mockedCreateServiceClient.mockResolvedValue({ from } as any)
-  return { update, from }
+  const from = vi.fn().mockReturnValue({ select })
+  const rpc = vi.fn().mockResolvedValue(rpcResult)
+  mockedCreateServiceClient.mockResolvedValue({ from, rpc } as any)
+  return { rpc, from }
 }
 
 function pdf() {
@@ -70,7 +75,7 @@ describe('POST /api/profile/documents', () => {
       entityId: 'e1',
       uploadedAt: '2026-05-21T00:00:00.000Z',
     }
-    const { update } = mockEntityFound([])
+    const { rpc } = mockEntityFound([])
     mockedUploadDocument.mockResolvedValue(doc)
 
     const { POST } = await import('@/app/api/profile/documents/route')
@@ -85,9 +90,39 @@ describe('POST /api/profile/documents', () => {
     expect(res.status).toBe(201)
     const json = await res.json()
     expect(json.document).toEqual(doc)
-    expect(update).toHaveBeenCalledWith({
-      uploaded_documents: ['https://blob/doc.pdf'],
+    expect(rpc).toHaveBeenCalledWith('append_entity_document', {
+      entity_id: 'e1',
+      doc_url: 'https://blob/doc.pdf',
     })
+  })
+
+  it('returns 500 and deletes orphaned blob when DB update fails', async () => {
+    const doc = {
+      url: 'https://blob/doc.pdf',
+      filename: 'doc.pdf',
+      contentType: 'application/pdf',
+      size: 7,
+      documentType: 'financials' as const,
+      entityId: 'e1',
+      uploadedAt: '2026-05-21T00:00:00.000Z',
+    }
+    mockEntityFound([], { error: 'DB error' })
+    mockedUploadDocument.mockResolvedValue(doc)
+
+    const { POST } = await import('@/app/api/profile/documents/route')
+    const res = await POST(
+      formRequest({
+        file: pdf(),
+        entityId: 'e1',
+        documentType: 'financials',
+      }) as any
+    )
+
+    expect(res.status).toBe(500)
+    expect(mockedDel).toHaveBeenCalledWith(
+      'https://blob/doc.pdf',
+      expect.anything()
+    )
   })
 
   it('returns 400 when file is missing', async () => {
