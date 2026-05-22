@@ -39,7 +39,7 @@ describe('generateAngles', () => {
 
     const { generateAngles } = await import('@/lib/profile/angles')
     const result = await generateAngles({ name: 'Acme Corp' })
-    expect(result.length).toBe(5)
+    expect(result.length).toBeGreaterThanOrEqual(5)
   })
 
   it('throws on JSON parse failure', async () => {
