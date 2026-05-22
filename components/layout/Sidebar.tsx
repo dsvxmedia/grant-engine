@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, Search, FileText, User,
-  Calendar, BarChart3, Bell, Settings, Send,
+  Calendar, BarChart3, Bell, Settings, Send, Users, Link2,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -18,6 +18,8 @@ const nav = [
   { href: '/analytics',     icon: BarChart3,       label: 'Analytics' },
   { href: '/notifications', icon: Bell,            label: 'Notifications' },
   { href: '/settings',      icon: Settings,        label: 'Settings' },
+  { href: '/relationships', icon: Users,            label: 'Relationships' },
+  { href: '/coalition',     icon: Link2,            label: 'Coalition' },
 ]
 
 export function Sidebar({ unreadCount }: { unreadCount?: number }) {

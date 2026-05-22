@@ -7,6 +7,14 @@
     {
       "path": "/api/cron/reminders",
       "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/analyze",
+      "schedule": "0 9 * * 1"
+    },
+    {
+      "path": "/api/cron/new-programs",
+      "schedule": "30 6 * * *"
     }
   ]
 }
