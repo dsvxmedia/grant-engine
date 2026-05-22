@@ -1,8 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { EntityUpdateSchema } from '@/lib/profile/entity-schema'
+import { generateAngles } from '@/lib/profile/angles'
 
 type RouteContext = { params: Promise<{ id: string }> }
+
+// Editing any of these invalidates the generated angles, so they trigger a
+// fire-and-forget regeneration after a successful PATCH.
+const ANGLE_TRIGGER_FIELDS = [
+  'is_african_american_owned',
+  'is_minority_owned',
+  'is_underserved_community_tied',
+  'is_tech_company',
+  'is_social_enterprise',
+  'is_community_serving',
+  'mission',
+  'focus_area',
+  'who_we_serve',
+  'owner_demographics',
+  'geographic_ties',
+] as const
+
+async function regenerateAngles(id: string, entity: Record<string, unknown>) {
+  try {
+    const angles = await generateAngles(entity as any)
+    const supabase = await createServiceClient()
+    await (supabase.from('business_entities') as any)
+      .update({ pitch_angles_generated: angles })
+      .eq('id', id)
+  } catch (err) {
+    console.error(`Angle regeneration failed for entity ${id}:`, err)
+  }
+}
 
 // GET /api/profile/entities/[id] — single entity.
 export async function GET(_request: NextRequest, { params }: RouteContext) {
@@ -54,6 +83,13 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
 
   if (error || !data) {
     return NextResponse.json({ error: 'Entity not found' }, { status: 404 })
+  }
+
+  const touchesAngleFields = ANGLE_TRIGGER_FIELDS.some(
+    (field) => field in parsed.data
+  )
+  if (touchesAngleFields) {
+    void regenerateAngles(id, data)
   }
 
   return NextResponse.json({ entity: data })

@@ -1,10 +1,16 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createServiceClient } from '@/lib/supabase/server'
+import { generateAngles } from '@/lib/profile/angles'
 
 vi.mock('@/lib/supabase/server', () => ({
   createServiceClient: vi.fn(),
 }))
+vi.mock('@/lib/profile/angles', () => ({
+  generateAngles: vi.fn(),
+}))
 vi.mock('server-only', () => ({}))
+
+const mockedGenerateAngles = vi.mocked(generateAngles)
 
 const mockedCreateServiceClient = vi.mocked(createServiceClient)
 
@@ -143,6 +149,55 @@ describe('PATCH /api/profile/entities/[id]', () => {
     const json = await res.json()
     expect(json.entity).toEqual(updated)
     expect(update).toHaveBeenCalledWith({ name: 'New Name' })
+  })
+})
+
+describe('POST /api/profile/entities/[id]/angles', () => {
+  it('returns angles on success', async () => {
+    const entity = { id: '1', name: 'Acme', type: 'parent' }
+    const angles = ['a', 'b', 'c', 'd', 'e']
+
+    const single = vi.fn().mockResolvedValue({ data: entity, error: null })
+    const selectEq = vi.fn().mockReturnValue({ single })
+    const select = vi.fn().mockReturnValue({ eq: selectEq })
+
+    const updateEq = vi.fn().mockResolvedValue({ data: null, error: null })
+    const update = vi.fn().mockReturnValue({ eq: updateEq })
+
+    const from = vi.fn().mockReturnValue({ select, update })
+    mockedCreateServiceClient.mockResolvedValue({ from } as any)
+    mockedGenerateAngles.mockResolvedValue(angles)
+
+    const { POST } = await import(
+      '@/app/api/profile/entities/[id]/angles/route'
+    )
+    const res = await POST(jsonRequest('http://localhost/x', 'POST') as any, {
+      params: Promise.resolve({ id: '1' }),
+    })
+    expect(res.status).toBe(200)
+    const json = await res.json()
+    expect(json.angles).toEqual(angles)
+    expect(mockedGenerateAngles).toHaveBeenCalledWith(entity)
+    expect(update).toHaveBeenCalledWith({ pitch_angles_generated: angles })
+  })
+
+  it('returns 404 when entity not found', async () => {
+    const single = vi
+      .fn()
+      .mockResolvedValue({ data: null, error: { code: 'PGRST116' } })
+    const eq = vi.fn().mockReturnValue({ single })
+    const select = vi.fn().mockReturnValue({ eq })
+    const from = vi.fn().mockReturnValue({ select })
+    mockedCreateServiceClient.mockResolvedValue({ from } as any)
+
+    const { POST } = await import(
+      '@/app/api/profile/entities/[id]/angles/route'
+    )
+    const res = await POST(jsonRequest('http://localhost/x', 'POST') as any, {
+      params: Promise.resolve({ id: 'nope' }),
+    })
+    expect(res.status).toBe(404)
+    expect(mockedGenerateAngles).not.toHaveBeenCalled()
   })
 })
 
