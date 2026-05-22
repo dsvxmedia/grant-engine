@@ -64,3 +64,13 @@ export type RevisionOutput = {
   selectedFramework: string        // carried through from draft
   researchNotes: string            // carried through from draft
 }
+
+export type HumanizerOutput = {
+  sections: ApplicationSection[]
+  rawText: string
+  changesLog: string[]
+  selectedAngles: string[]
+  selectedFramework: string
+  researchNotes: string
+  humanizerApplied: boolean        // true on success, false on API failure
+}
