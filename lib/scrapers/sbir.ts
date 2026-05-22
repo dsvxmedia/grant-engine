@@ -14,16 +14,22 @@ type SbirSolicitation = {
   solicitation_url?: string
 }
 
-function mapSolicitation(sol: SbirSolicitation): RawGrant {
+function mapSolicitation(sol: SbirSolicitation): RawGrant | null {
   const categoryTags = [
     sol.program ?? '',
     sol.phase ? `Phase ${sol.phase}` : '',
   ].filter(Boolean)
 
+  const prefix = [sol.agency, sol.program, sol.phase && `Phase ${sol.phase}`]
+    .filter(Boolean)
+    .join(' ')
+  const title = [prefix, sol.title].filter(Boolean).join(' - ')
+  if (!title) return null
+
   return {
     source: 'sbir',
     sourceUrl: sol.solicitation_url ?? 'https://www.sbir.gov/solicitations',
-    title: `${sol.agency ?? ''} ${sol.program ?? ''} Phase ${sol.phase ?? ''} - ${sol.title ?? ''}`,
+    title,
     description: sol.description,
     funderName: sol.agency,
     funderType: 'federal',
@@ -43,7 +49,9 @@ export async function scrapeSbir(): Promise<RawGrant[]> {
     }
 
     const body = (await res.json()) as unknown as SbirSolicitation[]
-    const grants = (body ?? []).map(mapSolicitation)
+    const grants = (body ?? [])
+      .map(mapSolicitation)
+      .filter((item): item is RawGrant => item !== null)
     console.log(`[sbir] fetched ${grants.length} grants`)
     return grants
   } catch (err) {

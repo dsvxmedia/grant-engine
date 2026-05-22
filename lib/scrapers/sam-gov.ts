@@ -40,10 +40,21 @@ function mapOpportunity(opp: SamOpportunity): RawGrant {
   }
 }
 
-export async function scrapesamGov(): Promise<RawGrant[]> {
+export async function scrapeSamGov(): Promise<RawGrant[]> {
   try {
-    const postedFrom = isoDaysAgo(30)
-    const url = `${SAM_GOV_URL}?limit=100&ptype=g&postedFrom=${postedFrom}`
+    const thirtyDaysAgo = isoDaysAgo(30)
+    const apiKey = process.env.SAM_GOV_API_KEY
+    const params = new URLSearchParams({
+      limit: '100',
+      ptype: 'g',
+      postedFrom: thirtyDaysAgo,
+    })
+    if (apiKey) params.append('api_key', apiKey)
+    if (!apiKey)
+      console.warn(
+        '[sam-gov] SAM_GOV_API_KEY not set — requests may be rate-limited'
+      )
+    const url = `${SAM_GOV_URL}?${params}`
 
     const res = await fetch(url)
     if (!res.ok) {

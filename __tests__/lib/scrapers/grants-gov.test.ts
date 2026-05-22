@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
 import { scrapeGrantsGov } from '@/lib/scrapers/grants-gov'
-import { scrapesamGov } from '@/lib/scrapers/sam-gov'
+import { scrapeSamGov } from '@/lib/scrapers/sam-gov'
 import { scrapeSbir } from '@/lib/scrapers/sbir'
 
 const fetchMock = vi.fn()
@@ -135,7 +135,7 @@ describe('scrapeGrantsGov', () => {
   })
 })
 
-describe('scrapesamGov', () => {
+describe('scrapeSamGov', () => {
   beforeEach(() => {
     fetchMock.mockReset()
   })
@@ -160,7 +160,7 @@ describe('scrapesamGov', () => {
       }),
     })
 
-    const result = await scrapesamGov()
+    const result = await scrapeSamGov()
 
     expect(result).toHaveLength(1)
     const grant = result[0]
@@ -179,7 +179,7 @@ describe('scrapesamGov', () => {
   it('returns [] on fetch failure', async () => {
     fetchMock.mockRejectedValueOnce(new Error('boom'))
 
-    const result = await scrapesamGov()
+    const result = await scrapeSamGov()
 
     expect(result).toEqual([])
   })
