@@ -12,6 +12,7 @@ import { filterNewGrants } from '@/lib/scrapers/deduplicate'
 import { persistGrants } from '@/lib/scrapers/persist'
 import { createServiceClient } from '@/lib/supabase/server'
 import { sendScraperAlert } from '@/lib/scrapers/health'
+import { runMatching } from '@/lib/matching'
 import type { NormalizedGrant, RawGrant } from '@/lib/scrapers/types'
 
 vi.mock('@/lib/scrapers/grants-gov', () => ({ scrapeGrantsGov: vi.fn() }))
@@ -29,7 +30,19 @@ vi.mock('@/lib/scrapers/deduplicate', () => ({ filterNewGrants: vi.fn() }))
 vi.mock('@/lib/scrapers/persist', () => ({ persistGrants: vi.fn() }))
 vi.mock('@/lib/supabase/server', () => ({ createServiceClient: vi.fn() }))
 vi.mock('@/lib/scrapers/health', () => ({ sendScraperAlert: vi.fn() }))
+vi.mock('@/lib/matching', () => ({ runMatching: vi.fn() }))
 vi.mock('server-only', () => ({}))
+
+const ZERO_MATCHING = {
+  grants_checked: 0,
+  entities_checked: 0,
+  pairs_evaluated: 0,
+  pairs_passed_filter: 0,
+  pairs_queued: 0,
+  pairs_archived: 0,
+  pairs_rejected: 0,
+  persist_errors: 0,
+}
 
 function makeRaw(title: string): RawGrant {
   return { source: 'test', title }
@@ -97,6 +110,7 @@ describe('GET /api/cron/discover', () => {
     vi.mocked(scrapeFederalRegister).mockResolvedValue([])
     vi.mocked(filterNewGrants).mockResolvedValue([])
     vi.mocked(persistGrants).mockResolvedValue({ inserted: 0, errors: 0 })
+    vi.mocked(runMatching).mockResolvedValue(ZERO_MATCHING)
     stubScraperRunsInsert()
 
     vi.resetModules()
@@ -130,6 +144,7 @@ describe('GET /api/cron/discover', () => {
       inserted: grants.length,
       errors: 0,
     }))
+    vi.mocked(runMatching).mockResolvedValue(ZERO_MATCHING)
     stubScraperRunsInsert()
 
     vi.resetModules()
@@ -149,6 +164,13 @@ describe('GET /api/cron/discover', () => {
       new: 9,
       inserted: 9,
       errors: 0,
+    })
+    expect(body.matching).toEqual({
+      grants_checked: 0,
+      entities_checked: 0,
+      pairs_queued: 0,
+      pairs_archived: 0,
+      pairs_rejected: 0,
     })
     expect(scrapeGrantsGov).toHaveBeenCalledTimes(1)
     expect(scrapeSamGov).toHaveBeenCalledTimes(1)
@@ -183,6 +205,7 @@ describe('GET /api/cron/discover', () => {
       inserted: grants.length,
       errors: 0,
     }))
+    vi.mocked(runMatching).mockResolvedValue(ZERO_MATCHING)
     stubScraperRunsInsert()
 
     vi.resetModules()

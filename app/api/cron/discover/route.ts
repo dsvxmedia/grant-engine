@@ -12,6 +12,7 @@ import { filterNewGrants } from '@/lib/scrapers/deduplicate'
 import { persistGrants } from '@/lib/scrapers/persist'
 import { sendScraperAlert } from '@/lib/scrapers/health'
 import { createServiceClient } from '@/lib/supabase/server'
+import { runMatching } from '@/lib/matching'
 import type { NormalizedGrant, RawGrant } from '@/lib/scrapers/types'
 
 type SourceResult = {
@@ -112,6 +113,7 @@ export async function GET(request: Request) {
   const normalized = perSource.flatMap((s) => s.normalized)
   const newGrants = await filterNewGrants(normalized)
   const persistResult = await persistGrants(newGrants)
+  const matchingResult = await runMatching()
   const newHashes = new Set(newGrants.map((g) => g.content_hash))
 
   await Promise.all(
@@ -147,6 +149,13 @@ export async function GET(request: Request) {
       new: newGrants.length,
       inserted: persistResult.inserted,
       errors: persistResult.errors,
+    },
+    matching: {
+      grants_checked: matchingResult.grants_checked,
+      entities_checked: matchingResult.entities_checked,
+      pairs_queued: matchingResult.pairs_queued,
+      pairs_archived: matchingResult.pairs_archived,
+      pairs_rejected: matchingResult.pairs_rejected,
     },
     timestamp: new Date().toISOString(),
   })
