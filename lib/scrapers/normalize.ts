@@ -50,9 +50,9 @@ export function normalizeGrant(raw: RawGrant): NormalizedGrant {
     geographic_restrictions: raw.geographicRestrictions ?? {},
     requires_loi: raw.requiresLoi ?? detectLoi(detectionText),
     loi_deadline: loiDeadline,
-    requires_video: raw.requiresVideo ?? detectVideo(raw.description ?? ''),
+    requires_video: raw.requiresVideo ?? detectVideo(detectionText),
     coalition_preferred:
-      raw.coalitionPreferred ?? detectCoalition(raw.description ?? ''),
+      raw.coalitionPreferred ?? detectCoalition(detectionText),
     competition_estimate: raw.competitionEstimate ?? null,
     is_new_program: raw.isNewProgram ?? false,
     content_hash: contentHash,
