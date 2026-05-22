@@ -22,7 +22,9 @@ export type EntityForAngleGeneration = {
 const SYSTEM_PROMPT =
   'You are a grant writer who specializes in identifying the strongest narrative angles for grant applications. Generate 5-10 distinct, compelling narrative angles for this organization. Each angle should be 1-2 sentences highlighting a specific aspect of the organization\'s eligibility, identity, or impact. Return ONLY a JSON array of strings. No explanation.'
 
-const ELIGIBILITY_LABELS: Record<string, string> = {
+type BooleanEntityField = Extract<keyof EntityForAngleGeneration, `is_${string}`>
+
+const ELIGIBILITY_LABELS: Partial<Record<BooleanEntityField, string>> = {
   is_african_american_owned: 'African American owned',
   is_minority_owned: 'Minority owned',
   is_underserved_community_tied: 'Tied to an underserved community',
@@ -45,8 +47,8 @@ function buildPrompt(entity: EntityForAngleGeneration): string {
     lines.push(`Who we serve: ${entity.who_we_serve.join(', ')}`)
   }
 
-  const attributes = Object.entries(ELIGIBILITY_LABELS)
-    .filter(([key]) => entity[key as keyof EntityForAngleGeneration] === true)
+  const attributes = (Object.entries(ELIGIBILITY_LABELS) as [BooleanEntityField, string][])
+    .filter(([key]) => entity[key] === true)
     .map(([, label]) => label)
   if (attributes.length > 0) {
     lines.push(`Eligibility attributes: ${attributes.join(', ')}`)
