@@ -4,54 +4,54 @@ const USER_AGENT =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'
 
 const CATEGORIES = [
-  { path: 'cat/13/small-business-grants.html',             tags: ['small-business', 'entrepreneurship'] },
-  { path: 'cat/16/entrepreneurs-and-startups-grants.html', tags: ['startup', 'entrepreneurship'] },
-  { path: 'cat/36/technology-grants.html',                 tags: ['technology', 'innovation'] },
-  { path: 'cat/2/arts-and-culture-grants.html',            tags: ['arts', 'culture', 'media'] },
+  { path: 'cat/13/small-business-grants.html',                    tags: ['small-business', 'entrepreneurship'] },
+  { path: 'cat/16/entrepreneurs-and-startups-grants.html',        tags: ['startup', 'entrepreneurship'] },
+  { path: 'cat/36/technology-grants.html',                        tags: ['technology', 'innovation'] },
+  { path: 'cat/2/arts-and-culture-grants.html',                   tags: ['arts', 'culture', 'media'] },
   { path: 'cat/8/community-and-economic-development-grants.html', tags: ['community', 'economic-development'] },
-  { path: 'cat/5/community-services-grants.html',          tags: ['community', 'civic'] },
-  { path: 'cat/59/education-grants.html',                  tags: ['education', 'workforce'] },
-  { path: 'cat/40/workforce-grants.html',                  tags: ['workforce', 'economic-development'] },
-  { path: 'cat/53/bipoc-grants.html',                      tags: ['minority-owned', 'diversity', 'bipoc'] },
-  { path: 'cat/57/social-justice-grants.html',             tags: ['social-justice', 'equity', 'community'] },
-  { path: 'cat/10/environment-and-conservation-grants.html', tags: ['environment', 'sustainability'] },
-  { path: 'cat/30/science-grants.html',                    tags: ['science', 'research', 'technology'] },
-  { path: 'cat/29/research-and-evaluation-grants.html',    tags: ['research', 'innovation'] },
-  { path: 'cat/3/capital-funding-grants.html',             tags: ['capital', 'funding', 'small-business'] },
-  { path: 'cat/46/individual-grants.html',                 tags: ['individual', 'fellowship'] },
+  { path: 'cat/5/community-services-grants.html',                 tags: ['community', 'civic'] },
+  { path: 'cat/59/education-grants.html',                         tags: ['education', 'workforce'] },
+  { path: 'cat/40/workforce-grants.html',                         tags: ['workforce', 'economic-development'] },
+  { path: 'cat/53/bipoc-grants.html',                             tags: ['minority-owned', 'diversity', 'bipoc'] },
+  { path: 'cat/57/social-justice-grants.html',                    tags: ['social-justice', 'equity', 'community'] },
+  { path: 'cat/10/environment-and-conservation-grants.html',      tags: ['environment', 'sustainability'] },
+  { path: 'cat/30/science-grants.html',                           tags: ['science', 'research', 'technology'] },
+  { path: 'cat/29/research-and-evaluation-grants.html',           tags: ['research', 'innovation'] },
+  { path: 'cat/3/capital-funding-grants.html',                    tags: ['capital', 'funding', 'small-business'] },
+  { path: 'cat/46/individual-grants.html',                        tags: ['individual', 'fellowship'] },
 ]
 
-function extractGrants(html: string, tags: string[]): RawGrant[] {
+function extractGrants(html: string, categoryPath: string, tags: string[]): RawGrant[] {
   const grants: RawGrant[] = []
-  const titleRegex =
-    /<a[^>]*class="[^"]*grant-title[^"]*"[^>]*href="([^"]*)"[^>]*>([^<]+)<\/a>/gi
+  const categoryUrl = `https://www.grantwatch.com/${categoryPath}`
+
+  // GrantWatch embeds grant descriptions in <p> tags starting with "Grant"
+  const descRegex = /<p[^>]*>\s*((?:Grants?|Award) (?:to|for|of|up)[^\n<]{30,400})\s*<\/p>/gi
   let match: RegExpExecArray | null
 
-  while ((match = titleRegex.exec(html)) !== null) {
-    const url = match[1]
-    const title = match[2].trim()
-    if (!title) continue
+  while ((match = descRegex.exec(html)) !== null) {
+    const fullDesc = match[1].trim().replace(/\s+/g, ' ')
 
-    const after = html.slice(
-      match.index + match[0].length,
-      match.index + match[0].length + 2000
-    )
-    const descMatch = after.match(
-      /<div[^>]*class="[^"]*grant-info[^"]*"[^>]*>([\s\S]*?)<\/div>/i
-    )
-    const description = descMatch
-      ? descMatch[1].replace(/<[^>]+>/g, '').trim()
-      : undefined
+    // Use first sentence as title (up to first period or 120 chars)
+    const periodIdx = fullDesc.indexOf('. ')
+    const title = periodIdx > 20 && periodIdx < 120
+      ? fullDesc.slice(0, periodIdx)
+      : fullDesc.slice(0, 110).trimEnd()
+
+    if (!title || title.length < 20) continue
 
     grants.push({
       source: 'grantwatch',
-      sourceUrl: url.startsWith('http') ? url : `https://www.grantwatch.com${url}`,
+      sourceUrl: categoryUrl,
+      applicationUrl: categoryUrl,
       title,
-      description,
+      description: fullDesc.slice(0, 500),
       funderType: 'niche',
       categoryTags: tags,
+      eligibilityTags: ['nonprofit', 'small-business', 'individual'],
     })
   }
+
   return grants
 }
 
@@ -66,7 +66,7 @@ async function scrapeCategory(path: string, tags: string[]): Promise<RawGrant[]>
       return []
     }
     const html = await res.text()
-    return extractGrants(html, tags)
+    return extractGrants(html, path, tags)
   } catch {
     return []
   }
