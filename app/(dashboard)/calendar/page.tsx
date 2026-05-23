@@ -99,7 +99,6 @@ function CalendarRow({ match }: { match: CalendarMatch }) {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-0.5 text-xs text-primary hover:underline"
-              onClick={(e) => e.stopPropagation()}
             >
               <ExternalLink className="h-3 w-3" />
             </a>
