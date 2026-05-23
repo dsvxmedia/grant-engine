@@ -6,6 +6,13 @@ export type GrantInfo = {
   deadline: string | null
   source?: string | null
   funder_type?: string | null
+  description?: string | null
+  source_url?: string | null
+  application_url?: string | null
+  eligibility_tags?: string[] | null
+  category_tags?: string[] | null
+  requires_loi?: boolean | null
+  coalition_preferred?: boolean | null
 }
 
 export type EntityInfo = {
@@ -62,8 +69,10 @@ export type KanbanCard = {
   id: string
   matchId: string | null
   applicationId: string | null
+  grantId: string | null
   title: string
   funderName: string | null
+  funderType: string | null
   awardMin: number | null
   awardMax: number | null
   deadline: string | null
@@ -71,4 +80,11 @@ export type KanbanCard = {
   entityName: string | null
   status: string
   isReviewable: boolean
+  description: string | null
+  sourceUrl: string | null
+  applicationUrl: string | null
+  eligibilityTags: string[]
+  categoryTags: string[]
+  requiresLoi: boolean
+  matchedAngles: string[] | null
 }

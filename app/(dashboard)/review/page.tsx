@@ -20,7 +20,7 @@ export default async function ReviewQueuePage() {
   // Matched grants needing a "should we draft this?" decision
   const { data: matchesRaw, error: matchesError } = await (supabase as any)
     .from('grant_matches')
-    .select('*, grants(title, funder_name, funder_type, source, award_min, award_max, deadline, category_tags, eligibility_tags), business_entities(id, name)')
+    .select('*, grants(title, funder_name, funder_type, source, source_url, application_url, award_min, award_max, deadline, description, category_tags, eligibility_tags, requires_loi, coalition_preferred), business_entities(id, name)')
     .eq('status', 'pending_review')
     .order('fit_score', { ascending: false })
     .limit(100)

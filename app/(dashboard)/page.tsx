@@ -9,8 +9,10 @@ function matchToCard(match: MatchRecord): KanbanCard {
     id: `match-${match.id}`,
     matchId: match.id,
     applicationId: null,
+    grantId: match.grant_id,
     title: grant?.title ?? 'Untitled Grant',
     funderName: grant?.funder_name ?? null,
+    funderType: grant?.funder_type ?? null,
     awardMin: grant?.award_min ?? null,
     awardMax: grant?.award_max ?? null,
     deadline: grant?.deadline ?? null,
@@ -18,6 +20,13 @@ function matchToCard(match: MatchRecord): KanbanCard {
     entityName: match.business_entities?.name ?? null,
     status: match.status,
     isReviewable: false,
+    description: grant?.description ?? null,
+    sourceUrl: grant?.source_url ?? null,
+    applicationUrl: grant?.application_url ?? null,
+    eligibilityTags: grant?.eligibility_tags ?? [],
+    categoryTags: grant?.category_tags ?? [],
+    requiresLoi: grant?.requires_loi ?? false,
+    matchedAngles: match.matched_angles ?? null,
   }
 }
 
@@ -27,8 +36,10 @@ function appToCard(app: ApplicationRecord, colId: string): KanbanCard {
     id: app.id,
     matchId: null,
     applicationId: app.id,
+    grantId: app.grant_id,
     title: grant?.title ?? 'Untitled Grant',
     funderName: grant?.funder_name ?? null,
+    funderType: grant?.funder_type ?? null,
     awardMin: grant?.award_min ?? null,
     awardMax: grant?.award_max ?? null,
     deadline: grant?.deadline ?? null,
@@ -36,6 +47,13 @@ function appToCard(app: ApplicationRecord, colId: string): KanbanCard {
     entityName: app.business_entities?.name ?? null,
     status: app.status,
     isReviewable: colId === 'review',
+    description: grant?.description ?? null,
+    sourceUrl: grant?.source_url ?? null,
+    applicationUrl: grant?.application_url ?? null,
+    eligibilityTags: grant?.eligibility_tags ?? [],
+    categoryTags: grant?.category_tags ?? [],
+    requiresLoi: grant?.requires_loi ?? false,
+    matchedAngles: null,
   }
 }
 
@@ -46,8 +64,10 @@ function loiToCard(loi: LoiRecord): KanbanCard {
     id: `loi-${loi.id}`,
     matchId: null,
     applicationId: null,
+    grantId: loi.grant_id,
     title: grant?.title ?? 'Untitled Grant',
     funderName: grant?.funder_name ?? null,
+    funderType: grant?.funder_type ?? null,
     awardMin: grant?.award_min ?? null,
     awardMax: grant?.award_max ?? null,
     deadline,
@@ -55,6 +75,13 @@ function loiToCard(loi: LoiRecord): KanbanCard {
     entityName: loi.business_entities?.name ?? null,
     status: loi.status,
     isReviewable: false,
+    description: grant?.description ?? null,
+    sourceUrl: grant?.source_url ?? null,
+    applicationUrl: grant?.application_url ?? null,
+    eligibilityTags: grant?.eligibility_tags ?? [],
+    categoryTags: grant?.category_tags ?? [],
+    requiresLoi: grant?.requires_loi ?? false,
+    matchedAngles: null,
   }
 }
 
@@ -80,7 +107,7 @@ export default async function PipelinePage() {
   // Matched grants — top 50 by score, queued + pending_review
   const { data: matchesRaw } = await (supabase as any)
     .from('grant_matches')
-    .select('*, grants(title, funder_name, award_min, award_max, deadline, source, funder_type), business_entities(id, name)')
+    .select('*, grants(title, funder_name, funder_type, award_min, award_max, deadline, source, source_url, application_url, description, eligibility_tags, category_tags, requires_loi, coalition_preferred), business_entities(id, name)')
     .in('status', ['queued', 'pending_review'])
     .order('fit_score', { ascending: false })
     .limit(50)
@@ -89,7 +116,7 @@ export default async function PipelinePage() {
 
   const { data: applicationsRaw } = await (supabase as any)
     .from('grant_applications')
-    .select('*, grants(title, funder_name, award_min, award_max, deadline), business_entities(id, name)')
+    .select('*, grants(title, funder_name, funder_type, award_min, award_max, deadline, source_url, application_url, description, eligibility_tags, category_tags, requires_loi), business_entities(id, name)')
     .order('deadline', { ascending: true, nullsFirst: false })
 
   const applications: ApplicationRecord[] = applicationsRaw ?? []
