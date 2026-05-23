@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Input } from '@/components/ui/input'
 import { DeadlineChip } from '@/components/shared/DeadlineChip'
+import { GrantDetailSheet, type GrantDetailData } from '@/components/shared/GrantDetailSheet'
 import { formatCurrency } from '@/lib/utils'
 import { ExternalLink } from 'lucide-react'
 
@@ -17,7 +18,11 @@ type GrantRow = {
   funder_type: string | null
   source_url: string | null
   application_url: string | null
+  description: string | null
+  eligibility_tags: string[] | null
+  category_tags: string[] | null
   requires_loi: boolean
+  coalition_preferred: boolean
   is_new_program: boolean
 }
 
@@ -56,6 +61,8 @@ export default function ExplorerPage() {
   const [funderType, setFunderType] = useState('')
   const [requiresLoi, setRequiresLoi] = useState(false)
   const [isNewProgram, setIsNewProgram] = useState(false)
+  const [selectedGrant, setSelectedGrant] = useState<GrantDetailData | null>(null)
+  const [sheetOpen, setSheetOpen] = useState(false)
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -100,6 +107,25 @@ export default function ExplorerPage() {
     debounceRef.current = setTimeout(() => {
       fetchGrants({ search: value, funderType, requiresLoi, isNewProgram })
     }, 300)
+  }
+
+  function openDetail(grant: GrantRow) {
+    setSelectedGrant({
+      title: grant.title,
+      funderName: grant.funder_name,
+      funderType: grant.funder_type,
+      awardMin: grant.award_min,
+      awardMax: grant.award_max,
+      deadline: grant.deadline,
+      description: grant.description,
+      sourceUrl: grant.source_url,
+      applicationUrl: grant.application_url,
+      eligibilityTags: (grant.eligibility_tags ?? []) as string[],
+      categoryTags: (grant.category_tags ?? []) as string[],
+      requiresLoi: grant.requires_loi,
+      coalitionPreferred: grant.coalition_preferred,
+    })
+    setSheetOpen(true)
   }
 
   // Immediate re-fetch on filter changes
@@ -271,16 +297,12 @@ export default function ExplorerPage() {
                         </td>
                         <td className="px-4 py-3 text-right">
                           <div className="flex items-center justify-end gap-2">
-                            {grant.source_url && grant.application_url && grant.source_url !== grant.application_url && (
-                              <a
-                                href={grant.source_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-xs text-muted-foreground hover:underline underline-offset-2"
-                              >
-                                Info
-                              </a>
-                            )}
+                            <button
+                              onClick={() => openDetail(grant)}
+                              className="text-xs text-muted-foreground hover:text-foreground underline-offset-2 hover:underline"
+                            >
+                              Info
+                            </button>
                             {applyUrl && (
                               <a
                                 href={applyUrl}
@@ -303,6 +325,14 @@ export default function ExplorerPage() {
           </div>
         )}
       </div>
+
+      {selectedGrant && (
+        <GrantDetailSheet
+          open={sheetOpen}
+          onOpenChange={setSheetOpen}
+          data={selectedGrant}
+        />
+      )}
     </div>
   )
 }
