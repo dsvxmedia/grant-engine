@@ -12,6 +12,9 @@ const envSchema = z.object({
   RESEND_ALERT_EMAIL: z.string().email(),
   BLOB_READ_WRITE_TOKEN: z.string().min(1),
   CRON_SECRET: z.string().min(1).optional(),
+  // Optional: Google Custom Search API (100 free queries/day)
+  GOOGLE_CUSTOM_SEARCH_API_KEY: z.string().min(1).optional(),
+  GOOGLE_CUSTOM_SEARCH_ENGINE_ID: z.string().min(1).optional(),
 })
 
 export const env = envSchema.parse(process.env)
