@@ -3,14 +3,24 @@ import type { RawGrant } from '../types'
 const GOOGLE_CSE_URL = 'https://www.googleapis.com/customsearch/v1'
 
 const GRANT_QUERIES = [
-  'small business technology startup grants 2026 apply now',
-  'community development innovation grants apply 2026',
-  'minority owned business grants foundation 2026',
-  'women health technology grants 2026 site:.gov OR site:.org',
-  'SBIR STTR technology grants 2026',
-  'nonprofit grants creative economy 2026 apply',
-  'arts culture entertainment grants 2026',
-  'workforce development technology grants 2026',
+  // Grant aggregator sites (will find pages like helloalice.com, etc.)
+  'site:helloalice.com grants 2026 apply',
+  'site:ifundwomen.com grants open 2026',
+  '"apply now" "small business grant" 2026 -site:facebook.com -site:twitter.com',
+  // Corporate + foundation programs
+  'verizon allstate comcast "small business grant" apply 2026',
+  'amazon "black business" OR "women business" grant 2026',
+  '"famous amos" OR "wally amos" grant entrepreneurship 2026',
+  // SBIR/tech
+  'SBIR STTR technology innovation grant 2026 apply',
+  // Community + social enterprise
+  'community development technology social enterprise grant 2026',
+  // Arts/culture/entertainment
+  'arts culture entertainment media grants 2026 apply',
+  // Aggregator hunt
+  '"grants for small businesses" 2026 "apply" -site:grants.gov',
+  'fellowship grant "black founders" OR "minority founders" technology 2026',
+  'women health maternal technology grant foundation 2026',
 ]
 
 type SearchItem = {

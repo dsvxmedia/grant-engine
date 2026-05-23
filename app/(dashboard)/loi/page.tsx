@@ -7,7 +7,6 @@ async function fetchSubmissions(): Promise<LoiSubmission[]> {
   const { data, error } = await (supabase as any)
     .from('loi_submissions')
     .select('*, grants(id, title, funder_name, award_min, award_max, loi_deadline), business_entities(id, name)')
-    .order('loi_deadline', { ascending: true, nullsFirst: false })
     .order('created_at', { ascending: false })
 
   if (error) {

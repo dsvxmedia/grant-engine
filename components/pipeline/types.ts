@@ -4,11 +4,26 @@ export type GrantInfo = {
   award_min: number | null
   award_max: number | null
   deadline: string | null
+  source?: string | null
+  funder_type?: string | null
 }
 
 export type EntityInfo = {
   id: string
   name: string
+}
+
+export type MatchRecord = {
+  id: string
+  grant_id: string
+  entity_id: string
+  status: string
+  fit_score: number | null
+  hard_filter_passed: boolean
+  matched_angles: string[] | null
+  created_at: string
+  grants: GrantInfo | null
+  business_entities: EntityInfo | null
 }
 
 export type ApplicationRecord = {
@@ -45,6 +60,7 @@ export type KanbanColumn = {
 
 export type KanbanCard = {
   id: string
+  matchId: string | null
   applicationId: string | null
   title: string
   funderName: string | null

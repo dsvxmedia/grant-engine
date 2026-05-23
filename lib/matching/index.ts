@@ -74,7 +74,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
   const { data: grants } = await (supabase as any)
     .from('grants')
     .select(
-      'id, title, deadline, requires_loi, funder_type, geographic_restrictions, eligibility_tags, category_tags, award_min, award_max, is_new_program',
+      'id, title, description, deadline, requires_loi, funder_type, geographic_restrictions, eligibility_tags, category_tags, award_min, award_max, is_new_program',
     )
     .eq('status', 'active')
     .or('deadline.is.null,deadline.gte.' + nowIso)
@@ -176,6 +176,8 @@ export async function runMatching(): Promise<RunMatchingResult> {
             eligibility_tags: grant.eligibility_tags ?? [],
             category_tags: grant.category_tags ?? [],
             is_new_program: grant.is_new_program ?? false,
+            title: grant.title,
+            description: grant.description,
           },
           entity: {
             mission: entity.mission,

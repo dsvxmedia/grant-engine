@@ -21,12 +21,9 @@ type OppHit = {
 }
 
 type GrantsGovResponse = {
-  data: {
-    oppHits: OppHit[]
-    totalRecords: number
-    startRecordNum: number
-    endRecordNum: number
-  }
+  oppHits: OppHit[]
+  hitCount: number
+  startRecord: number
 }
 
 function mapOppHit(opp: OppHit): RawGrant {
@@ -36,7 +33,7 @@ function mapOppHit(opp: OppHit): RawGrant {
     applicationUrl: opp.applicationUrl ?? undefined,
     title: opp.title,
     description: opp.description ?? opp.synopsis,
-    funderName: opp.agencyName,
+    funderName: (opp as any).agency ?? opp.agencyName,
     funderType: 'federal',
     awardMin: opp.awardFloor ? Number(opp.awardFloor) : undefined,
     awardMax: opp.awardCeiling ? Number(opp.awardCeiling) : undefined,
@@ -69,17 +66,16 @@ export async function scrapeGrantsGov(): Promise<RawGrant[]> {
       }
 
       const body = (await res.json()) as unknown as GrantsGovResponse
-      const hits = body.data?.oppHits ?? []
+      const hits = body.oppHits ?? []
       for (const hit of hits) {
         grants.push(mapOppHit(hit))
       }
 
-      const totalRecords = body.data?.totalRecords ?? 0
-      const endRecordNum = body.data?.endRecordNum ?? 0
+      const totalRecords = body.hitCount ?? 0
       page += 1
+      startRecordNum += hits.length
 
-      if (endRecordNum >= totalRecords || hits.length === 0) break
-      startRecordNum = endRecordNum
+      if (hits.length === 0 || startRecordNum >= totalRecords) break
     }
 
     console.log(`[grants-gov] fetched ${grants.length} grants`)

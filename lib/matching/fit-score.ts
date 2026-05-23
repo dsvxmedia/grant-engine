@@ -44,6 +44,8 @@ export type FitScoreInput = {
     eligibility_tags: string[]
     category_tags: string[]
     is_new_program: boolean
+    title?: string | null
+    description?: string | null
   }
   entity: {
     mission: string | null
@@ -104,15 +106,20 @@ function computeMissionAlignment(input: FitScoreInput): number {
     return 0.3
   }
 
-  const entityText = [entity.mission ?? '', entity.focus_area ?? ''].join(' ')
+  const entityText = [entity.mission ?? '', entity.focus_area ?? '', ...(entity.who_we_serve ?? [])].join(' ')
   const entityKeywords = new Set(extractKeywords(entityText))
   if (entityKeywords.size === 0) {
     return 0.3
   }
 
-  const grantTokens = new Set(
-    expandTagTokens([...grant.eligibility_tags, ...grant.category_tags]),
-  )
+  // Use tags when available, fall back to grant title + description text
+  const tagTokens = expandTagTokens([...grant.eligibility_tags, ...grant.category_tags])
+  const textTokens = extractKeywords([grant.title ?? '', grant.description ?? ''].join(' '))
+  const grantTokens = new Set([...tagTokens, ...textTokens])
+
+  if (grantTokens.size === 0) {
+    return 0.3
+  }
 
   let matches = 0
   for (const token of grantTokens) {
@@ -121,7 +128,9 @@ function computeMissionAlignment(input: FitScoreInput): number {
     }
   }
 
-  return Math.min(matches / Math.max(grantTokens.size, 1), 1.0)
+  // Normalize by entity keyword count (not grant token count) to reward specificity
+  const overlapRatio = matches / Math.max(entityKeywords.size, 1)
+  return Math.min(overlapRatio * 3, 1.0) // scale up since overlap is naturally low
 }
 
 function computeAngleMatch(input: FitScoreInput): {

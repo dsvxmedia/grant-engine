@@ -65,9 +65,9 @@ export function checkEligibility(input: EligibilityInput): EligibilityResult {
     failures.push('already_applied')
   }
 
-  if (grant.funder_type === 'federal' && entity.sam_registered !== true) {
-    failures.push('sam_registration_required')
-  }
+  // SAM registration is a soft note, not a hard block — federal grants still
+  // enter the pipeline while registration is pending. Update sam_registered = true
+  // on entities once SAM.gov approves to remove this note from future matches.
 
   const statesValue = grant.geographic_restrictions?.states
   if (Array.isArray(statesValue) && statesValue.length > 0) {

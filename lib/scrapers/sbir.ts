@@ -1,58 +1,56 @@
 import type { RawGrant } from './types'
 
-const SBIR_URL =
-  'https://api.sbir.gov/public/solicitations?rows=100&fields=program,phase,agency,title,open,close,description,solicitation_url&status=1'
+// SBIR solicitations via SAM.gov opportunities API (sbir.gov API is no longer publicly accessible)
+const SAM_SBIR_URL =
+  'https://api.sam.gov/opportunities/v2/search?api_key=DEMO_KEY&limit=100&typeOfSetAsideDescription=Small+Business+Innovation+Research&ptype=k&active=true'
 
-type SbirSolicitation = {
-  program?: string
-  phase?: string
-  agency?: string
+type SamOpportunity = {
+  noticeId?: string
   title?: string
-  open?: string
-  close?: string
+  solicitationNumber?: string
+  fullParentPathName?: string
+  organizationName?: string
+  postedDate?: string
+  responseDeadLine?: string
+  archiveDate?: string
+  awardAmount?: number
   description?: string
-  solicitation_url?: string
+  uiLink?: string
+  naicsCode?: string
 }
 
-function mapSolicitation(sol: SbirSolicitation): RawGrant | null {
-  const categoryTags = [
-    sol.program ?? '',
-    sol.phase ? `Phase ${sol.phase}` : '',
-  ].filter(Boolean)
+type SamResponse = {
+  opportunitiesData?: SamOpportunity[]
+  totalRecords?: number
+}
 
-  const prefix = [sol.agency, sol.program, sol.phase && `Phase ${sol.phase}`]
-    .filter(Boolean)
-    .join(' ')
-  const title = [prefix, sol.title].filter(Boolean).join(' - ')
-  if (!title) return null
-
+function mapSamSbir(opp: SamOpportunity): RawGrant | null {
+  if (!opp.title) return null
   return {
     source: 'sbir',
-    sourceUrl: sol.solicitation_url ?? 'https://www.sbir.gov/solicitations',
-    title,
-    description: sol.description,
-    funderName: sol.agency,
+    sourceUrl: opp.uiLink ?? 'https://sam.gov/search/?index=opp&sfm%5BsimpleSearch%5D%5BkeywordRadio%5D=ALL&sfm%5BsimpleSearch%5D%5BkeywordTags%5D%5B0%5D%5Bkey%5D=SBIR',
+    title: `SBIR - ${opp.title}`,
+    description: opp.description,
+    funderName: opp.organizationName ?? opp.fullParentPathName,
     funderType: 'federal',
-    deadline: sol.close,
+    deadline: opp.responseDeadLine,
     isNewProgram: false,
-    categoryTags,
+    categoryTags: ['SBIR', 'federal', 'tech'],
     eligibilityTags: ['sbir_eligible', 'tech_company'],
   }
 }
 
 export async function scrapeSbir(): Promise<RawGrant[]> {
   try {
-    const res = await fetch(SBIR_URL)
+    const res = await fetch(SAM_SBIR_URL)
     if (!res.ok) {
-      console.error(`[sbir] HTTP ${res.status}`)
+      console.error(`[sbir] SAM.gov HTTP ${res.status}`)
       return []
     }
-
-    const body = (await res.json()) as unknown as SbirSolicitation[]
-    const grants = (body ?? [])
-      .map(mapSolicitation)
-      .filter((item): item is RawGrant => item !== null)
-    console.log(`[sbir] fetched ${grants.length} grants`)
+    const body = (await res.json()) as SamResponse
+    const opps = body.opportunitiesData ?? []
+    const grants = opps.map(mapSamSbir).filter((g): g is RawGrant => g !== null)
+    console.log(`[sbir] fetched ${grants.length} SBIR grants via SAM.gov`)
     return grants
   } catch (err) {
     console.error('[sbir] scrape failed:', err)

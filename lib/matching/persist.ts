@@ -8,7 +8,7 @@ export type MatchRecord = {
   fit_score: number | null
   competitive_density_score: null
   matched_angles: string[]
-  status: 'queued' | 'rejected' | 'archived'
+  status: 'queued' | 'pending_review' | 'rejected' | 'archived'
 }
 
 export type PersistMatchesResult = {
@@ -23,6 +23,7 @@ function resolveStatus(input: {
   if (!input.hard_filter_passed) return 'rejected'
   if (input.fit_score === null) return 'rejected'
   if (input.fit_score >= 70) return 'queued'
+  if (input.fit_score >= 50) return 'pending_review'
   return 'archived'
 }
 
