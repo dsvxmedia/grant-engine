@@ -4,16 +4,21 @@ const USER_AGENT =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36'
 
 const CATEGORIES = [
-  { path: 'business', tags: ['small-business', 'entrepreneurship'] },
-  { path: 'technology', tags: ['technology', 'innovation'] },
-  { path: 'arts', tags: ['arts', 'culture', 'media'] },
-  { path: 'community', tags: ['community', 'civic'] },
-  { path: 'education', tags: ['education', 'workforce'] },
-  { path: 'nonprofit', tags: ['nonprofit'] },
-  { path: 'minority', tags: ['minority-owned', 'diversity'] },
-  { path: 'startup', tags: ['startup', 'entrepreneurship'] },
-  { path: 'media', tags: ['media', 'journalism', 'storytelling'] },
-  { path: 'environment', tags: ['environment', 'sustainability'] },
+  { path: 'cat/13/small-business-grants.html',             tags: ['small-business', 'entrepreneurship'] },
+  { path: 'cat/16/entrepreneurs-and-startups-grants.html', tags: ['startup', 'entrepreneurship'] },
+  { path: 'cat/36/technology-grants.html',                 tags: ['technology', 'innovation'] },
+  { path: 'cat/2/arts-and-culture-grants.html',            tags: ['arts', 'culture', 'media'] },
+  { path: 'cat/8/community-and-economic-development-grants.html', tags: ['community', 'economic-development'] },
+  { path: 'cat/5/community-services-grants.html',          tags: ['community', 'civic'] },
+  { path: 'cat/59/education-grants.html',                  tags: ['education', 'workforce'] },
+  { path: 'cat/40/workforce-grants.html',                  tags: ['workforce', 'economic-development'] },
+  { path: 'cat/53/bipoc-grants.html',                      tags: ['minority-owned', 'diversity', 'bipoc'] },
+  { path: 'cat/57/social-justice-grants.html',             tags: ['social-justice', 'equity', 'community'] },
+  { path: 'cat/10/environment-and-conservation-grants.html', tags: ['environment', 'sustainability'] },
+  { path: 'cat/30/science-grants.html',                    tags: ['science', 'research', 'technology'] },
+  { path: 'cat/29/research-and-evaluation-grants.html',    tags: ['research', 'innovation'] },
+  { path: 'cat/3/capital-funding-grants.html',             tags: ['capital', 'funding', 'small-business'] },
+  { path: 'cat/46/individual-grants.html',                 tags: ['individual', 'fellowship'] },
 ]
 
 function extractGrants(html: string, tags: string[]): RawGrant[] {
@@ -51,7 +56,7 @@ function extractGrants(html: string, tags: string[]): RawGrant[] {
 }
 
 async function scrapeCategory(path: string, tags: string[]): Promise<RawGrant[]> {
-  const url = `https://www.grantwatch.com/cat/${path}-grants.html`
+  const url = `https://www.grantwatch.com/${path}`
   try {
     const res = await fetch(url, {
       headers: { 'User-Agent': USER_AGENT },
