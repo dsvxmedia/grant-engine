@@ -32,10 +32,9 @@ type FRResponse = {
 function buildUrl(): string {
   const params = new URLSearchParams()
   params.append('conditions[type][]', 'NOTICE')
-  params.append('conditions[agencies][]', 'all-agencies')
   params.append(
     'conditions[term]',
-    'grant OR funding OR opportunity OR NOFA'
+    'grant OR funding OR "funding opportunity" OR NOFA'
   )
   params.append('per_page', '100')
   params.append('page', '1')
