@@ -92,13 +92,14 @@ describe('checkEligibility', () => {
     expect(result.failures).toContain('already_applied')
   })
 
-  it('fails SAM check for federal grant without SAM registration', () => {
+  it('SAM registration is a soft note, not a hard block for federal grants', () => {
     const input = baseInput()
     input.grant.funder_type = 'federal'
     input.entity.sam_registered = false
     const result = checkEligibility(input)
-    expect(result.passed).toBe(false)
-    expect(result.failures).toContain('sam_registration_required')
+    // SAM is a soft note only — federal grants still enter the pipeline
+    // while registration is pending; sam_registration_required is not a hard failure
+    expect(result.failures).not.toContain('sam_registration_required')
   })
 
   it('passes SAM check for non-federal grant without SAM registration', () => {
@@ -107,6 +108,14 @@ describe('checkEligibility', () => {
     input.entity.sam_registered = false
     const result = checkEligibility(input)
     expect(result.failures).not.toContain('sam_registration_required')
+  })
+
+  it('rejects women-owned grants since entity is not women-owned', () => {
+    const input = baseInput()
+    input.grant.eligibility_tags = ['women-owned', 'small-business']
+    const result = checkEligibility(input)
+    expect(result.passed).toBe(false)
+    expect(result.failures).toContain('requires_women_owned')
   })
 
   it('fails geographic check when entity state not in allowed list', () => {

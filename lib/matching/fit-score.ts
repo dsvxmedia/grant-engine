@@ -27,12 +27,40 @@ const FUNDER_PRESTIGE: Record<string, number> = {
 
 const ELIGIBILITY_TAG_KEYWORDS: Record<string, string[]> = {
   minority_owned: ['minority', 'bipoc', 'black', 'hispanic', 'asian', 'indigenous'],
-  african_american_owned: ['african american', 'black-owned', 'black owned'],
+  african_american_owned: ['african american', 'black-owned', 'black owned', 'black-founded', 'black founded'],
   tech_company: ['tech', 'technology', 'software', 'digital', 'ai', 'data'],
   social_enterprise: ['social', 'mission', 'impact', 'nonprofit', 'community'],
   community_serving: ['community', 'serve', 'serving', 'local', 'neighborhood'],
   sbir_eligible: ['sbir', 'research', 'innovation', 'r&d'],
   underserved_community: ['underserved', 'low-income', 'disadvantaged', 'equity'],
+}
+
+// Tags that match any small business — auto-qualify without entity keyword lookup
+const UNIVERSAL_TAGS = new Set([
+  'any-industry', 'any_industry', 'small-business', 'small_business',
+  'entrepreneur', 'entrepreneurs', 'bootstrapped', 'rolling', 'monthly',
+  'microgrant', 'micro-grant', 'creator', 'digital', 'web-search', 'community',
+  'social', 'startup', 'founder', 'general',
+])
+
+// Demographic grant tags → entity boolean flag names (from entityEligibilityTags in index.ts)
+const DEMOGRAPHIC_TAG_TO_ENTITY_FLAG: Record<string, string> = {
+  'minority-owned': 'minority_owned',
+  'minority_owned': 'minority_owned',
+  'african-american-owned': 'african_american_owned',
+  'african_american_owned': 'african_american_owned',
+  'black-owned': 'african_american_owned',
+  'black_owned': 'african_american_owned',
+  'black-founded': 'african_american_owned',
+  'tech-company': 'tech_company',
+  'tech_company': 'tech_company',
+  'tech-startup': 'tech_company',
+  'social-enterprise': 'social_enterprise',
+  'social_enterprise': 'social_enterprise',
+  'community-serving': 'community_serving',
+  'community_serving': 'community_serving',
+  'underserved-community': 'underserved_community',
+  'underserved_community': 'underserved_community',
 }
 
 export type FitScoreInput = {
@@ -103,7 +131,7 @@ function expandTagTokens(tags: string[]): string[] {
 function computeMissionAlignment(input: FitScoreInput): number {
   const { entity, grant } = input
   if (!entity.mission && !entity.focus_area) {
-    return 0.3
+    return 0.5
   }
 
   const entityText = [entity.mission ?? '', entity.focus_area ?? '', ...(entity.who_we_serve ?? [])].join(' ')
@@ -139,28 +167,44 @@ function computeAngleMatch(input: FitScoreInput): {
 } {
   const { grant, entity } = input
   if (grant.eligibility_tags.length === 0) {
-    return { score: 0.5, matchedAngles: [] }
+    // No specific eligibility requirements → open to any business
+    return { score: 0.7, matchedAngles: [] }
   }
 
   const angleStrings = toAngleStrings(entity.pitch_angles_generated)
-  const allAngles = [...angleStrings, ...(entity.who_we_serve ?? [])]
-    .map((s) => s.toLowerCase())
+  const allAngles = [...angleStrings, ...(entity.who_we_serve ?? [])].map((s) => s.toLowerCase())
+
+  // Entity eligibility flags injected by the matching engine (e.g. 'african_american_owned')
+  const entityEligibilityFlags: string[] = Array.isArray((entity as any).eligibility_tags)
+    ? (entity as any).eligibility_tags
+    : []
 
   const matchedAngles: string[] = []
   for (const tag of grant.eligibility_tags) {
-    const keywords = ELIGIBILITY_TAG_KEYWORDS[tag] ?? [tag.replace(/_/g, ' ')]
-    const hit = allAngles.some((angle) =>
-      keywords.some((kw) => angle.includes(kw)),
-    )
+    const tagLower = tag.toLowerCase()
+
+    // Universal tags: open to any small business — always match
+    if (UNIVERSAL_TAGS.has(tagLower)) {
+      matchedAngles.push(tag)
+      continue
+    }
+
+    // Demographic tag → entity boolean flag (e.g. 'black-owned' → 'african_american_owned')
+    const entityFlagKey = DEMOGRAPHIC_TAG_TO_ENTITY_FLAG[tagLower]
+    if (entityFlagKey && entityEligibilityFlags.includes(entityFlagKey)) {
+      matchedAngles.push(tag)
+      continue
+    }
+
+    // Text-based keyword matching against pitch angles
+    const keywords = ELIGIBILITY_TAG_KEYWORDS[tagLower] ?? [tagLower.replace(/_/g, ' ').replace(/-/g, ' ')]
+    const hit = allAngles.some((angle) => keywords.some((kw) => angle.includes(kw)))
     if (hit) {
       matchedAngles.push(tag)
     }
   }
 
-  const score = Math.min(
-    matchedAngles.length / Math.max(grant.eligibility_tags.length, 1),
-    1.0,
-  )
+  const score = Math.min(matchedAngles.length / Math.max(grant.eligibility_tags.length, 1), 1.0)
   return { score, matchedAngles }
 }
 

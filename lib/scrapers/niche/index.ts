@@ -5,6 +5,7 @@ import { scrapeHelloAlice } from './hello-alice'
 import { scrapeOsvFellowships } from './osv-fellowships'
 import { scrapeHelloSkip } from './helloskip'
 import { scrapeGrantfind } from './grantfind'
+import { scrapeMonthlyPrograms } from './monthly-programs'
 import type { RawGrant } from '../types'
 
 export async function scrapeNiche(): Promise<RawGrant[]> {
@@ -16,6 +17,7 @@ export async function scrapeNiche(): Promise<RawGrant[]> {
     scrapeOsvFellowships(),
     scrapeHelloSkip(),
     scrapeGrantfind(),
+    scrapeMonthlyPrograms(),
   ])
   return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []))
 }

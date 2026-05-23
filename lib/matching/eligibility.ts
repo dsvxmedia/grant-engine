@@ -69,6 +69,15 @@ export function checkEligibility(input: EligibilityInput): EligibilityResult {
   // enter the pipeline while registration is pending. Update sam_registered = true
   // on entities once SAM.gov approves to remove this note from future matches.
 
+  // Women-owned grants: entity is not women-owned, so reject any grant that requires it
+  const womenOnlyTags = ['women-owned', 'women_owned', 'women-led', 'women-business', 'women-founded']
+  const requiresWomenOwned = grant.eligibility_tags.some((t) =>
+    womenOnlyTags.includes(t.toLowerCase()),
+  )
+  if (requiresWomenOwned) {
+    failures.push('requires_women_owned')
+  }
+
   const statesValue = grant.geographic_restrictions?.states
   if (Array.isArray(statesValue) && statesValue.length > 0) {
     if (entity.state === null || !statesValue.includes(entity.state)) {

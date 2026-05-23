@@ -3,24 +3,49 @@ import type { RawGrant } from '../types'
 const GOOGLE_CSE_URL = 'https://www.googleapis.com/customsearch/v1'
 
 const GRANT_QUERIES = [
-  // Grant aggregator sites (will find pages like helloalice.com, etc.)
+  // Monthly / recurring programs — highest value targets
+  '"monthly grant" "small business" 2026 apply -site:twitter.com -site:facebook.com',
+  '"rolling deadline" grant "small business" entrepreneur 2026 apply',
   'site:helloalice.com grants 2026 apply',
-  'site:ifundwomen.com grants open 2026',
-  '"apply now" "small business grant" 2026 -site:facebook.com -site:twitter.com',
-  // Corporate + foundation programs
-  'verizon allstate comcast "small business grant" apply 2026',
-  'amazon "black business" OR "women business" grant 2026',
-  '"famous amos" OR "wally amos" grant entrepreneurship 2026',
-  // SBIR/tech
-  'SBIR STTR technology innovation grant 2026 apply',
-  // Community + social enterprise
-  'community development technology social enterprise grant 2026',
-  // Arts/culture/entertainment
-  'arts culture entertainment media grants 2026 apply',
-  // Aggregator hunt
-  '"grants for small businesses" 2026 "apply" -site:grants.gov',
+  'site:candid.org grants "small business" 2026 open',
+  'site:instrumentl.com grants "small business" 2026 open',
+
+  // Well-known monthly programs — confirm still open
+  '"amber grant" 2026 apply womensnet',
+  '"awesome foundation" microgrant 2026 apply',
+  '"sky\'s the limit" grant entrepreneur 2026',
+
+  // Corporate social impact grant programs 2026
+  '"small business grant" 2026 apply "$10,000" OR "$25,000" OR "$50,000"',
+  'verizon allstate comcast fedex walmart "small business grant" apply 2026',
+  'amazon "black business" OR "minority business" grant 2026 apply',
+  'google microsoft salesforce "small business" OR "entrepreneur" grant 2026 apply',
+
+  // Minority, community, underrepresented entrepreneurs
+  '"black-owned" OR "minority-owned" OR "BIPOC" grant 2026 "apply now"',
   'fellowship grant "black founders" OR "minority founders" technology 2026',
+  '"underserved community" OR "underrepresented" entrepreneur grant 2026 apply',
+  'HBCUs "economic empowerment" OR "community development" grant 2026',
+
+  // Tech + AI focused
+  'SBIR STTR technology innovation grant 2026 apply',
+  '"AI" OR "artificial intelligence" small business grant 2026 apply',
+  '"tech startup" grant fund 2026 "apply now" -site:twitter.com',
+
+  // Local government / utility / port authority grants
+  '"utility economic development" grant apply 2026',
+  '"port authority" business grant apply 2026',
+  '"city innovation" grant "small business" 2026 apply',
+  '"community development" grant 2026 "apply" entrepreneur technology',
+
+  // Foundation programs
   'women health maternal technology grant foundation 2026',
+  '"social enterprise" grant impact 2026 apply',
+  '"arts" OR "creative economy" grant "small business" 2026 apply',
+
+  // General broad hunt — catch anything new
+  '"grants for small businesses" 2026 "apply" -site:grants.gov',
+  '"new grant program" 2026 entrepreneur "small business" apply "$"',
 ]
 
 type SearchItem = {

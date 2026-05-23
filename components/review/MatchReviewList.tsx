@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
+import { Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { DeadlineChip } from '@/components/shared/DeadlineChip'
@@ -28,6 +29,17 @@ export function MatchReviewList({ matches }: MatchReviewListProps) {
   const [actionLoading, setActionLoading] = useState<string | null>(null)
   const [detailData, setDetailData] = useState<GrantDetailData | null>(null)
   const [sheetOpen, setSheetOpen] = useState(false)
+  const [search, setSearch] = useState('')
+
+  const q = search.trim().toLowerCase()
+  const visible = q
+    ? matches.filter(
+        (m) =>
+          (m.grants?.title ?? '').toLowerCase().includes(q) ||
+          (m.grants?.funder_name ?? '').toLowerCase().includes(q) ||
+          (m.business_entities?.name ?? '').toLowerCase().includes(q)
+      )
+    : matches
 
   function openDetail(match: MatchRecord) {
     const grant = match.grants
@@ -80,8 +92,24 @@ export function MatchReviewList({ matches }: MatchReviewListProps) {
 
   return (
     <>
+      {/* Search bar */}
+      <div className="relative mb-3 max-w-sm">
+        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+        <input
+          type="text"
+          placeholder="Search grants…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full h-8 rounded-md border border-input bg-background pl-8 pr-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/50 focus:border-ring"
+        />
+      </div>
+
+      {visible.length === 0 && q && (
+        <p className="text-sm text-muted-foreground">No grants match &ldquo;{search}&rdquo;.</p>
+      )}
+
       <div className="flex flex-col gap-2">
-        {matches.map((match) => {
+        {visible.map((match) => {
           const grant = match.grants
           const entity = match.business_entities
           const deadline = grant?.deadline ? new Date(grant.deadline) : null

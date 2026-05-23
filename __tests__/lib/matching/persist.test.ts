@@ -50,14 +50,24 @@ describe('buildMatchRecord', () => {
     expect(record.fit_score).toBe(75.5)
   })
 
-  it('score < 70 sets status to archived', () => {
+  it('score 50–69 sets status to pending_review', () => {
     const record = buildMatchRecord({
       ...baseBuildInput(),
       hard_filter_passed: true,
       fit_score: 65.0,
     })
-    expect(record.status).toBe('archived')
+    expect(record.status).toBe('pending_review')
     expect(record.fit_score).toBe(65.0)
+  })
+
+  it('score < 50 sets status to archived', () => {
+    const record = buildMatchRecord({
+      ...baseBuildInput(),
+      hard_filter_passed: true,
+      fit_score: 35.0,
+    })
+    expect(record.status).toBe('archived')
+    expect(record.fit_score).toBe(35.0)
   })
 
   it('null score with passed filter sets status to rejected', () => {

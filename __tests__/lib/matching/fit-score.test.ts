@@ -194,11 +194,11 @@ describe('computeFitScore', () => {
     expect(result.matchedAngles).toContain('underserved_community')
   })
 
-  it('angle match: no grant eligibility tags → neutral 0.5', () => {
+  it('angle match: no grant eligibility tags → open default 0.7', () => {
     const input = baseInput()
     input.grant.eligibility_tags = []
     const result = computeFitScore(input)
-    expect(result.components.angleMatch).toBe(0.5)
+    expect(result.components.angleMatch).toBe(0.7)
   })
 
   it('win/loss component is always 0', () => {
@@ -206,12 +206,12 @@ describe('computeFitScore', () => {
     expect(result.components.winLoss).toBe(0)
   })
 
-  it('mission alignment: no mission → neutral 0.3', () => {
+  it('mission alignment: no mission → neutral 0.5', () => {
     const input = baseInput()
     input.entity.mission = null
     input.entity.focus_area = null
     const result = computeFitScore(input)
-    expect(result.components.missionAlignment).toBe(0.3)
+    expect(result.components.missionAlignment).toBe(0.5)
   })
 
   it('mission alignment: overlap with grant tags raises score', () => {

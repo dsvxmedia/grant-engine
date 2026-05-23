@@ -10,6 +10,7 @@ import { scrapeFederalRegister } from '@/lib/scrapers/federal-register'
 import { normalizeGrant } from '@/lib/scrapers/normalize'
 import { filterNewGrants } from '@/lib/scrapers/deduplicate'
 import { persistGrants } from '@/lib/scrapers/persist'
+import { cleanupExpiredGrants } from '@/lib/scrapers/cleanup'
 import { createServiceClient } from '@/lib/supabase/server'
 import { sendScraperAlert } from '@/lib/scrapers/health'
 import { runMatching } from '@/lib/matching'
@@ -28,6 +29,7 @@ vi.mock('@/lib/scrapers/federal-register', () => ({
 vi.mock('@/lib/scrapers/normalize', () => ({ normalizeGrant: vi.fn() }))
 vi.mock('@/lib/scrapers/deduplicate', () => ({ filterNewGrants: vi.fn() }))
 vi.mock('@/lib/scrapers/persist', () => ({ persistGrants: vi.fn() }))
+vi.mock('@/lib/scrapers/cleanup', () => ({ cleanupExpiredGrants: vi.fn() }))
 vi.mock('@/lib/supabase/server', () => ({ createServiceClient: vi.fn() }))
 vi.mock('@/lib/scrapers/health', () => ({ sendScraperAlert: vi.fn() }))
 vi.mock('@/lib/matching', () => ({ runMatching: vi.fn() }))
@@ -39,6 +41,7 @@ const ZERO_MATCHING = {
   pairs_evaluated: 0,
   pairs_passed_filter: 0,
   pairs_queued: 0,
+  pairs_pending_review: 0,
   pairs_archived: 0,
   pairs_rejected: 0,
   persist_errors: 0,
@@ -110,6 +113,7 @@ describe('GET /api/cron/discover', () => {
     vi.mocked(scrapeFederalRegister).mockResolvedValue([])
     vi.mocked(filterNewGrants).mockResolvedValue([])
     vi.mocked(persistGrants).mockResolvedValue({ inserted: 0, errors: 0 })
+    vi.mocked(cleanupExpiredGrants).mockResolvedValue({ deleted: 0, expired: 0 })
     vi.mocked(runMatching).mockResolvedValue(ZERO_MATCHING)
     stubScraperRunsInsert()
 
@@ -144,6 +148,7 @@ describe('GET /api/cron/discover', () => {
       inserted: grants.length,
       errors: 0,
     }))
+    vi.mocked(cleanupExpiredGrants).mockResolvedValue({ deleted: 0, expired: 0 })
     vi.mocked(runMatching).mockResolvedValue(ZERO_MATCHING)
     stubScraperRunsInsert()
 
@@ -169,6 +174,7 @@ describe('GET /api/cron/discover', () => {
       grants_checked: 0,
       entities_checked: 0,
       pairs_queued: 0,
+      pairs_pending_review: 0,
       pairs_archived: 0,
       pairs_rejected: 0,
     })
@@ -205,6 +211,7 @@ describe('GET /api/cron/discover', () => {
       inserted: grants.length,
       errors: 0,
     }))
+    vi.mocked(cleanupExpiredGrants).mockResolvedValue({ deleted: 0, expired: 0 })
     vi.mocked(runMatching).mockResolvedValue(ZERO_MATCHING)
     stubScraperRunsInsert()
 

@@ -13,6 +13,7 @@ export type RunMatchingResult = {
   pairs_evaluated: number
   pairs_passed_filter: number
   pairs_queued: number
+  pairs_pending_review: number
   pairs_archived: number
   pairs_rejected: number
   persist_errors: number
@@ -60,6 +61,7 @@ function emptyResult(
     pairs_evaluated: 0,
     pairs_passed_filter: 0,
     pairs_queued: 0,
+    pairs_pending_review: 0,
     pairs_archived: 0,
     pairs_rejected: 0,
     persist_errors: 0,
@@ -119,6 +121,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
   let pairsEvaluated = 0
   let pairsPassedFilter = 0
   let pairsQueued = 0
+  let pairsPendingReview = 0
   let pairsArchived = 0
   let pairsRejected = 0
 
@@ -198,6 +201,8 @@ export async function runMatching(): Promise<RunMatchingResult> {
 
         if (fitScore >= 70) {
           pairsQueued += 1
+        } else if (fitScore >= 50) {
+          pairsPendingReview += 1
         } else {
           pairsArchived += 1
         }
@@ -226,6 +231,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
     pairs_evaluated: pairsEvaluated,
     pairs_passed_filter: pairsPassedFilter,
     pairs_queued: pairsQueued,
+    pairs_pending_review: pairsPendingReview,
     pairs_archived: pairsArchived,
     pairs_rejected: pairsRejected,
     persist_errors: persistResult.errors,

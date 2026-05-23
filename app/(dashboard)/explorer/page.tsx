@@ -16,6 +16,7 @@ type GrantRow = {
   deadline: string | null
   funder_type: string | null
   source_url: string | null
+  application_url: string | null
   requires_loi: boolean
   is_new_program: boolean
 }
@@ -233,7 +234,8 @@ export default function ExplorerPage() {
                         ? `${formatCurrency(grant.award_min)} – ${formatCurrency(grant.award_max)}`
                         : grant.award_max != null
                           ? `Up to ${formatCurrency(grant.award_max)}`
-                          : 'N/A'
+                          : null
+                    const applyUrl = grant.application_url ?? grant.source_url
 
                     return (
                       <tr key={grant.id} className="hover:bg-muted/30 transition-colors">
@@ -255,30 +257,42 @@ export default function ExplorerPage() {
                           {grant.funder_name ?? '—'}
                         </td>
                         <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell whitespace-nowrap">
-                          {awardRange}
+                          {awardRange ?? <span className="text-muted-foreground/50">—</span>}
                         </td>
                         <td className="px-4 py-3">
                           {deadline ? (
                             <DeadlineChip deadline={deadline} />
                           ) : (
-                            <span className="text-xs text-muted-foreground">No deadline</span>
+                            <span className="text-xs text-muted-foreground">Rolling</span>
                           )}
                         </td>
                         <td className="px-4 py-3 hidden sm:table-cell">
                           <FunderTypeChip type={grant.funder_type} />
                         </td>
                         <td className="px-4 py-3 text-right">
-                          {grant.source_url && (
-                            <a
-                              href={grant.source_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs text-primary hover:underline underline-offset-2"
-                            >
-                              View
-                              <ExternalLink className="size-3" />
-                            </a>
-                          )}
+                          <div className="flex items-center justify-end gap-2">
+                            {grant.source_url && grant.application_url && grant.source_url !== grant.application_url && (
+                              <a
+                                href={grant.source_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs text-muted-foreground hover:underline underline-offset-2"
+                              >
+                                Info
+                              </a>
+                            )}
+                            {applyUrl && (
+                              <a
+                                href={applyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-xs text-primary hover:underline underline-offset-2"
+                              >
+                                Apply
+                                <ExternalLink className="size-3" />
+                              </a>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     )

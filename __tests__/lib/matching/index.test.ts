@@ -105,6 +105,7 @@ describe('runMatching', () => {
       pairs_evaluated: 0,
       pairs_passed_filter: 0,
       pairs_queued: 0,
+      pairs_pending_review: 0,
       pairs_archived: 0,
       pairs_rejected: 0,
       persist_errors: 0,
@@ -118,6 +119,7 @@ describe('runMatching', () => {
     expect(result.entities_checked).toBe(0)
     expect(result.pairs_evaluated).toBe(0)
     expect(result.pairs_queued).toBe(0)
+    expect(result.pairs_pending_review).toBe(0)
     expect(result.pairs_archived).toBe(0)
     expect(result.pairs_rejected).toBe(0)
   })

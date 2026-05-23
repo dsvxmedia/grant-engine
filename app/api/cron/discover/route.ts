@@ -11,6 +11,7 @@ import { normalizeGrant } from '@/lib/scrapers/normalize'
 import { filterNewGrants } from '@/lib/scrapers/deduplicate'
 import { persistGrants } from '@/lib/scrapers/persist'
 import { sendScraperAlert } from '@/lib/scrapers/health'
+import { cleanupExpiredGrants } from '@/lib/scrapers/cleanup'
 import { createServiceClient } from '@/lib/supabase/server'
 import { runMatching } from '@/lib/matching'
 import type { NormalizedGrant, RawGrant } from '@/lib/scrapers/types'
@@ -68,6 +69,9 @@ export async function GET(request: Request) {
 
   const startedAt = new Date().toISOString()
 
+  // Expire past-deadline and stale grants before running new discovery
+  const cleanupResult = await cleanupExpiredGrants()
+
   const settled = await Promise.allSettled(
     SCRAPERS.map(async (job) => ({
       source: job.source,
@@ -85,10 +89,15 @@ export async function GET(request: Request) {
     if (result.status === 'fulfilled') {
       succeeded++
       const raw = result.value.grants
+      const normalized: NormalizedGrant[] = []
+      for (const r of raw) {
+        const n = normalizeGrant(r)
+        if (n) normalized.push(n)
+      }
       perSource.push({
         source: job.source,
         raw,
-        normalized: raw.map(normalizeGrant),
+        normalized,
         success: true,
         errorMessage: null,
       })
@@ -138,6 +147,10 @@ export async function GET(request: Request) {
 
   return NextResponse.json({
     ok: true,
+    cleanup: {
+      deleted: cleanupResult.deleted,
+      expired: cleanupResult.expired,
+    },
     scrapers: {
       total: SCRAPERS.length,
       succeeded,
@@ -154,6 +167,7 @@ export async function GET(request: Request) {
       grants_checked: matchingResult.grants_checked,
       entities_checked: matchingResult.entities_checked,
       pairs_queued: matchingResult.pairs_queued,
+      pairs_pending_review: matchingResult.pairs_pending_review,
       pairs_archived: matchingResult.pairs_archived,
       pairs_rejected: matchingResult.pairs_rejected,
     },
