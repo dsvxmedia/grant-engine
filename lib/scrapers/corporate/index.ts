@@ -10,6 +10,15 @@ import { scrapeMastercard } from './mastercard'
 import { scrapeWalmart } from './walmart'
 import { scrapeBankOfAmerica } from './bankofamerica'
 import { scrapeFamousAmos } from './famous-amos'
+import { scrapeMeta } from './meta'
+import { scrapeNike } from './nike'
+import { scrapeMicrosoft } from './microsoft'
+import { scrapeTmobile } from './tmobile'
+import { scrapeAtt } from './att'
+import { scrapeGoldmanSachs } from './goldmansachs'
+import { scrapeJpmorgan } from './jpmorgan'
+import { scrapeSalesforce } from './salesforce'
+import { scrapeOtherCorporate } from './others'
 import type { RawGrant } from '../types'
 
 export async function scrapeCorporate(): Promise<RawGrant[]> {
@@ -26,6 +35,15 @@ export async function scrapeCorporate(): Promise<RawGrant[]> {
     scrapeWalmart(),
     scrapeBankOfAmerica(),
     scrapeFamousAmos(),
+    scrapeMeta(),
+    scrapeNike(),
+    scrapeMicrosoft(),
+    scrapeTmobile(),
+    scrapeAtt(),
+    scrapeGoldmanSachs(),
+    scrapeJpmorgan(),
+    scrapeSalesforce(),
+    scrapeOtherCorporate(),
   ])
   return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []))
 }
