@@ -59,19 +59,17 @@ describe('researchGrant', () => {
       expect(typeof result.rawNotes).toBe('string')
     })
 
-    it('makes no Claude calls when funder_name is null', async () => {
+    it('skips funder synthesis calls when funder_name is null', async () => {
       const { researchGrant } = await import('@/lib/writing/research')
 
       await researchGrant({
         grant: { ...baseGrant(), funder_name: null },
       })
 
-      // Only the section extraction call should happen (not the 3 web search calls)
-      // Actually per spec: skip funder web searches if funder_name is null
-      // Section extraction call still happens
+      // Funder web searches are skipped, but grant analysis still runs.
+      // Expect fewer calls than the full funder path (which makes 4+ calls).
       const callCount = createMock.mock.calls.length
-      // At most 1 call (section extraction), not 4 (3 searches + 1 section)
-      expect(callCount).toBeLessThanOrEqual(1)
+      expect(callCount).toBeLessThanOrEqual(2)
     })
   })
 

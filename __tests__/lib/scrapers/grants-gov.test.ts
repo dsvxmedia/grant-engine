@@ -26,19 +26,13 @@ function makeOppHit(id: number, overrides: Record<string, unknown> = {}) {
 
 function grantsGovResponse(
   hits: ReturnType<typeof makeOppHit>[],
-  totalRecords: number,
-  startRecordNum: number,
-  endRecordNum: number
+  hitCount: number
 ) {
   return {
     ok: true,
     json: async () => ({
-      data: {
-        oppHits: hits,
-        totalRecords,
-        startRecordNum,
-        endRecordNum,
-      },
+      oppHits: hits,
+      hitCount,
     }),
   }
 }
@@ -54,7 +48,7 @@ describe('scrapeGrantsGov', () => {
 
   it('returns RawGrant[] with correct field mapping from API response', async () => {
     const hits = [makeOppHit(1)]
-    fetchMock.mockResolvedValueOnce(grantsGovResponse(hits, 1, 0, 1))
+    fetchMock.mockResolvedValueOnce(grantsGovResponse(hits, 1))
 
     const result = await scrapeGrantsGov()
 
@@ -77,8 +71,8 @@ describe('scrapeGrantsGov', () => {
     const page1 = Array.from({ length: 25 }, (_, i) => makeOppHit(i))
     const page2 = Array.from({ length: 25 }, (_, i) => makeOppHit(i + 25))
     fetchMock
-      .mockResolvedValueOnce(grantsGovResponse(page1, 50, 0, 25))
-      .mockResolvedValueOnce(grantsGovResponse(page2, 50, 25, 50))
+      .mockResolvedValueOnce(grantsGovResponse(page1, 50))
+      .mockResolvedValueOnce(grantsGovResponse(page2, 50))
 
     const result = await scrapeGrantsGov()
 
@@ -89,9 +83,7 @@ describe('scrapeGrantsGov', () => {
   it('caps at 10 pages (250 records) even when totalRecords is higher', async () => {
     const page = Array.from({ length: 25 }, (_, i) => makeOppHit(i))
     for (let i = 0; i < 10; i++) {
-      fetchMock.mockResolvedValueOnce(
-        grantsGovResponse(page, 1000, i * 25, (i + 1) * 25)
-      )
+      fetchMock.mockResolvedValueOnce(grantsGovResponse(page, 1000))
     }
 
     const result = await scrapeGrantsGov()
@@ -110,7 +102,7 @@ describe('scrapeGrantsGov', () => {
 
   it('sets funderType=federal on all grants', async () => {
     const hits = [makeOppHit(1), makeOppHit(2), makeOppHit(3)]
-    fetchMock.mockResolvedValueOnce(grantsGovResponse(hits, 3, 0, 3))
+    fetchMock.mockResolvedValueOnce(grantsGovResponse(hits, 3))
 
     const result = await scrapeGrantsGov()
 
@@ -124,7 +116,7 @@ describe('scrapeGrantsGov', () => {
     const hits = [
       makeOppHit(1, { awardFloor: '25000', awardCeiling: '750000' }),
     ]
-    fetchMock.mockResolvedValueOnce(grantsGovResponse(hits, 1, 0, 1))
+    fetchMock.mockResolvedValueOnce(grantsGovResponse(hits, 1))
 
     const result = await scrapeGrantsGov()
 
@@ -193,18 +185,19 @@ describe('scrapeSbir', () => {
   it('returns mapped RawGrant[] with sbir_eligible and tech_company tags', async () => {
     fetchMock.mockResolvedValueOnce({
       ok: true,
-      json: async () => [
-        {
-          program: 'SBIR',
-          phase: 'I',
-          agency: 'NSF',
-          title: 'Quantum Sensing',
-          open: '2026-05-01',
-          close: '2026-08-15',
-          description: 'Phase I quantum sensing solicitation.',
-          solicitation_url: 'https://www.sbir.gov/sol/123',
-        },
-      ],
+      json: async () => ({
+        opportunitiesData: [
+          {
+            noticeId: 'SBIR-123',
+            title: 'Quantum Sensing',
+            organizationName: 'NSF',
+            responseDeadLine: '2026-08-15',
+            description: 'Phase I quantum sensing solicitation.',
+            uiLink: 'https://sam.gov/opp/SBIR-123/view',
+          },
+        ],
+        totalRecords: 1,
+      }),
     })
 
     const result = await scrapeSbir()
@@ -212,13 +205,13 @@ describe('scrapeSbir', () => {
     expect(result).toHaveLength(1)
     const grant = result[0]
     expect(grant.source).toBe('sbir')
-    expect(grant.sourceUrl).toBe('https://www.sbir.gov/sol/123')
-    expect(grant.title).toBe('NSF SBIR Phase I - Quantum Sensing')
+    expect(grant.sourceUrl).toBe('https://sam.gov/opp/SBIR-123/view')
+    expect(grant.title).toBe('SBIR - Quantum Sensing')
     expect(grant.funderName).toBe('NSF')
     expect(grant.funderType).toBe('federal')
     expect(grant.deadline).toBe('2026-08-15')
     expect(grant.eligibilityTags).toEqual(['sbir_eligible', 'tech_company'])
-    expect(grant.categoryTags).toEqual(['SBIR', 'Phase I'])
+    expect(grant.categoryTags).toEqual(['SBIR', 'federal', 'tech'])
   })
 
   it('returns [] on fetch failure', async () => {

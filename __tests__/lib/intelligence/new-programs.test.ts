@@ -21,18 +21,21 @@ function buildGrantsChain(rows: unknown[], error: unknown = null) {
   return chain
 }
 
-function buildNotificationsInsert(error: unknown = null) {
-  return vi.fn().mockResolvedValue({ error })
-}
-
 function buildSupabaseMock(
   grantRows: unknown[],
   grantError: unknown = null,
   notifError: unknown = null
 ) {
   const grantsChain = buildGrantsChain(grantRows, grantError)
-  const notifInsert = buildNotificationsInsert(notifError)
-  const notifChain = { insert: notifInsert }
+  const notifInsert = vi.fn().mockResolvedValue({ error: notifError ?? null })
+
+  // Notifications chain handles both dedup-select and insert
+  const notifChain = {
+    insert: notifInsert,
+    select: vi.fn().mockReturnThis(),
+    eq: vi.fn().mockReturnThis(),
+    in: vi.fn().mockResolvedValue({ data: [], error: null }),
+  }
 
   const from = vi.fn().mockImplementation((table: string) => {
     if (table === 'grants') return grantsChain

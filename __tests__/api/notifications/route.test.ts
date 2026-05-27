@@ -43,14 +43,9 @@ describe('GET /api/notifications', () => {
   })
 
   it('PATCH marks all notifications as read', async () => {
-    const updateResult = vi.fn().mockResolvedValue({ error: null })
-    const gtFn = vi.fn().mockReturnValue({ update: updateResult })
-    // For PATCH, we do update().gt() or update() with a truthy condition
-    // Actually: update({ read: true }) returns a builder; we call something to execute
-    const update = vi.fn().mockReturnValue({ error: null, then: undefined })
-    // Use a simpler approach: update returns resolved value directly for PATCH
-    const updateResolved = vi.fn().mockResolvedValue({ error: null })
-    const from = vi.fn().mockReturnValue({ update: updateResolved })
+    const eq = vi.fn().mockResolvedValue({ error: null })
+    const update = vi.fn().mockReturnValue({ eq })
+    const from = vi.fn().mockReturnValue({ update })
     mockedCreateServiceClient.mockResolvedValue({ from } as any)
 
     const { PATCH } = await import('@/app/api/notifications/route')

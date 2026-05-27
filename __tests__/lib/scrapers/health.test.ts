@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Resend } from 'resend'
 import { sendScraperAlert } from '@/lib/scrapers/health'
 
+vi.mock('server-only', () => ({}))
 vi.mock('resend', () => ({
   Resend: vi.fn(),
 }))

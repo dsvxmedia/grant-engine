@@ -5,14 +5,8 @@ vi.stubGlobal('fetch', fetchMock)
 
 const grantwatchHtml = `
   <html><body>
-    <div class="grant-listing">
-      <a class="grant-title" href="/grant/123">African American Business Grant</a>
-      <div class="grant-info">Funding for Black-owned businesses</div>
-    </div>
-    <div class="grant-listing">
-      <a class="grant-title" href="/grant/456">Minority Entrepreneur Grant</a>
-      <div class="grant-info">Support for minority entrepreneurs</div>
-    </div>
+    <p>Grants to Black-owned small businesses for startup costs and operational expenses to grow their enterprises.</p>
+    <p>Grants for minority entrepreneurs to launch and scale their businesses in underserved communities across the nation.</p>
   </body></html>
 `
 

@@ -7,6 +7,7 @@ import { reviseApplication } from '@/lib/writing/passes/revision'
 import { humanizeApplication } from '@/lib/writing/passes/humanizer'
 import { checkUniqueness } from '@/lib/writing/passes/uniqueness'
 import { buildBudget } from '@/lib/writing/budget'
+import { runQAGate } from '@/lib/writing/passes/qa-gate'
 
 vi.mock('@/lib/supabase/server', () => ({
   createServiceClient: vi.fn(),
@@ -32,6 +33,9 @@ vi.mock('@/lib/writing/passes/uniqueness', () => ({
 vi.mock('@/lib/writing/budget', () => ({
   buildBudget: vi.fn(),
 }))
+vi.mock('@/lib/writing/passes/qa-gate', () => ({
+  runQAGate: vi.fn(),
+}))
 vi.mock('server-only', () => ({}))
 
 const mockedCreateServiceClient = vi.mocked(createServiceClient)
@@ -42,6 +46,7 @@ const mockedReviseApplication = vi.mocked(reviseApplication)
 const mockedHumanizeApplication = vi.mocked(humanizeApplication)
 const mockedCheckUniqueness = vi.mocked(checkUniqueness)
 const mockedBuildBudget = vi.mocked(buildBudget)
+const mockedRunQAGate = vi.mocked(runQAGate)
 
 // ─── Fixture factories ────────────────────────────────────────────────────────
 
@@ -326,6 +331,7 @@ beforeEach(() => {
   mockedHumanizeApplication.mockResolvedValue(makeHumanizerOutput())
   mockedCheckUniqueness.mockResolvedValue(makeUniquenessOutput(false, 0.95))
   mockedBuildBudget.mockResolvedValue(makeBudgetOutput())
+  mockedRunQAGate.mockResolvedValue({ passed: true, scores: { narrative: 9, clarity: 9, compliance: 9 }, feedback: [] })
 })
 
 // ─── Tests ────────────────────────────────────────────────────────────────────

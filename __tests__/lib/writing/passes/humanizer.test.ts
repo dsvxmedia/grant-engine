@@ -198,13 +198,13 @@ describe('humanizeApplication', () => {
       expect(callArgs.model).toBe('claude-sonnet-4-6')
     })
 
-    it('calls Claude with max_tokens 4096', async () => {
+    it('calls Claude with max_tokens 3000', async () => {
       const { humanizeApplication } = await import('@/lib/writing/passes/humanizer')
 
       await humanizeApplication(makeRevision(), null)
 
       const callArgs = createMock.mock.calls[0][0]
-      expect(callArgs.max_tokens).toBe(4096)
+      expect(callArgs.max_tokens).toBe(3000)
     })
 
     it('includes the revision rawText in the prompt', async () => {
