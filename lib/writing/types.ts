@@ -43,6 +43,7 @@ export type PassInput = {
     is_social_enterprise: boolean | null
     is_community_serving: boolean | null
     pitch_angles_generated: unknown
+    grant_narrative: string | null
   }
   founderName: string | null
   founderStory: string | null

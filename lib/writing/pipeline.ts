@@ -116,6 +116,7 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
     is_social_enterprise: boolean | null
     is_community_serving: boolean | null
     pitch_angles_generated: unknown
+    grant_narrative: string | null
   }
 
   try {
@@ -207,6 +208,7 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
       is_social_enterprise: entity.is_social_enterprise,
       is_community_serving: entity.is_community_serving,
       pitch_angles_generated: entity.pitch_angles_generated,
+      grant_narrative: entity.grant_narrative,
     },
     founderName,
     founderStory,

@@ -59,6 +59,7 @@ function makePassInput() {
       is_social_enterprise: true,
       is_community_serving: true,
       pitch_angles_generated: ['equity lens', 'workforce pipeline'],
+      grant_narrative: 'Birmingham Youth Collective builds economic pathways for young people through workforce development and entrepreneurship programming.',
     },
     founderName: 'Test Founder',
     founderStory: 'Our founder started this organization after witnessing youth unemployment firsthand.',

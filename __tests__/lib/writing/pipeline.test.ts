@@ -102,6 +102,7 @@ function makeEntity() {
     is_social_enterprise: false,
     is_community_serving: false,
     pitch_angles_generated: null,
+    grant_narrative: 'Test Tech Corp builds technology solutions for minority-owned businesses.',
   }
 }
 

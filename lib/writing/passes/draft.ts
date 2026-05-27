@@ -63,6 +63,10 @@ function buildUserPrompt(input: PassInput): string {
     ? `\n## Founder Story\n${founderStory}\n`
     : ''
 
+  const grantNarrativeSection = entity.grant_narrative
+    ? `\n---\n## Organization Narrative (FOUNDATIONAL — build the application around this)\n\nThe following is the pre-written, approved narrative for this organization. This is the voice, positioning, and story the organization uses for grant applications. Do NOT contradict it, dilute it, or rewrite it. Use it as the FOUNDATION of every section you write. Draw on this language directly — incorporate phrases, framing, and positioning from this narrative throughout the application.\n\n${entity.grant_narrative}\n`
+    : ''
+
   const prompt = `You are writing a grant application for the following opportunity. Produce a complete first draft with all required sections. Use ## Section Name headings for each section, exactly matching the required section names listed below.
 
 ---
@@ -98,7 +102,7 @@ ${research.funderLanguage.length > 0 ? research.funderLanguage.map((l) => `- ${l
 ## Applicant Profile
 
 ${entityProfileLines.join('\n')}
-${founderStorySection}
+${founderStorySection}${grantNarrativeSection}
 ---
 ## Strongest Pitch Angles (use these strategically throughout the application)
 
@@ -127,6 +131,7 @@ ${wordLimitsText}
 7. Do not fabricate statistics — use general evidence-based language where specific data is not provided.
 8. Write each section so it stands alone but builds cumulatively with the others.
 9. CRITICAL: Never write placeholder text. Do not use brackets like [City], [Year — applicant to confirm], [Number], [URL], or any similar markers. Every word in the final application must be real, readable prose. If a specific data point (website URL, phone number, founding year) was not provided in the Applicant Profile above, write around it using accurate general language — or omit that field entirely. A bracketed placeholder is never acceptable in a submission-ready application.
+${entity.grant_narrative ? '10. CRITICAL: The Organization Narrative above is the approved voice of this organization. Use it. Do not invent an alternative voice or generic nonprofit language. Every section must sound like the organization described there.' : '10. Write in a clear, professional voice consistent with the organization\'s mission and focus area.'}
 
 Begin the application now:`
 

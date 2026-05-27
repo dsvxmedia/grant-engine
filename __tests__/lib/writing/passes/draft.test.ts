@@ -50,6 +50,7 @@ function makePassInput() {
       is_social_enterprise: true,
       is_community_serving: true,
       pitch_angles_generated: ['equity lens', 'workforce pipeline'],
+      grant_narrative: 'Birmingham Youth Collective builds economic pathways for young people through workforce development and entrepreneurship programming.',
     },
     founderName: 'Test Founder',
     founderStory: 'Our founder started this organization after witnessing youth unemployment firsthand.',
@@ -250,6 +251,29 @@ describe('generateFirstDraft', () => {
       const callArgs = createMock.mock.calls[0][0]
       const userMessage = callArgs.messages[0].content as string
       expect(userMessage).toContain('witnessing youth unemployment')
+    })
+
+    it('includes grant narrative in user prompt when provided', async () => {
+      const { generateFirstDraft } = await import('@/lib/writing/passes/draft')
+      const input = makePassInput()
+
+      await generateFirstDraft(input)
+
+      const callArgs = createMock.mock.calls[0][0]
+      const userMessage = callArgs.messages[0].content as string
+      expect(userMessage).toContain('Birmingham Youth Collective builds economic pathways')
+      expect(userMessage).toContain('Organization Narrative')
+    })
+
+    it('omits narrative section when grant_narrative is null', async () => {
+      const { generateFirstDraft } = await import('@/lib/writing/passes/draft')
+      const input = { ...makePassInput(), entity: { ...makePassInput().entity, grant_narrative: null } }
+
+      await generateFirstDraft(input)
+
+      const callArgs = createMock.mock.calls[0][0]
+      const userMessage = callArgs.messages[0].content as string
+      expect(userMessage).not.toContain('Organization Narrative')
     })
   })
 
