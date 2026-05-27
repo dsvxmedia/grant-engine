@@ -2,8 +2,9 @@ import { NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { runWritingPipeline } from '@/lib/writing/pipeline'
 
-// Process at most this many applications per cron run to stay within 300s
-const BATCH_SIZE = 3
+// Each application takes 90-150s through the 5-pass pipeline.
+// Cron limit is 300s, so process one per run — cron fires daily.
+const BATCH_SIZE = 1
 
 export const maxDuration = 300
 
