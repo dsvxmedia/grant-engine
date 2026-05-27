@@ -101,12 +101,20 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
   let entity: {
     id: string
     name: string
+    industry: string | null
+    city: string | null
+    state: string | null
+    founding_date: string | null
+    employee_count: number | null
     mission: string | null
     focus_area: string | null
     who_we_serve: string[] | null
+    is_african_american_owned: boolean | null
     is_minority_owned: boolean | null
+    is_underserved_community_tied: boolean | null
     is_tech_company: boolean | null
     is_social_enterprise: boolean | null
+    is_community_serving: boolean | null
     pitch_angles_generated: unknown
   }
 
@@ -132,15 +140,17 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
 
   // ── Step 4: Fetch founder profile (optional) ───────────────────────────────
   let founderStory: string | null = null
+  let founderName: string | null = null
 
   try {
     const { data } = await (supabase as any)
       .from('founder_profile')
-      .select('origin_story')
+      .select('owner_name, origin_story')
       .order('created_at', { ascending: false })
       .limit(1)
       .maybeSingle()
 
+    founderName = data?.owner_name ?? null
     founderStory = data?.origin_story ?? null
   } catch {
     // Founder profile is optional — proceed without it
@@ -182,14 +192,23 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
     },
     entity: {
       name: entity.name,
+      industry: entity.industry,
+      city: entity.city,
+      state: entity.state,
+      founding_date: entity.founding_date,
+      employee_count: entity.employee_count,
       mission: entity.mission,
       focus_area: entity.focus_area,
       who_we_serve: entity.who_we_serve,
+      is_african_american_owned: entity.is_african_american_owned,
       is_minority_owned: entity.is_minority_owned,
+      is_underserved_community_tied: entity.is_underserved_community_tied,
       is_tech_company: entity.is_tech_company,
       is_social_enterprise: entity.is_social_enterprise,
+      is_community_serving: entity.is_community_serving,
       pitch_angles_generated: entity.pitch_angles_generated,
     },
+    founderName,
     founderStory,
     research,
     matchedAngles: grantMatch.matched_angles ?? [],

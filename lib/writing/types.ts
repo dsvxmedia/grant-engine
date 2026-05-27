@@ -28,14 +28,23 @@ export type PassInput = {
   }
   entity: {
     name: string
+    industry: string | null
+    city: string | null
+    state: string | null
+    founding_date: string | null
+    employee_count: number | null
     mission: string | null
     focus_area: string | null
     who_we_serve: string[] | null
+    is_african_american_owned: boolean | null
     is_minority_owned: boolean | null
+    is_underserved_community_tied: boolean | null
     is_tech_company: boolean | null
     is_social_enterprise: boolean | null
+    is_community_serving: boolean | null
     pitch_angles_generated: unknown
   }
+  founderName: string | null
   founderStory: string | null
   research: ResearchFindings
   matchedAngles: string[]    // from grant_match.matched_angles

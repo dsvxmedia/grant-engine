@@ -8,7 +8,7 @@ function countWords(text: string): number {
 }
 
 function buildUserPrompt(input: PassInput): string {
-  const { grant, entity, founderStory, research, matchedAngles } = input
+  const { grant, entity, founderName, founderStory, research, matchedAngles } = input
 
   const awardRange =
     grant.award_min !== null && grant.award_max !== null
@@ -31,9 +31,33 @@ function buildUserPrompt(input: PassInput): string {
     .join('\n')
 
   const entityFlags: string[] = []
+  if (entity.is_african_american_owned) entityFlags.push('African American-owned')
   if (entity.is_minority_owned) entityFlags.push('Minority-owned')
-  if (entity.is_tech_company) entityFlags.push('Tech company')
+  if (entity.is_tech_company) entityFlags.push('Technology company')
   if (entity.is_social_enterprise) entityFlags.push('Social enterprise')
+  if (entity.is_community_serving) entityFlags.push('Community-serving organization')
+  if (entity.is_underserved_community_tied) entityFlags.push('Serves underserved communities')
+
+  const location = [entity.city, entity.state].filter(Boolean).join(', ')
+  const yearEstablished = entity.founding_date
+    ? new Date(entity.founding_date).getFullYear().toString()
+    : null
+  const teamSize = entity.employee_count ? `${entity.employee_count} employees` : null
+
+  const entityProfileLines: string[] = [
+    `**Organization Name:** ${entity.name}`,
+    entity.industry ? `**Industry:** ${entity.industry}` : null,
+    location ? `**Location:** ${location}` : null,
+    yearEstablished ? `**Year Established:** ${yearEstablished}` : null,
+    teamSize ? `**Team Size:** ${teamSize}` : null,
+    `**Mission:** ${entity.mission ?? 'Not provided.'}`,
+    `**Focus Area:** ${entity.focus_area ?? 'Not provided.'}`,
+    `**Who We Serve:** ${entity.who_we_serve?.join(', ') ?? 'Not specified.'}`,
+    entityFlags.length > 0
+      ? `**Organizational Characteristics:** ${entityFlags.join(', ')}`
+      : null,
+    founderName ? `**Principal Contact:** ${founderName}` : null,
+  ].filter((line): line is string => line !== null)
 
   const founderStorySection = founderStory
     ? `\n## Founder Story\n${founderStory}\n`
@@ -73,11 +97,7 @@ ${research.funderLanguage.length > 0 ? research.funderLanguage.map((l) => `- ${l
 ---
 ## Applicant Profile
 
-**Organization Name:** ${entity.name}
-**Mission:** ${entity.mission ?? 'Not provided.'}
-**Focus Area:** ${entity.focus_area ?? 'Not provided.'}
-**Who We Serve:** ${entity.who_we_serve?.join(', ') ?? 'Not specified.'}
-**Organizational Characteristics:** ${entityFlags.length > 0 ? entityFlags.join(', ') : 'None flagged.'}
+${entityProfileLines.join('\n')}
 ${founderStorySection}
 ---
 ## Strongest Pitch Angles (use these strategically throughout the application)
@@ -106,6 +126,7 @@ ${wordLimitsText}
 6. Include equity-centered framing that centers the community, not the organization.
 7. Do not fabricate statistics — use general evidence-based language where specific data is not provided.
 8. Write each section so it stands alone but builds cumulatively with the others.
+9. CRITICAL: Never write placeholder text. Do not use brackets like [City], [Year — applicant to confirm], [Number], [URL], or any similar markers. Every word in the final application must be real, readable prose. If a specific data point (website URL, phone number, founding year) was not provided in the Applicant Profile above, write around it using accurate general language — or omit that field entirely. A bracketed placeholder is never acceptable in a submission-ready application.
 
 Begin the application now:`
 

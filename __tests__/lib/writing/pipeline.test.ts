@@ -87,12 +87,20 @@ function makeEntity() {
   return {
     id: ENTITY_ID,
     name: 'Test Tech Corp',
+    industry: 'Technology',
+    city: 'Los Angeles',
+    state: 'CA',
+    founding_date: null,
+    employee_count: null,
     mission: 'Empowering minority tech entrepreneurs.',
     focus_area: 'technology',
     who_we_serve: ['minority-owned businesses'],
+    is_african_american_owned: true,
     is_minority_owned: true,
+    is_underserved_community_tied: false,
     is_tech_company: true,
     is_social_enterprise: false,
+    is_community_serving: false,
     pitch_angles_generated: null,
   }
 }
@@ -100,6 +108,7 @@ function makeEntity() {
 function makeFounderProfile() {
   return {
     id: 'founder-555',
+    owner_name: 'D Jackson',
     origin_story: 'I started this company because I saw a gap in the market.',
   }
 }
@@ -389,7 +398,7 @@ describe('runWritingPipeline', () => {
       expect(passInput.matchedAngles).toEqual(['minority-owned', 'tech-company'])
     })
 
-    it('passes founderStory from founder_profile.origin_story into PassInput', async () => {
+    it('passes founderStory and founderName from founder_profile into PassInput', async () => {
       const { client } = buildSupabaseMock({})
       mockedCreateServiceClient.mockResolvedValue(client)
 
@@ -398,9 +407,10 @@ describe('runWritingPipeline', () => {
 
       const passInput = mockedGenerateFirstDraft.mock.calls[0][0]
       expect(passInput.founderStory).toBe(makeFounderProfile().origin_story)
+      expect(passInput.founderName).toBe('D Jackson')
     })
 
-    it('founderStory is null when founder_profile is not found', async () => {
+    it('founderStory and founderName are null when founder_profile is not found', async () => {
       const { client } = buildSupabaseMock({ founderProfile: null })
       mockedCreateServiceClient.mockResolvedValue(client)
 
@@ -409,6 +419,21 @@ describe('runWritingPipeline', () => {
 
       const passInput = mockedGenerateFirstDraft.mock.calls[0][0]
       expect(passInput.founderStory).toBeNull()
+      expect(passInput.founderName).toBeNull()
+    })
+
+    it('passes city, state, and industry from entity into PassInput', async () => {
+      const { client } = buildSupabaseMock({})
+      mockedCreateServiceClient.mockResolvedValue(client)
+
+      const { runWritingPipeline } = await import('@/lib/writing/pipeline')
+      await runWritingPipeline(GRANT_MATCH_ID)
+
+      const passInput = mockedGenerateFirstDraft.mock.calls[0][0]
+      expect(passInput.entity.city).toBe('Los Angeles')
+      expect(passInput.entity.state).toBe('CA')
+      expect(passInput.entity.industry).toBe('Technology')
+      expect(passInput.entity.is_african_american_owned).toBe(true)
     })
   })
 

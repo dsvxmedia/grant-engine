@@ -125,6 +125,64 @@ describe('scrapeGrantsGov', () => {
     expect(typeof result[0].awardMin).toBe('number')
     expect(typeof result[0].awardMax).toBe('number')
   })
+
+  it('fetches detail page and enriches grants missing description and synopsis', async () => {
+    const sparseHit = makeOppHit(1, {
+      description: undefined,
+      synopsis: undefined,
+      awardFloor: undefined,
+      awardCeiling: undefined,
+      applicantTypes: undefined,
+    })
+
+    fetchMock
+      .mockResolvedValueOnce(grantsGovResponse([sparseHit], 1))
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          synopsis: {
+            synopsisDesc: 'Full description from detail page.',
+            applicantDesc: 'Nonprofits and small businesses.',
+            awardFloor: 5000,
+            awardCeiling: 250000,
+          },
+        }),
+      })
+
+    const result = await scrapeGrantsGov()
+
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(result[0].description).toBe('Full description from detail page.')
+    expect(result[0].eligibilityText).toBe('Nonprofits and small businesses.')
+    expect(result[0].awardMin).toBe(5000)
+    expect(result[0].awardMax).toBe(250000)
+  })
+
+  it('uses search data over detail data when description already present', async () => {
+    const hits = [makeOppHit(1)]
+    fetchMock.mockResolvedValueOnce(grantsGovResponse(hits, 1))
+
+    const result = await scrapeGrantsGov()
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(result[0].description).toBe('Description for opportunity 1')
+  })
+
+  it('returns grant with no description when detail fetch fails', async () => {
+    const sparseHit = makeOppHit(1, {
+      description: undefined,
+      synopsis: undefined,
+    })
+
+    fetchMock
+      .mockResolvedValueOnce(grantsGovResponse([sparseHit], 1))
+      .mockRejectedValueOnce(new Error('detail endpoint down'))
+
+    const result = await scrapeGrantsGov()
+
+    expect(result).toHaveLength(1)
+    expect(result[0].description).toBeUndefined()
+  })
 })
 
 describe('scrapeSamGov', () => {
