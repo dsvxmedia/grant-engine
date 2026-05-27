@@ -2,9 +2,11 @@ import { NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { runWritingPipeline } from '@/lib/writing/pipeline'
 
-// Each application takes 90-150s through the 5-pass pipeline.
-// Cron limit is 300s, so process one per run — cron fires daily.
-const BATCH_SIZE = 1
+// Fetch up to this many candidates; stop early if time budget runs low
+const BATCH_SIZE = 3
+
+// Stop starting new apps if we're within this many ms of the 300s limit
+const TIME_BUDGET_MS = 260_000
 
 export const maxDuration = 300
 
@@ -14,9 +16,10 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  const startedAt = Date.now()
   const supabase = await createServiceClient()
 
-  // Fetch queued matches for active entities (TCS + FlowTech)
+  // Fetch queued matches for active entities (TCS + FlowTech), highest score first
   const { data: queuedMatches, error: fetchError } = await (supabase as any)
     .from('grant_matches')
     .select('id, grant_id, entity_id, fit_score, business_entities!inner(matching_active)')
@@ -40,6 +43,12 @@ export async function GET(request: Request) {
   const results: Array<{ matchId: string; status: string; applicationId?: string; error?: string }> = []
 
   for (const match of matches) {
+    // Stop before starting a new pipeline if we're running low on time
+    if (Date.now() - startedAt > TIME_BUDGET_MS) {
+      console.log('[cron/draft] Time budget reached — deferring remaining matches to next run')
+      break
+    }
+
     try {
       console.log(`[cron/draft] Starting pipeline for match ${match.id} (score: ${match.fit_score})`)
       const result = await runWritingPipeline(match.id)
@@ -49,7 +58,7 @@ export async function GET(request: Request) {
       const message = err instanceof Error ? err.message : String(err)
       console.error(`[cron/draft] Pipeline failed for match ${match.id}:`, message)
 
-      // Mark match as qa_failed so it doesn't get retried endlessly
+      // Mark match so it can be manually reviewed rather than retried infinitely
       await (supabase as any)
         .from('grant_matches')
         .update({ status: 'qa_review' })
@@ -61,14 +70,16 @@ export async function GET(request: Request) {
 
   const succeeded = results.filter((r) => r.status === 'pending_review').length
   const failed = results.filter((r) => r.status === 'failed').length
+  const elapsedMs = Date.now() - startedAt
 
-  console.log(`[cron/draft] Batch complete: ${succeeded} succeeded, ${failed} failed`)
+  console.log(`[cron/draft] Done: ${succeeded} succeeded, ${failed} failed in ${elapsedMs}ms`)
 
   return NextResponse.json({
     ok: true,
-    processed: matches.length,
+    processed: results.length,
     succeeded,
     failed,
+    elapsed_ms: elapsedMs,
     results,
     timestamp: new Date().toISOString(),
   })
