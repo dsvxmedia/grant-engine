@@ -32,13 +32,11 @@ type GrantsGovResponse = {
 export type OppDetail = {
   synopsis?: {
     synopsisDesc?: string
-    applicantDesc?: string
+    applicantEligibilityDesc?: string
     awardFloor?: string | number
     awardCeiling?: string | number
-    applicantTypes?: string[]
+    applicantTypes?: Array<{ id: string; description: string }>
   }
-  synopsisDesc?: string
-  applicantDesc?: string
 }
 
 export async function fetchGrantDetail(
@@ -47,14 +45,12 @@ export async function fetchGrantDetail(
   try {
     const res = await fetch(GRANTS_GOV_DETAIL_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ oppId: String(id) }),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `oppId=${id}`,
     })
     if (!res.ok) return null
     const body = await res.json()
-    if (body?.synopsis || body?.synopsisDesc) return body as OppDetail
-    if (Array.isArray(body?.opportunityDetails))
-      return (body.opportunityDetails[0] as OppDetail) ?? null
+    if (body?.synopsis) return body as OppDetail
     return null
   } catch {
     return null
@@ -82,6 +78,12 @@ async function enrichBatch(hits: OppHit[]): Promise<Map<string, OppDetail>> {
   return details
 }
 
+function parseAward(val: string | number | undefined): number | undefined {
+  if (val === undefined || val === null || val === 'none' || val === '') return undefined
+  const n = Number(val)
+  return isNaN(n) ? undefined : n
+}
+
 function mapOppHit(opp: OppHit, detail?: OppDetail | null): RawGrant {
   const syn = detail?.synopsis
   return {
@@ -97,21 +99,12 @@ function mapOppHit(opp: OppHit, detail?: OppDetail | null): RawGrant {
       undefined,
     funderName: (opp as any).agency ?? opp.agencyName,
     funderType: 'federal',
-    awardMin: opp.awardFloor
-      ? Number(opp.awardFloor)
-      : syn?.awardFloor
-        ? Number(syn.awardFloor)
-        : undefined,
-    awardMax: opp.awardCeiling
-      ? Number(opp.awardCeiling)
-      : syn?.awardCeiling
-        ? Number(syn.awardCeiling)
-        : undefined,
+    awardMin: parseAward(opp.awardFloor ?? syn?.awardFloor),
+    awardMax: parseAward(opp.awardCeiling ?? syn?.awardCeiling),
     deadline: opp.closeDate ?? opp.responseDateStr,
     eligibilityText:
       opp.applicantTypes?.join(', ') ??
-      syn?.applicantDesc ??
-      detail?.applicantDesc ??
+      syn?.applicantEligibilityDesc ??
       undefined,
     categoryTags: opp.opportunityCategory ? [opp.opportunityCategory] : [],
   }

@@ -23,13 +23,19 @@ function extractOppId(sourceUrl: string): string | null {
   return match?.[1] ?? null
 }
 
+function parseAward(val: string | number | undefined): number | null {
+  if (val === undefined || val === null || val === 'none' || val === '') return null
+  const n = Number(val)
+  return isNaN(n) ? null : n
+}
+
 function applyDetail(detail: OppDetail) {
   const syn = detail.synopsis
   return {
-    description: syn?.synopsisDesc ?? detail.synopsisDesc ?? null,
-    eligibility_text: syn?.applicantDesc ?? detail.applicantDesc ?? null,
-    award_min: syn?.awardFloor ? Number(syn.awardFloor) : null,
-    award_max: syn?.awardCeiling ? Number(syn.awardCeiling) : null,
+    description: syn?.synopsisDesc ?? null,
+    eligibility_text: syn?.applicantEligibilityDesc ?? null,
+    award_min: parseAward(syn?.awardFloor),
+    award_max: parseAward(syn?.awardCeiling),
   }
 }
 

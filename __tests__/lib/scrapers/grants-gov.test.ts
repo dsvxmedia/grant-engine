@@ -142,7 +142,7 @@ describe('scrapeGrantsGov', () => {
         json: async () => ({
           synopsis: {
             synopsisDesc: 'Full description from detail page.',
-            applicantDesc: 'Nonprofits and small businesses.',
+            applicantEligibilityDesc: 'Nonprofits and small businesses.',
             awardFloor: 5000,
             awardCeiling: 250000,
           },
