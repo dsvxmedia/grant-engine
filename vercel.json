@@ -5,16 +5,24 @@
       "schedule": "0 6 * * *"
     },
     {
-      "path": "/api/cron/reminders",
+      "path": "/api/cron/new-programs",
+      "schedule": "30 6 * * *"
+    },
+    {
+      "path": "/api/cron/match",
+      "schedule": "30 7 * * *"
+    },
+    {
+      "path": "/api/cron/draft",
       "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/reminders",
+      "schedule": "30 8 * * *"
     },
     {
       "path": "/api/cron/analyze",
       "schedule": "0 9 * * 1"
-    },
-    {
-      "path": "/api/cron/new-programs",
-      "schedule": "30 6 * * *"
     },
     {
       "path": "/api/cron/video",

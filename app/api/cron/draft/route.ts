@@ -1,0 +1,74 @@
+import { NextResponse } from 'next/server'
+import { createServiceClient } from '@/lib/supabase/server'
+import { runWritingPipeline } from '@/lib/writing/pipeline'
+
+// Process at most this many applications per cron run to stay within 300s
+const BATCH_SIZE = 3
+
+export const maxDuration = 300
+
+export async function GET(request: Request) {
+  const authHeader = request.headers.get('authorization')
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const supabase = await createServiceClient()
+
+  // Fetch queued matches for active entities (TCS + FlowTech)
+  const { data: queuedMatches, error: fetchError } = await (supabase as any)
+    .from('grant_matches')
+    .select('id, grant_id, entity_id, fit_score, business_entities!inner(matching_active)')
+    .eq('status', 'queued')
+    .eq('business_entities.matching_active', true)
+    .order('fit_score', { ascending: false })
+    .limit(BATCH_SIZE)
+
+  if (fetchError) {
+    console.error('[cron/draft] Failed to fetch queued matches:', fetchError)
+    return NextResponse.json({ ok: false, error: fetchError.message }, { status: 500 })
+  }
+
+  const matches: Array<{ id: string; grant_id: string; entity_id: string; fit_score: number }> =
+    queuedMatches ?? []
+
+  if (matches.length === 0) {
+    return NextResponse.json({ ok: true, processed: 0, message: 'No queued matches to draft' })
+  }
+
+  const results: Array<{ matchId: string; status: string; applicationId?: string; error?: string }> = []
+
+  for (const match of matches) {
+    try {
+      console.log(`[cron/draft] Starting pipeline for match ${match.id} (score: ${match.fit_score})`)
+      const result = await runWritingPipeline(match.id)
+      results.push({ matchId: match.id, status: result.status, applicationId: result.applicationId })
+      console.log(`[cron/draft] Completed match ${match.id} → application ${result.applicationId}`)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err)
+      console.error(`[cron/draft] Pipeline failed for match ${match.id}:`, message)
+
+      // Mark match as qa_failed so it doesn't get retried endlessly
+      await (supabase as any)
+        .from('grant_matches')
+        .update({ status: 'qa_review' })
+        .eq('id', match.id)
+
+      results.push({ matchId: match.id, status: 'failed', error: message })
+    }
+  }
+
+  const succeeded = results.filter((r) => r.status === 'pending_review').length
+  const failed = results.filter((r) => r.status === 'failed').length
+
+  console.log(`[cron/draft] Batch complete: ${succeeded} succeeded, ${failed} failed`)
+
+  return NextResponse.json({
+    ok: true,
+    processed: matches.length,
+    succeeded,
+    failed,
+    results,
+    timestamp: new Date().toISOString(),
+  })
+}

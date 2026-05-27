@@ -92,6 +92,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
     .select(
       'id, type, state, city, revenue_range, sam_registered, sbir_eligible, mission, focus_area, pitch_angles_generated, who_we_serve, is_african_american_owned, is_minority_owned, is_underserved_community_tied, is_tech_company, is_social_enterprise, is_community_serving',
     )
+    .eq('matching_active', true)
 
   const entitiesList: any[] = Array.isArray(entities) ? entities : []
   if (entitiesList.length === 0) {
