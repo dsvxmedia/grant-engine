@@ -95,7 +95,6 @@ function mapOppHit(opp: OppHit, detail?: OppDetail | null): RawGrant {
       opp.description ??
       opp.synopsis ??
       syn?.synopsisDesc ??
-      detail?.synopsisDesc ??
       undefined,
     funderName: (opp as any).agency ?? opp.agencyName,
     funderType: 'federal',
