@@ -15,13 +15,13 @@ export async function POST(request: NextRequest) {
   const now = new Date()
   const sevenDays = new Date(now.getTime() + 7 * 86_400_000)
   const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000)
-  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
 
-  // Cleanup: delete notifications older than 30 days to prevent stale clutter
+  // Cleanup: delete notifications older than 7 days to prevent stale clutter
   await (supabase as any)
     .from('notifications')
     .delete()
-    .lt('created_at', thirtyDaysAgo.toISOString())
+    .lt('created_at', sevenDaysAgo.toISOString())
 
   // Deduplication: fetch titles of notifications created in the last 24 hours
   const { data: recentNotifs } = await (supabase as any)

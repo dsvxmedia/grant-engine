@@ -28,10 +28,24 @@ export async function monitorNewPrograms(): Promise<NewProgramResult> {
       return empty
     }
 
+    // Fetch grant IDs that already have a new_program notification to avoid duplicates
+    const grantIds: string[] = data.map((g: { id: string }) => g.id)
+    const { data: existingNotifs } = await (supabase as any)
+      .from('notifications')
+      .select('metadata')
+      .eq('type', 'new_program')
+      .in('metadata->>grant_id', grantIds)
+
+    const alreadyNotified = new Set<string>(
+      (existingNotifs ?? []).map((n: { metadata: { grant_id: string } }) => n.metadata?.grant_id).filter(Boolean)
+    )
+
     let federalRegisterCount = 0
     let manualCount = 0
 
     for (const grant of data) {
+      if (alreadyNotified.has(grant.id)) continue
+
       const source: string = grant.source ?? ''
       if (source === 'federal-register') {
         federalRegisterCount++
