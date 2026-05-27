@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { createNotifications } from '@/lib/notifications'
-import { formatCurrency } from '@/lib/utils'
 
 // POST /api/admin/notify
 // Generates notifications from current DB state: expiring deadlines + high-score matches
@@ -15,6 +14,23 @@ export async function POST(request: NextRequest) {
   const supabase = await createServiceClient()
   const now = new Date()
   const sevenDays = new Date(now.getTime() + 7 * 86_400_000)
+  const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000)
+  const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
+
+  // Cleanup: delete notifications older than 30 days to prevent stale clutter
+  await (supabase as any)
+    .from('notifications')
+    .delete()
+    .lt('created_at', thirtyDaysAgo.toISOString())
+
+  // Deduplication: fetch titles of notifications created in the last 24 hours
+  const { data: recentNotifs } = await (supabase as any)
+    .from('notifications')
+    .select('title')
+    .gte('created_at', twentyFourHoursAgo.toISOString())
+
+  const recentTitles = new Set<string>((recentNotifs ?? []).map((n: { title: string }) => n.title))
+
   const notifs: Parameters<typeof createNotifications>[0] = []
 
   // 1. Deadline warnings for active grants in the next 7 days
@@ -29,12 +45,15 @@ export async function POST(request: NextRequest) {
 
   for (const g of (expiringSoon ?? []) as Array<{ title: string; deadline: string }>) {
     const daysLeft = Math.max(0, Math.ceil((new Date(g.deadline).getTime() - now.getTime()) / 86_400_000))
-    notifs.push({
-      type: 'deadline_warning',
-      title: `Deadline in ${daysLeft} day${daysLeft !== 1 ? 's' : ''}: ${g.title}`,
-      body: `Due ${new Date(g.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`,
-      metadata: { deadline: g.deadline },
-    })
+    const title = `Deadline in ${daysLeft} day${daysLeft !== 1 ? 's' : ''}: ${g.title}`
+    if (!recentTitles.has(title)) {
+      notifs.push({
+        type: 'deadline_warning',
+        title,
+        body: `Due ${new Date(g.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`,
+        metadata: { deadline: g.deadline },
+      })
+    }
   }
 
   // 2. Summary of high-score matches pending action
@@ -44,11 +63,14 @@ export async function POST(request: NextRequest) {
     .eq('status', 'queued')
 
   if (queuedCount && queuedCount > 0) {
-    notifs.push({
-      type: 'new_match',
-      title: `${queuedCount} grant${queuedCount !== 1 ? 's' : ''} ready to draft`,
-      body: 'High-score matches are waiting in the Review Queue.',
-    })
+    const title = `${queuedCount} grant${queuedCount !== 1 ? 's' : ''} ready to draft`
+    if (!recentTitles.has(title)) {
+      notifs.push({
+        type: 'new_match',
+        title,
+        body: 'High-score matches are waiting in the Review Queue.',
+      })
+    }
   }
 
   // 3. Check for pending_review applications awaiting approval
@@ -58,15 +80,18 @@ export async function POST(request: NextRequest) {
     .eq('status', 'pending_review')
 
   if (reviewCount && reviewCount > 0) {
-    notifs.push({
-      type: 'new_match',
-      title: `${reviewCount} application${reviewCount !== 1 ? 's' : ''} awaiting your review`,
-      body: 'Drafted applications are ready for your approval in the Review Queue.',
-    })
+    const title = `${reviewCount} application${reviewCount !== 1 ? 's' : ''} awaiting your review`
+    if (!recentTitles.has(title)) {
+      notifs.push({
+        type: 'new_match',
+        title,
+        body: 'Drafted applications are ready for your approval in the Review Queue.',
+      })
+    }
   }
 
   if (notifs.length === 0) {
-    return NextResponse.json({ ok: true, created: 0, message: 'Nothing to notify about right now.' })
+    return NextResponse.json({ ok: true, created: 0, message: 'All notifications already sent in the last 24 hours.' })
   }
 
   await createNotifications(notifs)

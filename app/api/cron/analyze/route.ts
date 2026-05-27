@@ -15,10 +15,19 @@ export async function GET(request: Request) {
 
   try {
     const supabase = await createServiceClient()
+    let body: string
+    if (report.topPerformers.length === 0) {
+      body = 'No completed applications yet — outcomes will be analyzed as data accumulates.'
+    } else {
+      const lines = report.topPerformers.map(
+        (s) => `${s.dimension.split('|')[0].replace('funder_type:', '')}: ${Math.round(s.winRate * 100)}% win rate (${s.wins}/${s.attempts})`
+      )
+      body = `Top segments:\n${lines.join('\n')}`
+    }
     await (supabase as any).from('notifications').insert({
       type: 'win_loss_report',
       title: 'Weekly Win/Loss Analysis',
-      body: JSON.stringify(report.topPerformers),
+      body,
     })
   } catch (err) {
     console.error('[cron/analyze] failed to save notification:', err)

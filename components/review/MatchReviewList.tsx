@@ -30,16 +30,18 @@ export function MatchReviewList({ matches }: MatchReviewListProps) {
   const [detailData, setDetailData] = useState<GrantDetailData | null>(null)
   const [sheetOpen, setSheetOpen] = useState(false)
   const [search, setSearch] = useState('')
+  const [dismissedGrantIds, setDismissedGrantIds] = useState<Set<string>>(new Set())
 
   const q = search.trim().toLowerCase()
-  const visible = q
-    ? matches.filter(
-        (m) =>
-          (m.grants?.title ?? '').toLowerCase().includes(q) ||
+  const visible = matches
+    .filter((m) => !dismissedGrantIds.has(m.grant_id))
+    .filter((m) =>
+      q
+        ? (m.grants?.title ?? '').toLowerCase().includes(q) ||
           (m.grants?.funder_name ?? '').toLowerCase().includes(q) ||
           (m.business_entities?.name ?? '').toLowerCase().includes(q)
-      )
-    : matches
+        : true
+    )
 
   function openDetail(match: MatchRecord) {
     const grant = match.grants
@@ -64,20 +66,22 @@ export function MatchReviewList({ matches }: MatchReviewListProps) {
     setSheetOpen(true)
   }
 
-  async function queueForDrafting(matchId: string) {
+  async function queueForDrafting(matchId: string, grantId: string) {
     setActionLoading(matchId)
     try {
       await fetch(`/api/matches/${matchId}/queue`, { method: 'PATCH' })
+      setDismissedGrantIds((prev) => new Set([...prev, grantId]))
       startTransition(() => router.refresh())
     } finally {
       setActionLoading(null)
     }
   }
 
-  async function archiveMatch(matchId: string) {
+  async function archiveMatch(matchId: string, grantId: string) {
     setActionLoading(matchId)
     try {
       await fetch(`/api/matches/${matchId}/archive`, { method: 'PATCH' })
+      setDismissedGrantIds((prev) => new Set([...prev, grantId]))
       startTransition(() => router.refresh())
     } finally {
       setActionLoading(null)
@@ -176,7 +180,7 @@ export function MatchReviewList({ matches }: MatchReviewListProps) {
                   size="sm"
                   className="bg-primary text-primary-foreground hover:bg-primary/90 h-7 text-xs"
                   disabled={busy}
-                  onClick={() => queueForDrafting(match.id)}
+                  onClick={() => queueForDrafting(match.id, match.grant_id)}
                 >
                   Queue for Drafting
                 </Button>
@@ -185,7 +189,7 @@ export function MatchReviewList({ matches }: MatchReviewListProps) {
                   variant="ghost"
                   className="h-7 text-xs text-muted-foreground"
                   disabled={busy}
-                  onClick={() => archiveMatch(match.id)}
+                  onClick={() => archiveMatch(match.id, match.grant_id)}
                 >
                   Skip
                 </Button>
