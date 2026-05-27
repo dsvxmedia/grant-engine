@@ -6,6 +6,7 @@ import { selfCritique } from '@/lib/writing/passes/critique'
 import { reviseApplication } from '@/lib/writing/passes/revision'
 import { humanizeApplication } from '@/lib/writing/passes/humanizer'
 import { checkUniqueness } from '@/lib/writing/passes/uniqueness'
+import { runQAGate } from '@/lib/writing/passes/qa-gate'
 import { buildBudget } from '@/lib/writing/budget'
 import type { PassInput } from '@/lib/writing/types'
 
@@ -256,10 +257,38 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
     }
   }
 
-  // The final output is uniquenessResult (which carries all previous fields through)
-  const final = uniquenessResult
+  // The final output carries through from uniqueness check
+  let final = uniquenessResult
 
-  // ── Step 14: Build budget ──────────────────────────────────────────────────
+  // ── Step 14: QA Gate — 3-model council review ─────────────────────────────
+  // Threshold: narrative ≥ 7.0, clarity ≥ 7.0, compliance ≥ 7.0
+  // On fail: revise → humanize → uniqueness again, max 2 retries
+  let qaResult = await runQAGate(final, passInput)
+  let qaRetryCount = 0
+
+  while (!qaResult.passed && qaRetryCount < 2) {
+    qaRetryCount++
+    console.log(`[pipeline] QA gate failed (attempt ${qaRetryCount}/2) — running revision retry`)
+
+    // Append QA feedback to the critique to guide revision
+    const qaCritique = { ...critique, summary: `QA gate feedback:\n${qaResult.feedback.join('\n')}` }
+
+    try {
+      revision = await reviseApplication(draft, qaCritique, passInput)
+      humanized = await humanizeApplication(revision, founderStory)
+      final = await checkUniqueness(humanized)
+      qaResult = await runQAGate(final, passInput)
+    } catch (err) {
+      console.error(`[pipeline] QA retry ${qaRetryCount} failed:`, err)
+      break
+    }
+  }
+
+  if (!qaResult.passed) {
+    console.log('[pipeline] QA gate still failing after 2 retries — flagging for manual review')
+  }
+
+  // ── Step 15: Build budget ──────────────────────────────────────────────────
   let budgetOutput: Awaited<ReturnType<typeof buildBudget>>
 
   try {
@@ -276,7 +305,9 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
     throw err
   }
 
-  // ── Step 15: Save to grant_applications ───────────────────────────────────
+  const applicationStatus = qaResult.passed ? 'pending_review' : 'qa_failed'
+
+  // ── Step 16: Save to grant_applications ───────────────────────────────────
   let savedApplication: { id: string }
 
   try {
@@ -299,7 +330,10 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
       selected_framework: final.selectedFramework,
       humanizer_applied: final.humanizerApplied,
       uniqueness_score: final.uniquenessScore,
-      status: 'pending_review',
+      qa_scores: qaResult.scores,
+      qa_passed: qaResult.passed,
+      qa_retry_count: qaRetryCount,
+      status: applicationStatus,
       deadline: grant.deadline,
     }
 
@@ -319,21 +353,21 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
     throw err
   }
 
-  // ── Step 16: Update grant_match status to 'pending_review' ────────────────
+  // ── Step 17: Update grant_match status ────────────────────────────────────
   try {
     await (supabase as any)
       .from('grant_matches')
-      .update({ status: 'pending_review' })
+      .update({ status: applicationStatus })
       .eq('id', grantMatchId)
   } catch (err) {
-    console.error('[pipeline] Failed to update grant_match to pending_review:', err)
+    console.error('[pipeline] Failed to update grant_match status:', err)
     throw err
   }
 
-  // ── Step 17: Return PipelineResult ────────────────────────────────────────
+  // ── Step 18: Return PipelineResult ────────────────────────────────────────
   return {
     applicationId: savedApplication.id,
-    status: 'pending_review',
+    status: applicationStatus,
     uniquenessScore: final.uniquenessScore,
     needsRevision: final.needsRevision,
   }

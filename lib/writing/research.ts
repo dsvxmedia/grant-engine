@@ -52,196 +52,202 @@ function selectFramework(funderType: string | null): GrantFramework {
 async function fetchGuidelinesText(url: string | null): Promise<string> {
   if (!url) return ''
   try {
-    const response = await fetch(url)
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 8000)
+    const response = await fetch(url, { signal: controller.signal })
+    clearTimeout(timeout)
     if (!response.ok) return ''
     const html = await response.text()
-    // Strip HTML tags with regex to extract plain text
     return html
       .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, ' ')
       .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, ' ')
       .replace(/<[^>]+>/g, ' ')
       .replace(/\s+/g, ' ')
       .trim()
-      .slice(0, 5000) // cap to keep context manageable
-  } catch (err) {
-    console.error('[research] Failed to fetch guidelines URL:', err)
+      .slice(0, 8000)
+  } catch {
     return ''
   }
 }
 
-async function callClaude(
+async function callClaude(client: Anthropic, prompt: string, maxTokens = 800): Promise<string> {
+  try {
+    const response = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: maxTokens,
+      messages: [{ role: 'user', content: prompt }],
+    })
+    const block = response.content[0]
+    return block.type === 'text' ? block.text : ''
+  } catch (err) {
+    console.error('[research] Claude call failed:', err)
+    return ''
+  }
+}
+
+function buildGrantContext(
+  grantTitle: string,
+  funderName: string | null,
+  description: string | null,
+  eligibilityText: string | null,
+  guidelinesText: string,
+): string {
+  const parts: string[] = [`Grant: ${grantTitle}`]
+  if (funderName) parts.push(`Funder: ${funderName}`)
+  if (description) parts.push(`Description:\n${description}`)
+  if (eligibilityText) parts.push(`Eligibility & Requirements:\n${eligibilityText}`)
+  if (guidelinesText) parts.push(`Guidelines page text:\n${guidelinesText}`)
+  return parts.join('\n\n')
+}
+
+async function extractRequiredSections(
   client: Anthropic,
-  prompt: string
-): Promise<string> {
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 800,
-    messages: [{ role: 'user', content: prompt }],
-  })
-  const block = response.content[0]
-  if (block.type === 'text') return block.text
-  return ''
+  grantContext: string,
+): Promise<string[]> {
+  const response = await callClaude(
+    client,
+    `You are analyzing a grant opportunity to determine what sections the application must contain.
+
+${grantContext}
+
+Based on ALL the grant information above, list the required application sections in order.
+If the grant specifies required sections, use those exactly.
+If not, infer the appropriate sections from the grant type and description.
+
+Return ONLY a JSON array of section name strings, no other text. Example:
+["Executive Summary", "Organizational Background", "Project Description"]`,
+    600,
+  )
+
+  try {
+    const match = response.match(/\[[\s\S]*?\]/)
+    if (!match) return DEFAULT_SECTIONS
+    const parsed = JSON.parse(match[0])
+    if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_SECTIONS
+    const sections = parsed.filter((s): s is string => typeof s === 'string' && s.length > 0)
+    return sections.length > 0 ? sections : DEFAULT_SECTIONS
+  } catch {
+    return DEFAULT_SECTIONS
+  }
+}
+
+async function extractWordLimits(
+  client: Anthropic,
+  grantContext: string,
+): Promise<Record<string, number>> {
+  const response = await callClaude(
+    client,
+    `Analyze this grant information and extract any word limits or page limits for application sections.
+
+${grantContext}
+
+Return ONLY a JSON object mapping section names to word counts. If no word limits are specified, return {}.
+Example: {"Executive Summary": 250, "Project Description": 500}`,
+    400,
+  )
+
+  try {
+    const match = response.match(/\{[\s\S]*?\}/)
+    if (!match) return {}
+    const parsed = JSON.parse(match[0])
+    if (typeof parsed !== 'object' || Array.isArray(parsed)) return {}
+    const limits: Record<string, number> = {}
+    for (const [key, val] of Object.entries(parsed)) {
+      if (typeof val === 'number' && val > 0) limits[key] = val
+    }
+    return limits
+  } catch {
+    return {}
+  }
 }
 
 async function synthesizeFunderResearch(
   client: Anthropic,
   funderName: string,
-  guidelinesText: string
+  grantContext: string,
 ): Promise<{ background: string; recipients: string[]; criteria: string[]; language: string[] }> {
-  const context = guidelinesText
-    ? `\n\nGrant guidelines page content:\n${guidelinesText}`
-    : ''
 
-  let recipientsRaw = ''
-  let criteriaRaw = ''
-  let prioritiesRaw = ''
-
-  try {
-    recipientsRaw = await callClaude(
+  const [criteriaRaw, prioritiesRaw] = await Promise.all([
+    callClaude(
       client,
-      `Based on your training data, summarize what you know about previous grant recipients of ${funderName}. List names or descriptions of organizations that have received grants from this funder. Keep it brief.${context}`
-    )
-  } catch (err) {
-    console.error('[research] Failed to synthesize recipients:', err)
-  }
+      `Based on your training data and this grant information, describe the evaluation criteria ${funderName} uses to score applications. Be specific — list the actual scoring dimensions or review criteria they prioritize.
 
-  try {
-    criteriaRaw = await callClaude(
+${grantContext}
+
+Return a bullet list of evaluation criteria.`,
+      600,
+    ),
+    callClaude(
       client,
-      `Based on your training data, summarize the grant evaluation criteria and scoring rubric used by ${funderName}. List explicit criteria or dimensions they use to evaluate applications.${context}`
-    )
-  } catch (err) {
-    console.error('[research] Failed to synthesize criteria:', err)
-  }
+      `Based on your training data and this grant information, describe ${funderName}'s funding priorities, values, and mission. Extract the exact vocabulary and phrases they use so we can mirror it in the application.
 
-  try {
-    prioritiesRaw = await callClaude(
-      client,
-      `Based on your training data, summarize the funding priorities, values, and mission of ${funderName}. Include key phrases and language they use in their own materials.${context}`
-    )
-  } catch (err) {
-    console.error('[research] Failed to synthesize priorities:', err)
-  }
+${grantContext}
 
-  // Parse recipients from the raw text (split on newlines or semicolons)
-  const recipients = recipientsRaw
-    ? recipientsRaw
-        .split(/\n|;/)
-        .map((s) => s.replace(/^[-*•\d.]+\s*/, '').trim())
-        .filter((s) => s.length > 0)
-    : []
+Return a bullet list of key phrases and priorities.`,
+      600,
+    ),
+  ])
 
-  // Parse criteria similarly
   const criteria = criteriaRaw
-    ? criteriaRaw
-        .split(/\n|;/)
-        .map((s) => s.replace(/^[-*•\d.]+\s*/, '').trim())
-        .filter((s) => s.length > 0)
+    ? criteriaRaw.split('\n').map((s) => s.replace(/^[-*•\d.]+\s*/, '').trim()).filter((s) => s.length > 10)
     : []
 
-  // Extract key phrases from priorities as funder language
-  const language = prioritiesRaw
-    ? prioritiesRaw
-        .split(/\n|;/)
-        .map((s) => s.replace(/^[-*•\d.]+\s*/, '').trim())
-        .filter((s) => s.length > 0 && s.length < 100)
-        .slice(0, 10)
+  const languageLines = prioritiesRaw
+    ? prioritiesRaw.split('\n').map((s) => s.replace(/^[-*•\d.]+\s*/, '').trim()).filter((s) => s.length > 5 && s.length < 120)
     : []
 
-  const background = prioritiesRaw || ''
-
-  return { background, recipients, criteria, language }
-}
-
-async function extractRequiredSections(
-  client: Anthropic,
-  description: string | null,
-  eligibilityText: string | null
-): Promise<string[]> {
-  const content = [description, eligibilityText].filter(Boolean).join('\n\n')
-  if (!content.trim()) return DEFAULT_SECTIONS
-
-  try {
-    const response = await callClaude(
-      client,
-      `List the required sections for this grant application. Return a JSON array of section names only, with no other text.\n\nGrant description and eligibility:\n${content}`
-    )
-
-    // Extract JSON array from response
-    const match = response.match(/\[[\s\S]*\]/)
-    if (!match) return DEFAULT_SECTIONS
-
-    const parsed = JSON.parse(match[0])
-    if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_SECTIONS
-
-    // Validate all items are strings
-    const sections = parsed.filter((item): item is string => typeof item === 'string')
-    if (sections.length === 0) return DEFAULT_SECTIONS
-
-    return sections
-  } catch (err) {
-    console.error('[research] Failed to extract required sections, using defaults:', err)
-    return DEFAULT_SECTIONS
+  return {
+    background: prioritiesRaw || '',
+    recipients: [],
+    criteria,
+    language: languageLines.slice(0, 12),
   }
 }
 
 export async function researchGrant(input: ResearchInput): Promise<ResearchFindings> {
   const { grant } = input
 
-  // Step 3: Framework selection — deterministic, always succeeds
   const selectedFramework = selectFramework(grant.funder_type)
 
-  // Step 1: Fetch grant guidelines page
+  // Fetch live guidelines page
   const url = grant.application_url ?? grant.source_url
   const guidelinesText = await fetchGuidelinesText(url)
 
-  // Lazy instantiate Anthropic client
-  const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY })
-
-  // Step 2: Web research synthesis (skip if no funder name)
-  let funderBackground = ''
-  let previousRecipients: string[] = []
-  let evaluationCriteria: string[] = []
-  let funderLanguage: string[] = []
-
-  if (grant.funder_name) {
-    try {
-      const synthesis = await synthesizeFunderResearch(client, grant.funder_name, guidelinesText)
-      funderBackground = synthesis.background
-      previousRecipients = synthesis.recipients
-      evaluationCriteria = synthesis.criteria
-      funderLanguage = synthesis.language
-    } catch (err) {
-      console.error('[research] Funder synthesis failed:', err)
-    }
-  }
-
-  // Step 4: Section extraction
-  const requiredSections = await extractRequiredSections(
-    client,
+  // Build a unified grant context string used in every prompt
+  const grantContext = buildGrantContext(
+    grant.title,
+    grant.funder_name,
     grant.description,
-    grant.eligibility_text
+    grant.eligibility_text,
+    guidelinesText,
   )
 
-  // Assemble raw notes for Pass 1 context
-  const rawNotesParts: string[] = []
-  if (guidelinesText) rawNotesParts.push(`=== Guidelines Page ===\n${guidelinesText}`)
-  if (funderBackground) rawNotesParts.push(`=== Funder Background ===\n${funderBackground}`)
-  if (previousRecipients.length > 0)
-    rawNotesParts.push(`=== Previous Recipients ===\n${previousRecipients.join('\n')}`)
-  if (evaluationCriteria.length > 0)
-    rawNotesParts.push(`=== Evaluation Criteria ===\n${evaluationCriteria.join('\n')}`)
+  const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY })
 
-  const rawNotes = rawNotesParts.join('\n\n')
+  // Run all research in parallel
+  const [funderSynthesis, requiredSections, wordLimits] = await Promise.all([
+    grant.funder_name
+      ? synthesizeFunderResearch(client, grant.funder_name, grantContext)
+      : Promise.resolve({ background: '', recipients: [], criteria: [], language: [] }),
+    extractRequiredSections(client, grantContext),
+    extractWordLimits(client, grantContext),
+  ])
+
+  const rawNotesParts: string[] = []
+  if (guidelinesText) rawNotesParts.push(`=== Live Guidelines Page ===\n${guidelinesText}`)
+  if (grant.eligibility_text) rawNotesParts.push(`=== Eligibility Text ===\n${grant.eligibility_text}`)
+  if (funderSynthesis.background) rawNotesParts.push(`=== Funder Priorities ===\n${funderSynthesis.background}`)
+  if (funderSynthesis.criteria.length > 0)
+    rawNotesParts.push(`=== Evaluation Criteria ===\n${funderSynthesis.criteria.join('\n')}`)
 
   return {
-    funderBackground,
-    previousRecipients,
-    evaluationCriteria,
+    funderBackground: funderSynthesis.background,
+    previousRecipients: funderSynthesis.recipients,
+    evaluationCriteria: funderSynthesis.criteria,
     requiredSections,
-    wordLimits: {},
+    wordLimits,
     selectedFramework,
-    funderLanguage,
-    rawNotes,
+    funderLanguage: funderSynthesis.language,
+    rawNotes: rawNotesParts.join('\n\n'),
   }
 }

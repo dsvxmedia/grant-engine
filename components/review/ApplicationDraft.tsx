@@ -2,6 +2,8 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import {
@@ -98,9 +100,11 @@ function SectionEditor({
         </div>
       ) : (
         <div className="flex flex-col gap-2">
-          <p className="whitespace-pre-wrap text-sm text-muted-foreground leading-relaxed">
-            {section.text}
-          </p>
+          <div className="prose prose-sm prose-slate max-w-none text-sm leading-relaxed [&>p]:text-muted-foreground [&>ul]:text-muted-foreground [&>ol]:text-muted-foreground [&>blockquote]:text-muted-foreground">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {section.text}
+            </ReactMarkdown>
+          </div>
           <Button
             size="sm"
             variant="outline"
