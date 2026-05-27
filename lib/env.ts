@@ -10,7 +10,7 @@ const envSchema = z.object({
   RESEND_API_KEY: z.string().min(1),
   RESEND_FROM_EMAIL: z.string().email(),
   RESEND_ALERT_EMAIL: z.string().email(),
-  BLOB_READ_WRITE_TOKEN: z.string().min(1),
+  BLOB_READ_WRITE_TOKEN: z.string().min(1).optional(),
   CRON_SECRET: z.string().min(1).optional(),
   // Optional: Google Custom Search API (100 free queries/day)
   GOOGLE_CUSTOM_SEARCH_API_KEY: z.string().min(1).optional(),
