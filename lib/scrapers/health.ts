@@ -1,5 +1,6 @@
 import { Resend } from 'resend'
 import { env } from '@/lib/env'
+import { createNotification } from '@/lib/notifications'
 
 export type ScraperFailure = { source: string; error: string }
 
@@ -12,6 +13,14 @@ function buildHtml(failures: ScraperFailure[]): string {
 
 export async function sendScraperAlert(failures: ScraperFailure[]): Promise<void> {
   if (failures.length === 0) return
+
+  // In-app notification so the alert is visible in the dashboard
+  await createNotification({
+    type: 'alert',
+    title: `Scraper alert: ${failures.length} source${failures.length !== 1 ? 's' : ''} failed`,
+    body: failures.map((f) => `${f.source}: ${f.error}`).join(' · ').slice(0, 200),
+    metadata: { failures },
+  })
 
   try {
     const resend = new Resend(env.RESEND_API_KEY)

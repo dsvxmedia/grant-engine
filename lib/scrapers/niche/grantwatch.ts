@@ -43,7 +43,7 @@ function extractGrants(html: string, categoryPath: string, tags: string[]): RawG
     grants.push({
       source: 'grantwatch',
       sourceUrl: categoryUrl,
-      applicationUrl: categoryUrl,
+      // applicationUrl intentionally omitted — category listing pages are not grant application URLs
       title,
       description: fullDesc.slice(0, 500),
       funderType: 'niche',

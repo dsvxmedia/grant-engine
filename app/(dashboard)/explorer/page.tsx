@@ -261,8 +261,6 @@ export default function ExplorerPage() {
                         : grant.award_max != null
                           ? `Up to ${formatCurrency(grant.award_max)}`
                           : null
-                    const applyUrl = grant.application_url ?? grant.source_url
-
                     return (
                       <tr key={grant.id} className="hover:bg-muted/30 transition-colors">
                         <td className="px-4 py-3 max-w-xs">
@@ -303,9 +301,9 @@ export default function ExplorerPage() {
                             >
                               Info
                             </button>
-                            {applyUrl && (
+                            {grant.application_url && (
                               <a
-                                href={applyUrl}
+                                href={grant.application_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1 text-xs text-primary hover:underline underline-offset-2"

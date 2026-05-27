@@ -27,6 +27,7 @@ function extractGrants(html: string): RawGrant[] {
     grants.push({
       source: 'candid',
       sourceUrl: linkMatch?.[1] ?? CANDID_URL,
+      // applicationUrl intentionally omitted — Candid find-funding links go to their directory, not the funder's actual application page
       title,
       description: descMatch?.[1]?.trim(),
       funderType: 'niche',

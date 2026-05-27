@@ -6,6 +6,7 @@ import {
   persistMatches,
   type MatchRecord,
 } from '@/lib/matching/persist'
+import { createNotifications } from '@/lib/notifications'
 
 export type RunMatchingResult = {
   grants_checked: number
@@ -118,6 +119,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
   )
 
   const records: MatchRecord[] = []
+  const newHighScoreMatches: Array<{ grantTitle: string; score: number }> = []
   let pairsEvaluated = 0
   let pairsPassedFilter = 0
   let pairsQueued = 0
@@ -201,6 +203,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
 
         if (fitScore >= 70) {
           pairsQueued += 1
+          newHighScoreMatches.push({ grantTitle: grant.title, score: Math.round(fitScore) })
         } else if (fitScore >= 50) {
           pairsPendingReview += 1
         } else {
@@ -224,6 +227,26 @@ export async function runMatching(): Promise<RunMatchingResult> {
   }
 
   const persistResult = await persistMatches(records)
+
+  // Create notifications for newly queued high-score matches
+  if (newHighScoreMatches.length > 0) {
+    if (newHighScoreMatches.length === 1) {
+      const m = newHighScoreMatches[0]
+      await createNotifications([{
+        type: 'new_match',
+        title: `New match: ${m.grantTitle}`,
+        body: `Fit score ${m.score} — queued for drafting`,
+        metadata: { score: m.score },
+      }])
+    } else {
+      await createNotifications([{
+        type: 'new_match',
+        title: `${newHighScoreMatches.length} new high-score matches queued`,
+        body: `Top match: ${newHighScoreMatches[0].grantTitle} (score ${newHighScoreMatches[0].score})`,
+        metadata: { count: newHighScoreMatches.length },
+      }])
+    }
+  }
 
   return {
     grants_checked: grantsList.length,

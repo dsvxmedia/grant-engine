@@ -1,5 +1,6 @@
 import { createServiceClient } from '@/lib/supabase/server'
 import { hasPastFiscalYear } from './normalize'
+import { createNotifications } from '@/lib/notifications'
 
 const ROLLING_SOURCES = new Set(['monthly-programs', 'monthly_programs'])
 const ROLLING_CATEGORY_TAGS = new Set([
@@ -14,9 +15,32 @@ function isRollingRow(row: { source: string; category_tags: string[] | null; tit
   return ROLLING_TEXT_RE.test(`${row.title} ${row.description ?? ''}`)
 }
 
+// Null out application_url values that are known listing/category pages (not actual apply URLs).
+// These were stored by early scraper runs before URL sanitization was in place.
+async function fixListingPageUrls(supabase: Awaited<ReturnType<typeof createServiceClient>>): Promise<void> {
+  // GrantWatch category pages used as applicationUrl (e.g. .../cat/13/small-business-grants.html)
+  await (supabase as any)
+    .from('grants')
+    .update({ application_url: null })
+    .like('application_url', '%grantwatch.com/cat/%')
+
+  // Candid generic find-funding listing used as applicationUrl
+  await (supabase as any)
+    .from('grants')
+    .update({ application_url: null })
+    .in('application_url', [
+      'https://candid.org/find-funding/',
+      'https://candid.org/find-funding',
+    ])
+}
+
 export async function cleanupExpiredGrants(): Promise<{ deleted: number; expired: number }> {
   const supabase = await createServiceClient()
   const now = new Date().toISOString()
+
+  // Fix any application URLs that are listing pages (not real apply links)
+  await fixListingPageUrls(supabase)
+  console.log('[cleanup] nulled listing-page application_url values')
 
   // Collect IDs: past deadline
   const { data: pastDeadline } = await (supabase as any)
@@ -125,6 +149,34 @@ export async function cleanupExpiredGrants(): Promise<{ deleted: number; expired
     console.log(
       `[cleanup] deleted ${toDelete.length} expired grants, marked ${toExpire.length} expired (have application history)`
     )
+  }
+
+  // Deadline warning: notify for grants expiring in 7 days
+  const sevenDays = new Date()
+  sevenDays.setDate(sevenDays.getDate() + 7)
+  const { data: expiringSoon } = await (supabase as any)
+    .from('grants')
+    .select('title, deadline')
+    .eq('status', 'active')
+    .gte('deadline', now)
+    .lte('deadline', sevenDays.toISOString())
+    .order('deadline', { ascending: true })
+    .limit(10)
+
+  if (expiringSoon && expiringSoon.length > 0) {
+    const notifs = (expiringSoon as Array<{ title: string; deadline: string }>).map((g) => {
+      const daysLeft = Math.max(
+        0,
+        Math.ceil((new Date(g.deadline).getTime() - Date.now()) / 86_400_000)
+      )
+      return {
+        type: 'deadline_warning' as const,
+        title: `Deadline in ${daysLeft} day${daysLeft !== 1 ? 's' : ''}: ${g.title}`,
+        body: `Due ${new Date(g.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`,
+        metadata: { deadline: g.deadline },
+      }
+    })
+    await createNotifications(notifs)
   }
 
   return { deleted: toDelete.length, expired: toExpire.length }

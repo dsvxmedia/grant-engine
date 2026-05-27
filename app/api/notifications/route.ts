@@ -25,14 +25,24 @@ export async function GET(_request: NextRequest) {
 }
 
 // PATCH /api/notifications
-// Body: { markAllRead: true }
+// Body: { id: string }          → mark one notification read
+// Body: { markAllRead: true }   → mark all read
 // Returns: { ok: true }
 export async function PATCH(request: NextRequest) {
   const supabase = await createServiceClient()
+  const body = await request.json().catch(() => ({}))
 
-  await (supabase as any)
-    .from('notifications')
-    .update({ read: true })
+  if (body.id) {
+    await (supabase as any)
+      .from('notifications')
+      .update({ read: true })
+      .eq('id', body.id)
+  } else {
+    await (supabase as any)
+      .from('notifications')
+      .update({ read: true })
+      .eq('read', false)
+  }
 
   return NextResponse.json({ ok: true })
 }

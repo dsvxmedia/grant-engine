@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Header } from '@/components/layout/Header'
 import { createServiceClient } from '@/lib/supabase/server'
 import { cn } from '@/lib/utils'
 import type { VideoJobStatus } from '@/lib/video/types'
@@ -54,15 +55,12 @@ export default async function VideoQueuePage() {
   const rows: VideoSubmissionRow[] = submissions ?? []
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-xl font-semibold tracking-tight">Video Queue</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">
-            AI-generated pitch videos for grants requiring video submissions.
-          </p>
-        </div>
-      </div>
+    <div className="flex flex-col h-full">
+      <Header title="Video Queue" />
+      <div className="flex-1 overflow-y-auto p-6">
+      <p className="text-sm text-muted-foreground mb-4">
+        AI-generated pitch videos for grants requiring video submissions. (V3 feature)
+      </p>
 
       {rows.length === 0 ? (
         <div className="rounded-lg border border-border bg-muted/30 px-6 py-12 text-center">
@@ -133,6 +131,7 @@ export default async function VideoQueuePage() {
           </table>
         </div>
       )}
+      </div>
     </div>
   )
 }

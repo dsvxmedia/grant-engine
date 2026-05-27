@@ -73,6 +73,41 @@ export function hasPastFiscalYear(title: string): boolean {
   return year !== null && year < CURRENT_FISCAL_YEAR
 }
 
+// Patterns that indicate a URL is a listing/category/directory page, not an actual grant application
+const LISTING_URL_PATTERNS = [
+  /grantwatch\.com\/cat\//i,
+  /candid\.org\/find-funding\/?$/i,
+  /instrumentl\.com\/(grants|find-grants)\/?$/i,
+  /grants\.gov\/(search|browse|learn)\//i,
+  /\/grants\/search\/?/i,
+  /\/browse\/(grants|funding)\/?/i,
+  /\/find-grants?\/?$/i,
+]
+
+// Social media post URLs are never valid grant application URLs
+const SOCIAL_MEDIA_DOMAINS = [
+  'twitter.com', 'x.com', 'instagram.com', 'facebook.com',
+  'tiktok.com', 'youtube.com', 'linkedin.com/posts', 'linkedin.com/feed',
+]
+
+function sanitizeApplicationUrl(
+  applicationUrl: string | undefined,
+  sourceUrl: string | undefined
+): string | null {
+  if (!applicationUrl) return null
+  try {
+    const { hostname, pathname } = new URL(applicationUrl)
+    if (SOCIAL_MEDIA_DOMAINS.some((d) => applicationUrl.includes(d) && (pathname.startsWith('/posts') || pathname.startsWith('/p/') || pathname.startsWith('/status') || pathname.startsWith('/reel') || hostname === d || hostname.endsWith(`.${d}`)))) return null
+    if (LISTING_URL_PATTERNS.some((re) => re.test(applicationUrl))) return null
+    // If the application URL is identical to the source URL and it looks like a listing page,
+    // it means the scraper couldn't find the actual grant page — don't set it
+    if (applicationUrl === sourceUrl && /\/(cat|browse|find-funding|search|grants|directory|listing)\//i.test(applicationUrl)) return null
+    return applicationUrl
+  } catch {
+    return null
+  }
+}
+
 export function normalizeGrant(raw: RawGrant): NormalizedGrant | null {
   const deadline = parseDate(raw.deadline)
   const loiDeadline = parseDate(raw.loiDeadline)
@@ -112,7 +147,7 @@ export function normalizeGrant(raw: RawGrant): NormalizedGrant | null {
   return {
     source: raw.source,
     source_url: raw.sourceUrl ?? null,
-    application_url: raw.applicationUrl ?? null,
+    application_url: sanitizeApplicationUrl(raw.applicationUrl, raw.sourceUrl),
     title: raw.title,
     description: raw.description ?? null,
     funder_name: raw.funderName ?? null,
