@@ -25,10 +25,13 @@ function parseSections(draftContent: Record<string, unknown> | null): DraftSecti
   if (!draftContent) return []
   const sections = draftContent['sections']
   if (!Array.isArray(sections)) return []
-  return sections.filter(
-    (s): s is DraftSection =>
-      typeof s === 'object' && s !== null && 'heading' in s && 'text' in s
-  )
+  return sections
+    .filter((s): s is Record<string, unknown> => typeof s === 'object' && s !== null)
+    .map((s) => ({
+      heading: (s['heading'] ?? s['name'] ?? '') as string,
+      text: (s['text'] ?? s['content'] ?? '') as string,
+    }))
+    .filter((s) => s.heading && s.text && s.text !== '---')
 }
 
 function SectionEditor({
