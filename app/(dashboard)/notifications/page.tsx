@@ -3,6 +3,8 @@ import { NotificationList } from '@/components/notifications/NotificationList'
 import { createServiceClient } from '@/lib/supabase/server'
 import type { NotificationRecord } from '@/components/notifications/NotificationList'
 
+export const dynamic = 'force-dynamic'
+
 export default async function NotificationsPage() {
   const supabase = await createServiceClient()
 
