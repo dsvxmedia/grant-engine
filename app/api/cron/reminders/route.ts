@@ -6,10 +6,9 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 type ApplicationRow = {
   id: string
-  grant_title?: string | null
-  funder_name?: string | null
   deadline?: string | null
   status: string
+  grants: { title: string; funder_name: string | null } | null
 }
 
 function daysUntil(deadline: string): number {
@@ -42,7 +41,7 @@ export async function GET(request: Request) {
   // Fetch applications with deadlines in the next 15 days
   const { data: applications, error } = await (supabase as any)
     .from('grant_applications')
-    .select('id, grant_title, funder_name, deadline, status')
+    .select('id, deadline, status, grants(title, funder_name)')
     .in('status', ['approved', 'pending_review'])
     .gte('deadline', new Date().toISOString())
     .lte('deadline', new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString())
@@ -77,7 +76,7 @@ export async function GET(request: Request) {
     if (apps.length === 0) continue
 
     const list = apps
-      .map((a) => `• ${a.grant_title ?? 'Unknown Grant'} (${a.funder_name ?? 'Unknown Funder'}) — due ${a.deadline}`)
+      .map((a) => `• ${a.grants?.title ?? 'Unknown Grant'} (${a.grants?.funder_name ?? 'Unknown Funder'}) — due ${a.deadline}`)
       .join('\n')
 
     try {

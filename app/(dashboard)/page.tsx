@@ -104,15 +104,23 @@ function appStatusToColumn(status: string): string | null {
 export default async function PipelinePage() {
   const supabase = await createServiceClient()
 
-  // Matched grants — top 50 by score, queued + pending_review
+  // Matched grants — deduplicated by grant_id so each grant appears once on the board
   const { data: matchesRaw } = await (supabase as any)
     .from('grant_matches')
     .select('*, grants(title, funder_name, funder_type, award_min, award_max, deadline, source, source_url, application_url, description, eligibility_tags, category_tags, requires_loi, coalition_preferred), business_entities(id, name)')
     .in('status', ['queued', 'pending_review'])
     .order('fit_score', { ascending: false })
-    .limit(50)
+    .limit(200)
 
-  const matches: MatchRecord[] = matchesRaw ?? []
+  // Keep highest-scoring match per grant so each grant appears once on the Kanban board
+  const seenOnBoard = new Set<string>()
+  const matches: MatchRecord[] = []
+  for (const m of (matchesRaw ?? []) as MatchRecord[]) {
+    if (!m.grant_id || seenOnBoard.has(m.grant_id)) continue
+    seenOnBoard.add(m.grant_id)
+    matches.push(m)
+    if (matches.length >= 50) break
+  }
 
   const { data: applicationsRaw } = await (supabase as any)
     .from('grant_applications')
@@ -134,20 +142,11 @@ export default async function PipelinePage() {
     .select('*', { count: 'exact', head: true })
     .eq('status', 'active')
 
-  const { count: pendingReviewCount } = await (supabase as any)
-    .from('grant_matches')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'pending_review')
-
-  const { count: queuedCount } = await (supabase as any)
-    .from('grant_matches')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'queued')
-
   const columns: KanbanColumn[] = [
     { id: 'discovered', label: 'Discovered',  count: discoveredCount ?? 0, cards: [] },
     { id: 'loi',        label: 'LOI Queue',   count: 0,                   cards: [] },
-    { id: 'matched',    label: 'Matched',     count: (pendingReviewCount ?? 0) + (queuedCount ?? 0), cards: [] },
+    // Count = unique grants on the board (deduped), not raw match records
+    { id: 'matched',    label: 'Matched',     count: seenOnBoard.size,     cards: [] },
     { id: 'qa_review',  label: 'QA Review',   count: 0,                   cards: [] },
     { id: 'review',     label: 'Review',      count: 0,                   cards: [] },
     { id: 'submitted',  label: 'Submitted',   count: 0,                   cards: [] },

@@ -17,21 +17,40 @@ export default async function ReviewQueuePage() {
   if (appsError) console.error('Applications fetch failed:', appsError)
   const applications: ApplicationRecord[] = appsRaw ?? []
 
-  // Matched grants needing a "should we draft this?" decision
+  // Matched grants needing a "should we draft this?" decision.
+  // Fetch more than we need (500) then deduplicate by grant_id server-side,
+  // keeping only the highest-scoring entity match per grant. This prevents the
+  // same grant from appearing multiple times (once per matched entity).
   const { data: matchesRaw, error: matchesError } = await (supabase as any)
     .from('grant_matches')
     .select('*, grants(title, funder_name, funder_type, source, source_url, application_url, award_min, award_max, deadline, description, category_tags, eligibility_tags, requires_loi, coalition_preferred), business_entities(id, name)')
     .eq('status', 'pending_review')
     .order('fit_score', { ascending: false })
-    .limit(100)
+    .limit(500)
 
   if (matchesError) console.error('Matches fetch failed:', matchesError)
-  const matches: MatchRecord[] = matchesRaw ?? []
+  const allMatches: MatchRecord[] = matchesRaw ?? []
 
-  const { count: totalMatches } = await (supabase as any)
+  // Deduplicate: keep highest fit_score match per grant_id
+  const seenGrantIds = new Set<string>()
+  const matches: MatchRecord[] = []
+  for (const m of allMatches) {
+    const grantId = m.grant_id
+    if (!grantId || seenGrantIds.has(grantId)) continue
+    seenGrantIds.add(grantId)
+    matches.push(m)
+    if (matches.length >= 100) break
+  }
+
+  const totalUniqueGrants = seenGrantIds.size
+
+  const { count: totalMatchRecords } = await (supabase as any)
     .from('grant_matches')
     .select('*', { count: 'exact', head: true })
     .eq('status', 'pending_review')
+
+  // Distinct grant count: total match records ÷ average entities, approximate
+  const totalGrantsEstimate = totalMatchRecords
 
   return (
     <div className="flex flex-col h-full">
@@ -58,12 +77,12 @@ export default async function ReviewQueuePage() {
               <div>
                 <h2 className="text-sm font-semibold">Matched Grants</h2>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  {totalMatches ?? matches.length} grants scored 50–69 — review and queue the ones worth applying for.
+                  {totalUniqueGrants} unique grants scored 50–69 — review and queue the ones worth applying for.
                 </p>
               </div>
-              {(totalMatches ?? 0) > matches.length && (
+              {totalUniqueGrants > matches.length && (
                 <span className="text-xs text-muted-foreground">
-                  Showing top {matches.length} of {totalMatches}
+                  Showing top {matches.length} of {totalUniqueGrants}
                 </span>
               )}
             </div>
