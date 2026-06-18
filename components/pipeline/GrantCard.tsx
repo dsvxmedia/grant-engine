@@ -65,9 +65,9 @@ export function GrantCard({ card }: GrantCardProps) {
 
   return (
     <>
-      <div onClick={() => setSheetOpen(true)}>
+      <button type="button" onClick={() => setSheetOpen(true)} className="w-full text-left">
         {inner}
-      </div>
+      </button>
       <GrantDetailSheet
         open={sheetOpen}
         onOpenChange={setSheetOpen}

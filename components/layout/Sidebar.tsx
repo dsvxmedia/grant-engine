@@ -17,10 +17,10 @@ const nav = [
   { href: '/profile',       icon: User,            label: 'Profile' },
   { href: '/analytics',     icon: BarChart3,       label: 'Analytics' },
   { href: '/notifications', icon: Bell,            label: 'Notifications' },
-  { href: '/video',         icon: Video,           label: 'Video Queue' },
+  { href: '/video',         icon: Video,           label: 'Video Queue', beta: true },
   { href: '/settings',      icon: Settings,        label: 'Settings' },
-  { href: '/relationships', icon: Users,            label: 'Relationships' },
-  { href: '/coalition',     icon: Link2,            label: 'Coalition' },
+  { href: '/relationships', icon: Users,           label: 'Relationships', beta: true },
+  { href: '/coalition',     icon: Link2,           label: 'Coalition', beta: true },
 ]
 
 export function Sidebar({ unreadCount }: { unreadCount?: number }) {
@@ -31,7 +31,7 @@ export function Sidebar({ unreadCount }: { unreadCount?: number }) {
         <h1 className="text-sm font-semibold tracking-tight">Grant Engine</h1>
       </div>
       <nav className="flex flex-col gap-1">
-        {nav.map(({ href, icon: Icon, label }) => (
+        {nav.map(({ href, icon: Icon, label, beta }) => (
           <Link
             key={href}
             href={href}
@@ -51,6 +51,11 @@ export function Sidebar({ unreadCount }: { unreadCount?: number }) {
               )}
             </span>
             {label}
+            {beta && (
+              <span className="ml-auto rounded px-1 py-px text-[10px] font-medium bg-slate-100 text-slate-500 leading-none">
+                Beta
+              </span>
+            )}
           </Link>
         ))}
       </nav>

@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# playwright-cli session artifacts
+/.playwright-cli/
+
 # next.js
 /.next/
 /out/

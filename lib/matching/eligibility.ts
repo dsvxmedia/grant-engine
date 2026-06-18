@@ -64,6 +64,8 @@ export type EligibilityInput = {
     eligibility_tags: string[]
     award_min: number | null
     award_max: number | null
+    requires_nonprofit?: boolean | null
+    fiscal_sponsor_eligible?: boolean | null
   }
   entity: {
     id: string
@@ -80,6 +82,7 @@ export type EligibilityInput = {
     sbir_eligible: boolean | null
     revenue_range: string | null
     is_healthcare_provider?: boolean | null
+    has_fiscal_sponsor?: boolean | null
   }
   alreadyApplied: boolean
 }
@@ -139,6 +142,16 @@ export function checkEligibility(input: EligibilityInput): EligibilityResult {
   // SAM registration is a soft note, not a hard block — federal grants still
   // enter the pipeline while registration is pending. Update sam_registered = true
   // on entities once SAM.gov approves to remove this note from future matches.
+
+  // Nonprofit-only grants: reject if the entity is not a nonprofit and has no fiscal sponsor,
+  // unless the grant explicitly allows fiscal sponsorship for LLCs/for-profits.
+  if (grant.requires_nonprofit) {
+    const isNonprofit = entity.type === 'nonprofit'
+    const canUseFiscalSponsor = grant.fiscal_sponsor_eligible && entity.has_fiscal_sponsor
+    if (!isNonprofit && !canUseFiscalSponsor) {
+      failures.push('requires_nonprofit')
+    }
+  }
 
   // Women-owned grants: entity is not women-owned, so reject any grant that requires it
   const womenOnlyTags = ['women-owned', 'women_owned', 'women-led', 'women-business', 'women-founded']

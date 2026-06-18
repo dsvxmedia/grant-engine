@@ -3,6 +3,20 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 const fetchMock = vi.fn()
 vi.stubGlobal('fetch', fetchMock)
 
+// Prevent real Playwright browser launches in the orchestrator test.
+// helloskip.ts uses Chromium; without this mock it makes live network calls.
+vi.mock('@/lib/scrapers/playwright-loader', () => ({
+  loadChromium: vi.fn().mockResolvedValue({
+    launch: vi.fn().mockResolvedValue({
+      newPage: vi.fn().mockResolvedValue({
+        goto: vi.fn().mockResolvedValue(null),
+        evaluate: vi.fn().mockResolvedValue([]),
+      }),
+      close: vi.fn().mockResolvedValue(undefined),
+    }),
+  }),
+}))
+
 const grantwatchHtml = `
   <html><body>
     <p>Grants to Black-owned small businesses for startup costs and operational expenses to grow their enterprises.</p>
@@ -19,6 +33,8 @@ const candidHtml = `
     </div>
   </body></html>
 `
+
+const emptyHtml = '<html><body></body></html>'
 
 describe('scrapeGrantwatch', () => {
   beforeEach(() => {
@@ -99,9 +115,19 @@ describe('scrapeCandid', () => {
 describe('scrapeNiche (orchestrator)', () => {
   beforeEach(() => {
     fetchMock.mockReset()
+    // Default: all fetch-based scrapers get an empty page and return [].
+    // Playwright-based scrapers (helloskip) are mocked at module level above.
+    fetchMock.mockResolvedValue({
+      ok: true,
+      status: 200,
+      text: async () => emptyHtml,
+      json: async () => ({ totalCount: 0, results: [] }),
+    })
   })
 
   it('merges results from all niche scrapers and tolerates partial failure', async () => {
+    // One scraper returns real content; one is explicitly rejected.
+    // All others return empty pages via the default mock above.
     fetchMock
       .mockResolvedValueOnce({
         ok: true,
