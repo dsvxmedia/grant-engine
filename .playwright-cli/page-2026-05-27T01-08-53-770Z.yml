@@ -1,0 +1,276 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - heading "Grant Engine" [level=1] [ref=e5]
+      - navigation [ref=e6]:
+        - link "Pipeline" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e9]
+          - text: Pipeline
+        - link "Review Queue" [ref=e14] [cursor=pointer]:
+          - /url: /review
+          - img [ref=e16]
+          - text: Review Queue
+        - link "LOI Queue" [ref=e19] [cursor=pointer]:
+          - /url: /loi
+          - img [ref=e21]
+          - text: LOI Queue
+        - link "Explorer" [ref=e24] [cursor=pointer]:
+          - /url: /explorer
+          - img [ref=e26]
+          - text: Explorer
+        - link "Calendar" [ref=e29] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e31]
+          - text: Calendar
+        - link "Profile" [ref=e33] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e35]
+          - text: Profile
+        - link "Analytics" [ref=e38] [cursor=pointer]:
+          - /url: /analytics
+          - img [ref=e40]
+          - text: Analytics
+        - link "1 Notifications" [ref=e42] [cursor=pointer]:
+          - /url: /notifications
+          - generic [ref=e43]:
+            - img [ref=e44]
+            - generic [ref=e47]: "1"
+          - text: Notifications
+        - link "Video Queue" [ref=e48] [cursor=pointer]:
+          - /url: /video
+          - img [ref=e50]
+          - text: Video Queue
+        - link "Settings" [ref=e53] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e55]
+          - text: Settings
+        - link "Relationships" [ref=e58] [cursor=pointer]:
+          - /url: /relationships
+          - img [ref=e60]
+          - text: Relationships
+        - link "Coalition" [ref=e65] [cursor=pointer]:
+          - /url: /coalition
+          - img [ref=e67]
+          - text: Coalition
+    - main [ref=e70]:
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - heading "Pipeline" [level=2] [ref=e73]
+          - link "Notifications" [ref=e75] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e76]
+        - generic [ref=e80]:
+          - generic [ref=e82]:
+            - img
+            - textbox "Search grants…" [ref=e83]
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - generic [ref=e86]:
+                - generic [ref=e87]: Discovered
+                - generic [ref=e88]: "228"
+              - generic [ref=e91]: Empty
+            - generic [ref=e92]:
+              - generic [ref=e93]:
+                - generic [ref=e94]: LOI Queue
+                - generic [ref=e95]: "0"
+              - generic [ref=e98]: Empty
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - generic [ref=e101]: Matched
+                - generic [ref=e102]: "24"
+              - generic [ref=e104]:
+                - generic [ref=e106] [cursor=pointer]:
+                  - generic [ref=e107]:
+                    - generic [ref=e108]: SBA Community Advantage Loans & Grants
+                    - generic [ref=e109]: "86.1"
+                  - generic [ref=e110]: U.S. Small Business Administration
+                  - generic [ref=e112]: $5,000 – $250,000
+                  - generic [ref=e113]: LegalFlow
+                - generic [ref=e115] [cursor=pointer]:
+                  - generic [ref=e116]:
+                    - generic [ref=e117]: NAACP Economic Growth Grant
+                    - generic [ref=e118]: "82.4"
+                  - generic [ref=e119]: NAACP
+                  - generic [ref=e121]: $2,500 – $25,000
+                  - generic [ref=e122]: LegalFlow
+                - generic [ref=e124] [cursor=pointer]:
+                  - generic [ref=e125]:
+                    - generic [ref=e126]: T-Mobile Small Business Grant
+                    - generic [ref=e127]: "81.7"
+                  - generic [ref=e128]: T-Mobile
+                  - generic [ref=e130]: Up to $10,000
+                  - generic [ref=e131]: FlowTech Ventures
+                - generic [ref=e133] [cursor=pointer]:
+                  - generic [ref=e134]:
+                    - generic [ref=e135]: JPMorgan Chase Advancing Black Pathways
+                    - generic [ref=e136]: "81.7"
+                  - generic [ref=e137]: JPMorgan Chase
+                  - generic [ref=e139]: $5,000 – $50,000
+                  - generic [ref=e140]: LegalFlow
+                - generic [ref=e142] [cursor=pointer]:
+                  - generic [ref=e143]:
+                    - generic [ref=e144]: Comcast RISE Investment Fund
+                    - generic [ref=e145]: "81.7"
+                  - generic [ref=e146]: Comcast
+                  - generic [ref=e148]: $10,000 – $25,000
+                  - generic [ref=e149]: LegalFlow
+                - generic [ref=e151] [cursor=pointer]:
+                  - generic [ref=e152]:
+                    - generic [ref=e153]: Wells Fargo Open for Business Fund
+                    - generic [ref=e154]: "81.7"
+                  - generic [ref=e155]: Wells Fargo
+                  - generic [ref=e157]: $5,000 – $100,000
+                  - generic [ref=e158]: LegalFlow
+                - generic [ref=e160] [cursor=pointer]:
+                  - generic [ref=e161]:
+                    - generic [ref=e162]: Santander X Cultivate Small Business Grant
+                    - generic [ref=e163]: "78.6"
+                  - generic [ref=e164]: Santander Bank / Cultivate Small Business
+                  - generic [ref=e165]:
+                    - generic [ref=e166]: $2,500 – $20,000
+                    - generic [ref=e167]: 96 days
+                  - generic [ref=e168]: LegalFlow
+                - generic [ref=e170] [cursor=pointer]:
+                  - generic [ref=e171]:
+                    - generic [ref=e172]: Halstead Grant
+                    - generic [ref=e173]: "71.8"
+                  - generic [ref=e174]: Halstead
+                  - generic [ref=e175]:
+                    - generic [ref=e176]: Up to $8,500
+                    - generic [ref=e177]: 80 days
+                  - generic [ref=e178]: FlowTech Ventures
+                - generic [ref=e180] [cursor=pointer]:
+                  - generic [ref=e181]:
+                    - generic [ref=e182]: Google for Startups Black Founders Fund
+                    - generic [ref=e183]: "71.4"
+                  - generic [ref=e184]: Google for Startups
+                  - generic [ref=e186]: Up to $350,000
+                  - generic [ref=e187]: LegalFlow
+                - generic [ref=e189] [cursor=pointer]:
+                  - generic [ref=e190]:
+                    - generic [ref=e191]: Kickstarter × Google Next Wave Fund
+                    - generic [ref=e192]: "69.4"
+                  - generic [ref=e193]: Kickstarter / Google
+                  - generic [ref=e195]: Up to $10,000
+                  - generic [ref=e196]: LegalFlow
+                - generic [ref=e198] [cursor=pointer]:
+                  - generic [ref=e199]:
+                    - generic [ref=e200]: IFundWomen Universal Grant
+                    - generic [ref=e201]: "67.8"
+                  - generic [ref=e202]: IFundWomen
+                  - generic [ref=e204]: $500 – $50,000
+                  - generic [ref=e205]: LegalFlow
+                - generic [ref=e207] [cursor=pointer]:
+                  - generic [ref=e208]:
+                    - generic [ref=e209]: Freed Fellowship Grant
+                    - generic [ref=e210]: "65.9"
+                  - generic [ref=e211]: Freed Fellowship
+                  - generic [ref=e213]: Up to $500
+                  - generic [ref=e214]: FlowTech Ventures
+                - generic [ref=e216] [cursor=pointer]:
+                  - generic [ref=e217]:
+                    - generic [ref=e218]: FedEx Small Business Grant Contest
+                    - generic [ref=e219]: "65.9"
+                  - generic [ref=e220]: FedEx
+                  - generic [ref=e221]:
+                    - generic [ref=e222]: $25,000 – $50,000
+                    - generic [ref=e223]: 65 days
+                  - generic [ref=e224]: FlowTech Ventures
+                - generic [ref=e226] [cursor=pointer]:
+                  - generic [ref=e227]:
+                    - generic [ref=e228]: Tory Burch Foundation Small Business Grant
+                    - generic [ref=e229]: "65.8"
+                  - generic [ref=e230]: Tory Burch Foundation
+                  - generic [ref=e231]:
+                    - generic [ref=e232]: Up to $5,000
+                    - generic [ref=e233]: 126 days
+                  - generic [ref=e234]: CreatorOS
+                - generic [ref=e236] [cursor=pointer]:
+                  - generic [ref=e237]:
+                    - generic [ref=e238]: Kirabo Grant
+                    - generic [ref=e239]: "61"
+                  - generic [ref=e240]: Kirabo
+                  - generic [ref=e241]:
+                    - generic [ref=e242]: Up to $5,000
+                    - generic [ref=e243]: 32 days
+                  - generic [ref=e244]: FlowTech Ventures
+                - generic [ref=e246] [cursor=pointer]:
+                  - generic [ref=e247]:
+                    - generic [ref=e248]: Automated Processes for Knowledge Discovery and Information Retrieval
+                    - generic [ref=e249]: "60.9"
+                  - generic [ref=e250]: Air Force -- Research Lab
+                  - generic [ref=e252]: 1200 days
+                  - generic [ref=e253]: LegalFlow
+                - generic [ref=e255] [cursor=pointer]:
+                  - generic [ref=e256]:
+                    - generic [ref=e257]: Sky's the Limit Startup Grant
+                    - generic [ref=e258]: "57.4"
+                  - generic [ref=e259]: Sky's the Limit
+                  - generic [ref=e261]: $2,500 – $2,500
+                  - generic [ref=e262]: Motherbox
+                - generic [ref=e264] [cursor=pointer]:
+                  - generic [ref=e265]:
+                    - generic [ref=e266]: Atomic Grant
+                    - generic [ref=e267]: "53.3"
+                  - generic [ref=e268]: Atomic
+                  - generic [ref=e270]: Up to $1,500
+                  - generic [ref=e271]: FlowTech Ventures
+                - generic [ref=e273] [cursor=pointer]:
+                  - generic [ref=e274]:
+                    - generic [ref=e275]: Visa Everywhere Initiative
+                    - generic [ref=e276]: "53.2"
+                  - generic [ref=e277]: Visa
+                  - generic [ref=e279]: Up to $100,000
+                  - generic [ref=e280]: FlowTech Ventures
+                - generic [ref=e282] [cursor=pointer]:
+                  - generic [ref=e283]:
+                    - generic [ref=e284]: GEOSPATIAL INTELLIGENCE PROCESSING AND EXPLOITATION (GeoPEX)
+                    - generic [ref=e285]: "51.4"
+                  - generic [ref=e286]: Air Force -- Research Lab
+                  - generic [ref=e288]: 125 days
+                  - generic [ref=e289]: FlowTech Ventures
+                - generic [ref=e291] [cursor=pointer]:
+                  - generic [ref=e292]:
+                    - generic [ref=e293]: FOUNDATIONS OF TRUSTED SYSTEMS
+                    - generic [ref=e294]: "51.4"
+                  - generic [ref=e295]: Air Force -- Research Lab
+                  - generic [ref=e297]: 922 days
+                  - generic [ref=e298]: FlowTech Ventures
+                - generic [ref=e300] [cursor=pointer]:
+                  - generic [ref=e301]:
+                    - generic [ref=e302]: Pioneering Aerospace Capabilities, Engineering and Research (PACER)
+                    - generic [ref=e303]: "51.4"
+                  - generic [ref=e304]: Air Force -- Research Lab
+                  - generic [ref=e306]: 6191 days
+                  - generic [ref=e307]: FlowTech Ventures
+                - generic [ref=e309] [cursor=pointer]:
+                  - generic [ref=e310]:
+                    - generic [ref=e311]: FY 2024 &ndash; 2026 Broad Agency Announcement (BAA), Office of Oceanic and Atmospheric Research (OAR)
+                    - generic [ref=e312]: "51.4"
+                  - generic [ref=e313]: DOC NOAA - ERA Production
+                  - generic [ref=e315]: 125 days
+                  - generic [ref=e316]: FlowTech Ventures
+                - generic [ref=e318] [cursor=pointer]:
+                  - generic [ref=e319]:
+                    - generic [ref=e320]: FY25 Naval Air Warfare Center Aircraft Division Office-Wide Broad Agency Announcement
+                    - generic [ref=e321]: "50"
+                  - generic [ref=e322]: NAVAIR
+                  - generic [ref=e324]: 25 days
+                  - generic [ref=e325]: HoloHaus
+            - generic [ref=e328]:
+              - generic [ref=e329]:
+                - generic [ref=e330]: QA Review
+                - generic [ref=e331]: "0"
+              - generic [ref=e334]: Empty
+            - generic [ref=e335]:
+              - generic [ref=e336]:
+                - generic [ref=e337]: Review
+                - generic [ref=e338]: "0"
+              - generic [ref=e341]: Empty
+            - generic [ref=e342]:
+              - generic [ref=e343]:
+                - generic [ref=e344]: Submitted
+                - generic [ref=e345]: "0"
+              - generic [ref=e348]: Empty
+  - alert [ref=e349]

@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { scrapeGrantsGov } from '@/lib/scrapers/grants-gov'
-import { scrapeSamGov } from '@/lib/scrapers/sam-gov'
 import { scrapeSbir } from '@/lib/scrapers/sbir'
 import { scrapeFoundations } from '@/lib/scrapers/foundations'
 import { scrapeCorporate } from '@/lib/scrapers/corporate'
@@ -17,7 +16,6 @@ import { runMatching } from '@/lib/matching'
 import type { NormalizedGrant, RawGrant } from '@/lib/scrapers/types'
 
 vi.mock('@/lib/scrapers/grants-gov', () => ({ scrapeGrantsGov: vi.fn() }))
-vi.mock('@/lib/scrapers/sam-gov', () => ({ scrapeSamGov: vi.fn() }))
 vi.mock('@/lib/scrapers/sbir', () => ({ scrapeSbir: vi.fn() }))
 vi.mock('@/lib/scrapers/foundations', () => ({ scrapeFoundations: vi.fn() }))
 vi.mock('@/lib/scrapers/corporate', () => ({ scrapeCorporate: vi.fn() }))
@@ -104,7 +102,6 @@ describe('GET /api/cron/discover', () => {
   it('returns 200 with correct secret', async () => {
     vi.stubEnv('CRON_SECRET', 'real-secret')
     vi.mocked(scrapeGrantsGov).mockResolvedValue([])
-    vi.mocked(scrapeSamGov).mockResolvedValue([])
     vi.mocked(scrapeSbir).mockResolvedValue([])
     vi.mocked(scrapeFoundations).mockResolvedValue([])
     vi.mocked(scrapeCorporate).mockResolvedValue([])
@@ -131,13 +128,12 @@ describe('GET /api/cron/discover', () => {
     vi.stubEnv('CRON_SECRET', 'real-secret')
 
     vi.mocked(scrapeGrantsGov).mockResolvedValue([makeRaw('a'), makeRaw('b')])
-    vi.mocked(scrapeSamGov).mockResolvedValue([makeRaw('c')])
-    vi.mocked(scrapeSbir).mockResolvedValue([makeRaw('d')])
-    vi.mocked(scrapeFoundations).mockResolvedValue([makeRaw('e')])
-    vi.mocked(scrapeCorporate).mockResolvedValue([makeRaw('f')])
-    vi.mocked(scrapeNiche).mockResolvedValue([makeRaw('g')])
-    vi.mocked(scrapeStates).mockResolvedValue([makeRaw('h')])
-    vi.mocked(scrapeFederalRegister).mockResolvedValue([makeRaw('i')])
+    vi.mocked(scrapeSbir).mockResolvedValue([makeRaw('c')])
+    vi.mocked(scrapeFoundations).mockResolvedValue([makeRaw('d')])
+    vi.mocked(scrapeCorporate).mockResolvedValue([makeRaw('e')])
+    vi.mocked(scrapeNiche).mockResolvedValue([makeRaw('f')])
+    vi.mocked(scrapeStates).mockResolvedValue([makeRaw('g')])
+    vi.mocked(scrapeFederalRegister).mockResolvedValue([makeRaw('h')])
 
     let hashCounter = 0
     vi.mocked(normalizeGrant).mockImplementation(() =>
@@ -162,12 +158,12 @@ describe('GET /api/cron/discover', () => {
 
     expect(res.status).toBe(200)
     expect(body.ok).toBe(true)
-    expect(body.scrapers).toEqual({ total: 8, succeeded: 8, failed: 0 })
+    expect(body.scrapers).toEqual({ total: 7, succeeded: 7, failed: 0 })
     expect(body.grants).toEqual({
-      raw: 9,
-      normalized: 9,
-      new: 9,
-      inserted: 9,
+      raw: 8,
+      normalized: 8,
+      new: 8,
+      inserted: 8,
       errors: 0,
     })
     expect(body.matching).toEqual({
@@ -179,7 +175,6 @@ describe('GET /api/cron/discover', () => {
       pairs_rejected: 0,
     })
     expect(scrapeGrantsGov).toHaveBeenCalledTimes(1)
-    expect(scrapeSamGov).toHaveBeenCalledTimes(1)
     expect(scrapeSbir).toHaveBeenCalledTimes(1)
     expect(scrapeFoundations).toHaveBeenCalledTimes(1)
     expect(scrapeCorporate).toHaveBeenCalledTimes(1)
@@ -194,13 +189,12 @@ describe('GET /api/cron/discover', () => {
     vi.stubEnv('CRON_SECRET', 'real-secret')
 
     vi.mocked(scrapeGrantsGov).mockRejectedValue(new Error('grants.gov down'))
-    vi.mocked(scrapeSamGov).mockResolvedValue([makeRaw('a')])
-    vi.mocked(scrapeSbir).mockResolvedValue([makeRaw('b')])
+    vi.mocked(scrapeSbir).mockResolvedValue([makeRaw('a')])
     vi.mocked(scrapeFoundations).mockRejectedValue(new Error('foundations down'))
-    vi.mocked(scrapeCorporate).mockResolvedValue([makeRaw('c')])
-    vi.mocked(scrapeNiche).mockResolvedValue([makeRaw('d')])
-    vi.mocked(scrapeStates).mockResolvedValue([makeRaw('e')])
-    vi.mocked(scrapeFederalRegister).mockResolvedValue([makeRaw('f')])
+    vi.mocked(scrapeCorporate).mockResolvedValue([makeRaw('b')])
+    vi.mocked(scrapeNiche).mockResolvedValue([makeRaw('c')])
+    vi.mocked(scrapeStates).mockResolvedValue([makeRaw('d')])
+    vi.mocked(scrapeFederalRegister).mockResolvedValue([makeRaw('e')])
 
     let hashCounter = 0
     vi.mocked(normalizeGrant).mockImplementation(() =>
@@ -224,10 +218,10 @@ describe('GET /api/cron/discover', () => {
     const body = await res.json()
 
     expect(res.status).toBe(200)
-    expect(body.scrapers.total).toBe(8)
-    expect(body.scrapers.succeeded).toBe(6)
+    expect(body.scrapers.total).toBe(7)
+    expect(body.scrapers.succeeded).toBe(5)
     expect(body.scrapers.failed).toBe(2)
-    expect(body.grants.raw).toBe(6)
+    expect(body.grants.raw).toBe(5)
     expect(sendScraperAlert).toHaveBeenCalledTimes(1)
     const failuresArg = vi.mocked(sendScraperAlert).mock.calls[0][0]
     expect(failuresArg).toHaveLength(2)

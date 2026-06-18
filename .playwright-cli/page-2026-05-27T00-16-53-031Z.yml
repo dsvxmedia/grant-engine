@@ -1,0 +1,129 @@
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - img "Google" [ref=e10]
+        - generic [ref=e11]: Sign in with Google
+      - img [ref=e12]
+    - generic [ref=e13]:
+      - generic [ref=e15]:
+        - heading "Sign in" [level=1] [ref=e16]
+        - paragraph [ref=e17]:
+          - text: to continue to
+          - button "Clerk" [ref=e18] [cursor=pointer]
+      - generic [ref=e19]:
+        - generic [ref=e22]:
+          - generic [ref=e27]:
+            - textbox "Email or phone" [active] [ref=e28]
+            - generic:
+              - generic: Email or phone
+          - paragraph [ref=e29]:
+            - link "Forgot email?" [ref=e30] [cursor=pointer]:
+              - /url: /signin/v2/usernamerecovery?access_type=offline&app_domain=https://clerk.shared.lcl.dev&client_id=787459168867-0v2orf3qo56uocsi84iroseoahhuovdm.apps.googleusercontent.com&continue=https://accounts.google.com/signin/oauth/legacy/consent?authuser%3Dunknown%26part%3DAJi8hAPao8ZQbFxonzdEUT-dbcrhzaOkzpaVq0ET2UuIPwlCFXl9IEeTYLa89dCK8PLaiwwGc11gN3cUqkjksyjP5tJZbjqiNVpqERKshgOCGRN2qaDigbkF5K_75KsFp-Yg3T4WS-YExM0pPWvr2dh1bQjerw4JPJoehCNw22zti_IERdJ8MAx_py8oGoZ0DWbdRKdcbGuPmLnIgu2Jc6Qmd4YHKIG42ECD2elFu-ET1s1F0BcX2QahKgkKNDVNtflNF3ta_6p84SQYO3FWkYRxTpeOf7MJ-ETTlLIuZL-VJ9o-abB9drmdRv9mLviFSz7lGSu2tnEs6E-XPDC7pGZdoXOgXQ2Kzq3DqZhIABBszcTjeTekFfkcw4IpYW_xIVk1qKhQi8Os2qKshTimJTF2CVJtWg62c2cEaY9lLQoTHtQ3rMSJM3pa5fT0tbjHnhlgDeB8WAbZikTVYXXL1T5-sGuLlCvDMmr4RpNtHMDNl7Bjzp9hPMygWZIlnPIjnAVtAFku4Ms17BXqmOEk1OsliMivhCaH_dsdtsC7igqoOVVIOnCHlmX_VUgqDWHAYeLT4AZr5DlISP_yCxxmSK9hO-olXkIZGa78iBgxxV9dkgrfttcdsEfaqpkE92U5pUtWzaPxr-94pZMSQ33qnHBkGHoobsx_3g%26flowName%3DGeneralOAuthFlow%26as%3DS1564065722%253A1779841011938138%26client_id%3D787459168867-0v2orf3qo56uocsi84iroseoahhuovdm.apps.googleusercontent.com%23&dsh=S1564065722:1779841011938138&flowName=GeneralOAuthLite&o2v=1&opparams=%253F&prompt=consent&rart=ANgoxcdOUUlLgxIQrEPuPGDCTGOck2h6_c383fDDHq6IJe3FTd8Ss1U5h-T-CrokOJOTVb84fcKyw8xUZfp7M1fkG1UTm4jvn2xMKnSKYeQNXjDD6dntnuw&redirect_uri=https://clerk.shared.lcl.dev/v1/oauth_callback&response_type=code&scope=openid+https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&service=lso&state=jpsyggi9o3z7o48h3h43ou6fkm6kuywfp1is4k7q
+        - paragraph [ref=e33]:
+          - text: Before using this app, you can review Clerk’s
+          - link "Privacy Policy" [ref=e34] [cursor=pointer]:
+            - /url: https://clerk.com/legal/privacy
+          - text: and
+          - link "Terms of Service" [ref=e35] [cursor=pointer]:
+            - /url: https://clerk.com/legal/terms
+          - text: .
+        - generic [ref=e37]:
+          - button "Next" [ref=e39]
+          - link "Create account" [ref=e41] [cursor=pointer]:
+            - /url: /lifecycle/flows/signup?access_type=offline&app_domain=https://clerk.shared.lcl.dev&client_id=787459168867-0v2orf3qo56uocsi84iroseoahhuovdm.apps.googleusercontent.com&continue=https://accounts.google.com/signin/oauth/legacy/consent?authuser%3Dunknown%26part%3DAJi8hAPao8ZQbFxonzdEUT-dbcrhzaOkzpaVq0ET2UuIPwlCFXl9IEeTYLa89dCK8PLaiwwGc11gN3cUqkjksyjP5tJZbjqiNVpqERKshgOCGRN2qaDigbkF5K_75KsFp-Yg3T4WS-YExM0pPWvr2dh1bQjerw4JPJoehCNw22zti_IERdJ8MAx_py8oGoZ0DWbdRKdcbGuPmLnIgu2Jc6Qmd4YHKIG42ECD2elFu-ET1s1F0BcX2QahKgkKNDVNtflNF3ta_6p84SQYO3FWkYRxTpeOf7MJ-ETTlLIuZL-VJ9o-abB9drmdRv9mLviFSz7lGSu2tnEs6E-XPDC7pGZdoXOgXQ2Kzq3DqZhIABBszcTjeTekFfkcw4IpYW_xIVk1qKhQi8Os2qKshTimJTF2CVJtWg62c2cEaY9lLQoTHtQ3rMSJM3pa5fT0tbjHnhlgDeB8WAbZikTVYXXL1T5-sGuLlCvDMmr4RpNtHMDNl7Bjzp9hPMygWZIlnPIjnAVtAFku4Ms17BXqmOEk1OsliMivhCaH_dsdtsC7igqoOVVIOnCHlmX_VUgqDWHAYeLT4AZr5DlISP_yCxxmSK9hO-olXkIZGa78iBgxxV9dkgrfttcdsEfaqpkE92U5pUtWzaPxr-94pZMSQ33qnHBkGHoobsx_3g%26flowName%3DGeneralOAuthFlow%26as%3DS1564065722%253A1779841011938138%26client_id%3D787459168867-0v2orf3qo56uocsi84iroseoahhuovdm.apps.googleusercontent.com%23&dsh=S1564065722:1779841011938138&flowEntry=SignUp&flowName=GlifWebSignIn&o2v=1&opparams=%253F&prompt=consent&rart=ANgoxcdOUUlLgxIQrEPuPGDCTGOck2h6_c383fDDHq6IJe3FTd8Ss1U5h-T-CrokOJOTVb84fcKyw8xUZfp7M1fkG1UTm4jvn2xMKnSKYeQNXjDD6dntnuw&redirect_uri=https://clerk.shared.lcl.dev/v1/oauth_callback&response_type=code&scope=openid+https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&service=lso&signInUrl=https://accounts.google.com/signin/oauth?access_type%3Doffline%26app_domain%3Dhttps://clerk.shared.lcl.dev%26client_id%3D787459168867-0v2orf3qo56uocsi84iroseoahhuovdm.apps.googleusercontent.com%26continue%3Dhttps://accounts.google.com/signin/oauth/legacy/consent?authuser%253Dunknown%2526part%253DAJi8hAPao8ZQbFxonzdEUT-dbcrhzaOkzpaVq0ET2UuIPwlCFXl9IEeTYLa89dCK8PLaiwwGc11gN3cUqkjksyjP5tJZbjqiNVpqERKshgOCGRN2qaDigbkF5K_75KsFp-Yg3T4WS-YExM0pPWvr2dh1bQjerw4JPJoehCNw22zti_IERdJ8MAx_py8oGoZ0DWbdRKdcbGuPmLnIgu2Jc6Qmd4YHKIG42ECD2elFu-ET1s1F0BcX2QahKgkKNDVNtflNF3ta_6p84SQYO3FWkYRxTpeOf7MJ-ETTlLIuZL-VJ9o-abB9drmdRv9mLviFSz7lGSu2tnEs6E-XPDC7pGZdoXOgXQ2Kzq3DqZhIABBszcTjeTekFfkcw4IpYW_xIVk1qKhQi8Os2qKshTimJTF2CVJtWg62c2cEaY9lLQoTHtQ3rMSJM3pa5fT0tbjHnhlgDeB8WAbZikTVYXXL1T5-sGuLlCvDMmr4RpNtHMDNl7Bjzp9hPMygWZIlnPIjnAVtAFku4Ms17BXqmOEk1OsliMivhCaH_dsdtsC7igqoOVVIOnCHlmX_VUgqDWHAYeLT4AZr5DlISP_yCxxmSK9hO-olXkIZGa78iBgxxV9dkgrfttcdsEfaqpkE92U5pUtWzaPxr-94pZMSQ33qnHBkGHoobsx_3g%2526flowName%253DGeneralOAuthFlow%2526as%253DS1564065722%25253A1779841011938138%2526client_id%253D787459168867-0v2orf3qo56uocsi84iroseoahhuovdm.apps.googleusercontent.com%2523%26dsh%3DS1564065722:1779841011938138%26flowName%3DGeneralOAuthLite%26o2v%3D1%26opparams%3D%25253F%26prompt%3Dconsent%26rart%3DANgoxcdOUUlLgxIQrEPuPGDCTGOck2h6_c383fDDHq6IJe3FTd8Ss1U5h-T-CrokOJOTVb84fcKyw8xUZfp7M1fkG1UTm4jvn2xMKnSKYeQNXjDD6dntnuw%26redirect_uri%3Dhttps://clerk.shared.lcl.dev/v1/oauth_callback%26response_type%3Dcode%26scope%3Dopenid%2Bhttps://www.googleapis.com/auth/userinfo.email%2Bhttps://www.googleapis.com/auth/userinfo.profile%26service%3Dlso%26state%3Djpsyggi9o3z7o48h3h43ou6fkm6kuywfp1is4k7q&state=jpsyggi9o3z7o48h3h43ou6fkm6kuywfp1is4k7q
+  - contentinfo [ref=e42]:
+    - combobox [ref=e45] [cursor=pointer]:
+      - option "Afrikaans"
+      - option "azərbaycan"
+      - option "bosanski"
+      - option "català"
+      - option "Čeština"
+      - option "Cymraeg"
+      - option "Dansk"
+      - option "Deutsch"
+      - option "eesti"
+      - option "English (United Kingdom)"
+      - option "English (United States)" [selected]
+      - option "Español (España)"
+      - option "Español (Latinoamérica)"
+      - option "euskara"
+      - option "Filipino"
+      - option "Français (Canada)"
+      - option "Français (France)"
+      - option "Gaeilge"
+      - option "galego"
+      - option "Hrvatski"
+      - option "Indonesia"
+      - option "isiZulu"
+      - option "íslenska"
+      - option "Italiano"
+      - option "Kiswahili"
+      - option "latviešu"
+      - option "lietuvių"
+      - option "magyar"
+      - option "Melayu"
+      - option "Nederlands"
+      - option "norsk"
+      - option "o‘zbek"
+      - option "polski"
+      - option "Português (Brasil)"
+      - option "Português (Portugal)"
+      - option "română"
+      - option "shqip"
+      - option "Slovenčina"
+      - option "slovenščina"
+      - option "srpski (latinica)"
+      - option "Suomi"
+      - option "Svenska"
+      - option "Tiếng Việt"
+      - option "Türkçe"
+      - option "Ελληνικά"
+      - option "беларуская"
+      - option "български"
+      - option "кыргызча"
+      - option "қазақ тілі"
+      - option "македонски"
+      - option "монгол"
+      - option "Русский"
+      - option "српски (ћирилица)"
+      - option "Українська"
+      - option "ქართული"
+      - option "հայերեն"
+      - option "‫עברית‬‎"
+      - option "‫اردو‬‎"
+      - option "‫العربية‬‎"
+      - option "‫فارسی‬‎"
+      - option "አማርኛ"
+      - option "नेपाली"
+      - option "मराठी"
+      - option "हिन्दी"
+      - option "অসমীয়া"
+      - option "বাংলা"
+      - option "ਪੰਜਾਬੀ"
+      - option "ગુજરાતી"
+      - option "ଓଡ଼ିଆ"
+      - option "தமிழ்"
+      - option "తెలుగు"
+      - option "ಕನ್ನಡ"
+      - option "മലയാളം"
+      - option "සිංහල"
+      - option "ไทย"
+      - option "ລາວ"
+      - option "မြန်မာ"
+      - option "ខ្មែរ"
+      - option "한국어"
+      - option "中文（香港）"
+      - option "日本語"
+      - option "简体中文"
+      - option "繁體中文"
+    - list [ref=e46]:
+      - listitem [ref=e47]:
+        - link "Help" [ref=e48] [cursor=pointer]:
+          - /url: https://support.google.com/accounts?hl=en-US&p=account_iph
+      - listitem [ref=e49]:
+        - link "Privacy" [ref=e50] [cursor=pointer]:
+          - /url: https://accounts.google.com/TOS?loc=US&hl=en-US&privacy=true
+      - listitem [ref=e51]:
+        - link "Terms" [ref=e52] [cursor=pointer]:
+          - /url: https://accounts.google.com/TOS?loc=US&hl=en-US

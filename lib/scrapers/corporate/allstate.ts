@@ -2,6 +2,7 @@ import type { RawGrant } from '../types'
 import { loadChromium, type PlaywrightBrowser } from '../playwright-loader'
 
 const ALLSTATE_URL = 'https://www.allstatefoundation.org/grants/'
+// Main Street 2026 excluded — requires $25K in 2025 revenue, portfolio does not qualify
 
 export async function scrapeAllstate(): Promise<RawGrant[]> {
   let browser: PlaywrightBrowser | undefined
@@ -66,7 +67,6 @@ export async function scrapeAllstate(): Promise<RawGrant[]> {
     return grants
   } catch (err) {
     console.error('[allstate] scrape failed:', err)
-    // Return the known program as fallback
     return [{
       source: 'allstate-foundation',
       sourceUrl: ALLSTATE_URL,

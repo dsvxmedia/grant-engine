@@ -132,6 +132,7 @@ ${wordLimitsText}
 8. Write each section so it stands alone but builds cumulatively with the others.
 9. CRITICAL: Never write placeholder text. Do not use brackets like [City], [Year — applicant to confirm], [Number], [URL], or any similar markers. Every word in the final application must be real, readable prose. If a specific data point (website URL, phone number, founding year) was not provided in the Applicant Profile above, write around it using accurate general language — or omit that field entirely. A bracketed placeholder is never acceptable in a submission-ready application.
 ${entity.grant_narrative ? '10. CRITICAL: The Organization Narrative above is the approved voice of this organization. Use it. Do not invent an alternative voice or generic nonprofit language. Every section must sound like the organization described there.' : '10. Write in a clear, professional voice consistent with the organization\'s mission and focus area.'}
+11. CRITICAL: Never fabricate, invent, or reference specific products, services, programs, tools, platforms, initiatives, or partnerships that are not explicitly named in the Applicant Profile above. Describe only what is provided — do not invent product names, system names, or initiative names that were not given to you.
 
 Begin the application now:`
 

@@ -1,0 +1,98 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - heading "Grant Engine" [level=1] [ref=e5]
+      - navigation [ref=e6]:
+        - link "Pipeline" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e9]
+          - text: Pipeline
+        - link "Review Queue" [ref=e14] [cursor=pointer]:
+          - /url: /review
+          - img [ref=e16]
+          - text: Review Queue
+        - link "LOI Queue" [ref=e19] [cursor=pointer]:
+          - /url: /loi
+          - img [ref=e21]
+          - text: LOI Queue
+        - link "Explorer" [ref=e24] [cursor=pointer]:
+          - /url: /explorer
+          - img [ref=e26]
+          - text: Explorer
+        - link "Calendar" [ref=e29] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e31]
+          - text: Calendar
+        - link "Profile" [ref=e33] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e35]
+          - text: Profile
+        - link "Analytics" [ref=e38] [cursor=pointer]:
+          - /url: /analytics
+          - img [ref=e40]
+          - text: Analytics
+        - link "9+ Notifications" [ref=e42] [cursor=pointer]:
+          - /url: /notifications
+          - generic [ref=e43]:
+            - img [ref=e44]
+            - generic [ref=e47]: 9+
+          - text: Notifications
+        - link "Video Queue" [ref=e48] [cursor=pointer]:
+          - /url: /video
+          - img [ref=e50]
+          - text: Video Queue
+        - link "Settings" [ref=e53] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e55]
+          - text: Settings
+        - link "Relationships" [ref=e58] [cursor=pointer]:
+          - /url: /relationships
+          - img [ref=e60]
+          - text: Relationships
+        - link "Coalition" [ref=e65] [cursor=pointer]:
+          - /url: /coalition
+          - img [ref=e67]
+          - text: Coalition
+    - main [ref=e70]:
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - heading "Settings" [level=2] [ref=e73]
+          - link "Notifications" [ref=e75] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e76]
+        - generic [ref=e80]:
+          - paragraph [ref=e81]: Settings sync is coming in V2. Values on this page are for preview only and are not yet persisted.
+          - generic [ref=e83]:
+            - tablist [ref=e84]:
+              - tab "Notifications" [selected] [ref=e85]
+              - tab "Scoring" [ref=e86]
+              - tab "About" [ref=e87]
+            - tabpanel "Notifications" [ref=e88]:
+              - generic [ref=e89]:
+                - generic [ref=e90]:
+                  - generic [ref=e91]: Email address
+                  - textbox "Email address" [ref=e92]:
+                    - /placeholder: your@email.com
+                    - text: you@example.com
+                  - paragraph [ref=e93]: Digest and alerts will be sent here.
+                - separator [ref=e94]
+                - generic [ref=e95]:
+                  - paragraph [ref=e96]: Notify me when…
+                  - paragraph [ref=e97]: Choose which events trigger an email or in-app notification.
+                  - generic [ref=e98]:
+                    - generic [ref=e99] [cursor=pointer]:
+                      - checkbox "New grant matches are found" [checked] [ref=e100]
+                      - text: New grant matches are found
+                    - generic [ref=e101] [cursor=pointer]:
+                      - checkbox "Deadline reminders (7 days and 48 hours before)" [checked] [ref=e102]
+                      - text: Deadline reminders (7 days and 48 hours before)
+                    - generic [ref=e103] [cursor=pointer]:
+                      - checkbox "Scraper failure alerts" [checked] [ref=e104]
+                      - text: Scraper failure alerts
+                    - generic [ref=e105] [cursor=pointer]:
+                      - checkbox "QA gate failures" [checked] [ref=e106]
+                      - text: QA gate failures
+                    - generic [ref=e107] [cursor=pointer]:
+                      - checkbox "Applications ready for review" [checked] [ref=e108]
+                      - text: Applications ready for review
+  - alert [ref=e109]

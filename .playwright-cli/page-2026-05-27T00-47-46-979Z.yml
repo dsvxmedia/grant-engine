@@ -1,0 +1,1458 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - heading [level=1] [ref=e1419]: Grant Engine
+      - navigation [ref=e6]:
+        - link [ref=e1420] [cursor=pointer]:
+          - /url: /
+          - img [ref=e9]
+          - text: Pipeline
+        - link [ref=e1421] [cursor=pointer]:
+          - /url: /review
+          - img [ref=e16]
+          - text: Review Queue
+        - link [ref=e1422] [cursor=pointer]:
+          - /url: /loi
+          - img [ref=e21]
+          - text: LOI Queue
+        - link [ref=e1423] [cursor=pointer]:
+          - /url: /explorer
+          - img [ref=e26]
+          - text: Explorer
+        - link [ref=e1424] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e31]
+          - text: Calendar
+        - link [ref=e1425] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e35]
+          - text: Profile
+        - link [ref=e1426] [cursor=pointer]:
+          - /url: /analytics
+          - img [ref=e40]
+          - text: Analytics
+        - link [ref=e1427] [cursor=pointer]:
+          - /url: /notifications
+          - generic [ref=e43]:
+            - img [ref=e44]
+            - generic [ref=e47]: 9+
+          - text: Notifications
+        - link [ref=e1428] [cursor=pointer]:
+          - /url: /video
+          - img [ref=e50]
+          - text: Video Queue
+        - link [ref=e1429] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e55]
+          - text: Settings
+        - link [ref=e1430] [cursor=pointer]:
+          - /url: /relationships
+          - img [ref=e60]
+          - text: Relationships
+        - link [ref=e1431] [cursor=pointer]:
+          - /url: /coalition
+          - img [ref=e67]
+          - text: Coalition
+    - main [ref=e70]:
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - heading [level=2] [ref=e1432]: Grant Explorer
+          - generic [ref=e74]:
+            - link [ref=e1433] [cursor=pointer]:
+              - /url: /notifications
+              - img [ref=e76]
+            - button [ref=e1434] [cursor=pointer]:
+              - img [ref=e1435]
+        - generic [ref=e79]:
+          - generic [ref=e80]:
+            - textbox [ref=e1436]:
+              - /placeholder: Search by title or funder...
+            - generic [ref=e82]:
+              - generic [ref=e83]:
+                - generic [ref=e84]: Funder type
+                - combobox [ref=e1437]
+              - generic [ref=e86] [cursor=pointer]:
+                - checkbox [ref=e1438]
+                - generic [ref=e88]: Requires LOI
+              - generic [ref=e89] [cursor=pointer]:
+                - checkbox [ref=e1439]
+                - generic [ref=e91]: New program
+          - paragraph [ref=e92]: Showing 100 grants
+          - table [ref=e94]:
+            - rowgroup [ref=e95]:
+              - row [ref=e1440]:
+                - columnheader [ref=e1441]: Title
+                - columnheader [ref=e1442]: Funder
+                - columnheader [ref=e1443]: Award range
+                - columnheader [ref=e1444]: Deadline
+                - columnheader [ref=e1445]: Type
+                - columnheader [ref=e1446]: Actions
+            - rowgroup [ref=e103]:
+              - row [ref=e1447]:
+                - cell [ref=e1448]:
+                  - link [ref=e1449] [cursor=pointer]:
+                    - /url: https://www.dreammakersgrant.com
+                    - text: Dream Makers Founders Grant
+                - cell [ref=e1450]: Dream Makers
+                - cell [ref=e1451]: Up to $25,000
+                - cell [ref=e1452]:
+                  - generic [ref=e195]: 3 days
+                - cell [ref=e1453]:
+                  - generic [ref=e197]: foundation
+                - cell [ref=e1454]:
+                  - generic [ref=e199]:
+                    - button [ref=e1455]: Info
+                    - link [ref=e1456] [cursor=pointer]:
+                      - /url: https://www.dreammakersgrant.com/apply
+                      - text: Apply
+                      - img [ref=e202]
+              - row [ref=e1457]:
+                - cell [ref=e1458]:
+                  - link [ref=e1459] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357893
+                    - text: Antarctic Research Requiring U.S. Antarctic Program (USAP) Support for Fieldwork
+                - cell [ref=e1460]: U.S. National Science Foundation
+                - cell [ref=e1461]: —
+                - cell [ref=e1462]:
+                  - generic [ref=e212]: 4 days
+                - cell [ref=e1463]:
+                  - generic [ref=e214]: federal
+                - cell [ref=e1464]:
+                  - button [ref=e1465]: Info
+              - row [ref=e1466]:
+                - cell [ref=e1467]:
+                  - link [ref=e1468] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/355270
+                    - text: NSF EPSCoR Graduate Fellowship Program
+                - cell [ref=e1469]: U.S. National Science Foundation
+                - cell [ref=e1470]: —
+                - cell [ref=e1471]:
+                  - generic [ref=e224]: 4 days
+                - cell [ref=e1472]:
+                  - generic [ref=e226]: federal
+                - cell [ref=e1473]:
+                  - button [ref=e1474]: Info
+              - row [ref=e1475]:
+                - cell [ref=e1476]:
+                  - link [ref=e1477] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/348702
+                    - text: NEI Institutional Mentored Physician Scientist Award (K12 Clinical Trial Optional)
+                - cell [ref=e1478]: National Institutes of Health
+                - cell [ref=e1479]: —
+                - cell [ref=e1480]:
+                  - generic [ref=e236]: 12 days
+                - cell [ref=e1481]:
+                  - generic [ref=e238]: federal
+                - cell [ref=e1482]:
+                  - button [ref=e1483]: Info
+              - row [ref=e1484]:
+                - cell [ref=e1485]:
+                  - link [ref=e1486] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357328
+                    - text: "BRAIN Initiative: Promoting Health for All Through BRAIN Technology Partnerships (R34 - Clinical Trials Not Allowed)"
+                - cell [ref=e1487]: National Institutes of Health
+                - cell [ref=e1488]: —
+                - cell [ref=e1489]:
+                  - generic [ref=e248]: 20 days
+                - cell [ref=e1490]:
+                  - generic [ref=e250]: federal
+                - cell [ref=e1491]:
+                  - button [ref=e1492]: Info
+              - row [ref=e1493]:
+                - cell [ref=e1494]:
+                  - link [ref=e1495] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357625
+                    - text: Awards Supporting Cutting-Edge Technologies for Translational Science (ASCETTS) (R21 Clinical Trials Not Allowed)
+                - cell [ref=e1496]: National Institutes of Health
+                - cell [ref=e1497]: —
+                - cell [ref=e1498]:
+                  - generic [ref=e260]: 21 days
+                - cell [ref=e1499]:
+                  - generic [ref=e262]: federal
+                - cell [ref=e1500]:
+                  - button [ref=e1501]: Info
+              - row [ref=e1502]:
+                - cell [ref=e1503]:
+                  - link [ref=e1504] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357087
+                    - text: Digital Health Technology Derived Biomarkers and Outcome Assessments for Remote Monitoring and Endpoint Development (UG3/UH3 - Clinical Trial Optional)
+                - cell [ref=e1505]: National Institutes of Health
+                - cell [ref=e1506]: —
+                - cell [ref=e1507]:
+                  - generic [ref=e272]: 25 days
+                - cell [ref=e1508]:
+                  - generic [ref=e274]: federal
+                - cell [ref=e1509]:
+                  - button [ref=e1510]: Info
+              - row [ref=e1511]:
+                - cell [ref=e1512]:
+                  - link [ref=e1513] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/359802
+                    - text: FY25 Naval Air Warfare Center Aircraft Division Office-Wide Broad Agency Announcement
+                - cell [ref=e1514]: NAVAIR
+                - cell [ref=e1515]: —
+                - cell [ref=e1516]:
+                  - generic [ref=e284]: 25 days
+                - cell [ref=e1517]:
+                  - generic [ref=e286]: federal
+                - cell [ref=e1518]:
+                  - button [ref=e1519]: Info
+              - row [ref=e1520]:
+                - cell [ref=e1521]:
+                  - link [ref=e1522] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/353059
+                    - text: "BRAIN Initiative: Data Archives for the BRAIN Initiative (R24 Clinical Trial Optional)"
+                - cell [ref=e1523]: National Institutes of Health
+                - cell [ref=e1524]: —
+                - cell [ref=e1525]:
+                  - generic [ref=e296]: 27 days
+                - cell [ref=e1526]:
+                  - generic [ref=e298]: federal
+                - cell [ref=e1527]:
+                  - button [ref=e1528]: Info
+              - row [ref=e1529]:
+                - cell [ref=e1530]:
+                  - link [ref=e1531] [cursor=pointer]:
+                    - /url: https://kirabo.co/grant
+                    - text: Kirabo Grant
+                - cell [ref=e1532]: Kirabo
+                - cell [ref=e1533]: Up to $5,000
+                - cell [ref=e1534]:
+                  - generic [ref=e308]: 32 days
+                - cell [ref=e1535]:
+                  - generic [ref=e310]: foundation
+                - cell [ref=e1536]:
+                  - generic [ref=e312]:
+                    - button [ref=e1537]: Info
+                    - link [ref=e1538] [cursor=pointer]:
+                      - /url: https://kirabo.co/grant/apply
+                      - text: Apply
+                      - img [ref=e315]
+              - row [ref=e1539]:
+                - cell [ref=e1540]:
+                  - link [ref=e1541] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/352577
+                    - text: INCLUDE (INvestigation of Co-occurring conditions across the Lifespan to Understand Down syndromE) Predoctoral to Postdoctoral Fellow Transition Award (F99/K00 Clinical Trial Not Allowed)
+                - cell [ref=e1542]: National Institutes of Health
+                - cell [ref=e1543]: —
+                - cell [ref=e1544]:
+                  - generic [ref=e325]: 34 days
+                - cell [ref=e1545]:
+                  - generic [ref=e327]: federal
+                - cell [ref=e1546]:
+                  - button [ref=e1547]: Info
+              - row [ref=e1548]:
+                - cell [ref=e1549]:
+                  - link [ref=e1550] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/352511
+                    - text: "BRAIN Initiative: Production and distribution facilities for brain cell type-specific access reagents (U24 Clinical Trial Not Allowed)"
+                - cell [ref=e1551]: National Institutes of Health
+                - cell [ref=e1552]: —
+                - cell [ref=e1553]:
+                  - generic [ref=e337]: 34 days
+                - cell [ref=e1554]:
+                  - generic [ref=e339]: federal
+                - cell [ref=e1555]:
+                  - button [ref=e1556]: Info
+              - row [ref=e1557]:
+                - cell [ref=e1558]:
+                  - link [ref=e1559] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/352324
+                    - text: NIA Career Transition Award (K22 Independent Clinical Trial Not Allowed)
+                - cell [ref=e1560]: National Institutes of Health
+                - cell [ref=e1561]: —
+                - cell [ref=e1562]:
+                  - generic [ref=e349]: 46 days
+                - cell [ref=e1563]:
+                  - generic [ref=e351]: federal
+                - cell [ref=e1564]:
+                  - button [ref=e1565]: Info
+              - row [ref=e1566]:
+                - cell [ref=e1567]:
+                  - link [ref=e1568] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/358930
+                    - text: Tobacco Regulatory Science Small Grant Program for New Investigators (R03 Clinical Trial Optional)
+                - cell [ref=e1569]: National Institutes of Health
+                - cell [ref=e1570]: —
+                - cell [ref=e1571]:
+                  - generic [ref=e361]: 47 days
+                - cell [ref=e1572]:
+                  - generic [ref=e363]: federal
+                - cell [ref=e1573]:
+                  - button [ref=e1574]: Info
+              - row [ref=e1575]:
+                - cell [ref=e1576]:
+                  - link [ref=e1577] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356395
+                    - text: Clinical Coordinating Center for NCCIH Multi-Site Investigator-Initiated Clinical Trials of Mind and Body Interventions (Collaborative UG3/UH3 Clinical Trial Required)
+                - cell [ref=e1578]: National Institutes of Health
+                - cell [ref=e1579]: —
+                - cell [ref=e1580]:
+                  - generic [ref=e373]: 47 days
+                - cell [ref=e1581]:
+                  - generic [ref=e375]: federal
+                - cell [ref=e1582]:
+                  - button [ref=e1583]: Info
+              - row [ref=e1584]:
+                - cell [ref=e1585]:
+                  - link [ref=e1586] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356726
+                    - text: Data Coordinating Center for NCCIH Multi-Site Investigator-Initiated Clinical Trials of Mind and Body Interventions (Collaborative U24 Clinical Trial Required)
+                - cell [ref=e1587]: National Institutes of Health
+                - cell [ref=e1588]: —
+                - cell [ref=e1589]:
+                  - generic [ref=e385]: 47 days
+                - cell [ref=e1590]:
+                  - generic [ref=e387]: federal
+                - cell [ref=e1591]:
+                  - button [ref=e1592]: Info
+              - row [ref=e1593]:
+                - cell [ref=e1594]:
+                  - link [ref=e1595] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356904
+                    - text: Clinical Coordinating Center for NCCIH Multi-Site Investigator-Initiated Clinical Trials of Natural Products (Collaborative UG3/UH3 Clinical Trial Required)
+                - cell [ref=e1596]: National Institutes of Health
+                - cell [ref=e1597]: —
+                - cell [ref=e1598]:
+                  - generic [ref=e397]: 47 days
+                - cell [ref=e1599]:
+                  - generic [ref=e399]: federal
+                - cell [ref=e1600]:
+                  - button [ref=e1601]: Info
+              - row [ref=e1602]:
+                - cell [ref=e1603]:
+                  - link [ref=e1604] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356905
+                    - text: Natural Product Multi-Site Clinical Trial Data Coordinating Center (Collaborative U24 Clinical Trial Required)
+                - cell [ref=e1605]: National Institutes of Health
+                - cell [ref=e1606]: —
+                - cell [ref=e1607]:
+                  - generic [ref=e409]: 47 days
+                - cell [ref=e1608]:
+                  - generic [ref=e411]: federal
+                - cell [ref=e1609]:
+                  - button [ref=e1610]: Info
+              - row [ref=e1611]:
+                - cell [ref=e1612]:
+                  - link [ref=e1613] [cursor=pointer]:
+                    - /url: https://smallbusiness.fedex.com/grant-contest.html
+                    - text: FedEx Small Business Grant Contest
+                - cell [ref=e1614]: FedEx
+                - cell [ref=e1615]: $25,000 – $50,000
+                - cell [ref=e1616]:
+                  - generic [ref=e421]: 65 days
+                - cell [ref=e1617]:
+                  - generic [ref=e423]: corporate
+                - cell [ref=e1618]:
+                  - generic [ref=e425]:
+                    - button [ref=e1619]: Info
+                    - link [ref=e1620] [cursor=pointer]:
+                      - /url: https://smallbusiness.fedex.com/grant-contest.html
+                      - text: Apply
+                      - img [ref=e428]
+              - row [ref=e1621]:
+                - cell [ref=e1622]:
+                  - link [ref=e1623] [cursor=pointer]:
+                    - /url: https://www.halstead.com/pages/halstead-grant
+                    - text: Halstead Grant
+                - cell [ref=e1624]: Halstead
+                - cell [ref=e1625]: Up to $8,500
+                - cell [ref=e1626]:
+                  - generic [ref=e438]: 80 days
+                - cell [ref=e1627]:
+                  - generic [ref=e440]: corporate
+                - cell [ref=e1628]:
+                  - generic [ref=e442]:
+                    - button [ref=e1629]: Info
+                    - link [ref=e1630] [cursor=pointer]:
+                      - /url: https://www.halstead.com/pages/halstead-grant
+                      - text: Apply
+                      - img [ref=e445]
+              - row [ref=e1631]:
+                - cell [ref=e1632]:
+                  - link [ref=e1633] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356531
+                    - text: "Blueprint Neurotherapeutics Network (BPN): Small Molecule Drug Discovery and Development of Disorders of the Nervous System (UG3/UH3 Clinical Trial Optional)"
+                - cell [ref=e1634]: National Institutes of Health
+                - cell [ref=e1635]: —
+                - cell [ref=e1636]:
+                  - generic [ref=e455]: 82 days
+                - cell [ref=e1637]:
+                  - generic [ref=e457]: federal
+                - cell [ref=e1638]:
+                  - button [ref=e1639]: Info
+              - row [ref=e1640]:
+                - cell [ref=e1641]:
+                  - link [ref=e1642] [cursor=pointer]:
+                    - /url: https://www.santanderbank.com/us/about/corporate-responsibility/cultivate-small-business
+                    - text: Santander X Cultivate Small Business Grant
+                - cell [ref=e1643]: Santander Bank / Cultivate Small Business
+                - cell [ref=e1644]: $2,500 – $20,000
+                - cell [ref=e1645]:
+                  - generic [ref=e467]: 96 days
+                - cell [ref=e1646]:
+                  - generic [ref=e469]: corporate
+                - cell [ref=e1647]:
+                  - generic [ref=e471]:
+                    - button [ref=e1648]: Info
+                    - link [ref=e1649] [cursor=pointer]:
+                      - /url: https://www.santanderbank.com/us/about/corporate-responsibility/cultivate-small-business
+                      - text: Apply
+                      - img [ref=e474]
+              - row [ref=e1650]:
+                - cell [ref=e1651]:
+                  - link [ref=e1652] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357182
+                    - text: Cellular and Molecular Biology of Complex Brain Disorders (R01 Clinical Trial Not Allowed)
+                - cell [ref=e1653]: National Institutes of Health
+                - cell [ref=e1654]: —
+                - cell [ref=e1655]:
+                  - generic [ref=e484]: 102 days
+                - cell [ref=e1656]:
+                  - generic [ref=e486]: federal
+                - cell [ref=e1657]:
+                  - button [ref=e1658]: Info
+              - row [ref=e1659]:
+                - cell [ref=e1660]:
+                  - link [ref=e1661] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357199
+                    - text: Novel Mechanism Research on Neuropsychiatric Symptoms (NPS) in Alzheimer's Dementia (R01 Clinical Trial Optional)
+                - cell [ref=e1662]: National Institutes of Health
+                - cell [ref=e1663]: —
+                - cell [ref=e1664]:
+                  - generic [ref=e496]: 102 days
+                - cell [ref=e1665]:
+                  - generic [ref=e498]: federal
+                - cell [ref=e1666]:
+                  - button [ref=e1667]: Info
+              - row [ref=e1668]:
+                - cell [ref=e1669]:
+                  - link [ref=e1670] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357204
+                    - text: Secondary Analysis and Integration of Existing Data to Elucidate Cancer Risk and Related Outcomes (R01 Clinical Trial Not Allowed)
+                - cell [ref=e1671]: National Institutes of Health
+                - cell [ref=e1672]: —
+                - cell [ref=e1673]:
+                  - generic [ref=e508]: 102 days
+                - cell [ref=e1674]:
+                  - generic [ref=e510]: federal
+                - cell [ref=e1675]:
+                  - button [ref=e1676]: Info
+              - row [ref=e1677]:
+                - cell [ref=e1678]:
+                  - link [ref=e1679] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357183
+                    - text: Schizophrenia and related disorders during mid- to late-life (R21 Clinical Trial Optional)
+                - cell [ref=e1680]: National Institutes of Health
+                - cell [ref=e1681]: —
+                - cell [ref=e1682]:
+                  - generic [ref=e520]: 102 days
+                - cell [ref=e1683]:
+                  - generic [ref=e522]: federal
+                - cell [ref=e1684]:
+                  - button [ref=e1685]: Info
+              - row [ref=e1686]:
+                - cell [ref=e1687]:
+                  - link [ref=e1688] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357974
+                    - text: Substance Use/Substance Use Disorder Dissertation Research Award (R36 Clinical Trials Not Allowed)
+                - cell [ref=e1689]: National Institutes of Health
+                - cell [ref=e1690]: —
+                - cell [ref=e1691]:
+                  - generic [ref=e532]: 102 days
+                - cell [ref=e1692]:
+                  - generic [ref=e534]: federal
+                - cell [ref=e1693]:
+                  - button [ref=e1694]: Info
+              - row [ref=e1695]:
+                - cell [ref=e1696]:
+                  - link [ref=e1697] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357438
+                    - text: Alcohol Health Services Research (R34 Clinical Trial Optional)
+                - cell [ref=e1698]: National Institutes of Health
+                - cell [ref=e1699]: —
+                - cell [ref=e1700]:
+                  - generic [ref=e544]: 102 days
+                - cell [ref=e1701]:
+                  - generic [ref=e546]: federal
+                - cell [ref=e1702]:
+                  - button [ref=e1703]: Info
+              - row [ref=e1704]:
+                - cell [ref=e1705]:
+                  - link [ref=e1706] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357442
+                    - text: Alcohol Treatment, Pharmacotherapy, and Recovery Research (R01 Clinical Trial Required)
+                - cell [ref=e1707]: National Institutes of Health
+                - cell [ref=e1708]: —
+                - cell [ref=e1709]:
+                  - generic [ref=e556]: 102 days
+                - cell [ref=e1710]:
+                  - generic [ref=e558]: federal
+                - cell [ref=e1711]:
+                  - button [ref=e1712]: Info
+              - row [ref=e1713]:
+                - cell [ref=e1714]:
+                  - link [ref=e1715] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357440
+                    - text: Alcohol Health Services Research (R01 Clinical Trial Optional)
+                - cell [ref=e1716]: National Institutes of Health
+                - cell [ref=e1717]: —
+                - cell [ref=e1718]:
+                  - generic [ref=e568]: 102 days
+                - cell [ref=e1719]:
+                  - generic [ref=e570]: federal
+                - cell [ref=e1720]:
+                  - button [ref=e1721]: Info
+              - row [ref=e1722]:
+                - cell [ref=e1723]:
+                  - link [ref=e1724] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357014
+                    - text: Assay development and screening for discovery of chemical probes, drugs or immunomodulators (R01 Clinical Trial Not Allowed)
+                - cell [ref=e1725]: National Institutes of Health
+                - cell [ref=e1726]: —
+                - cell [ref=e1727]:
+                  - generic [ref=e580]: 102 days
+                - cell [ref=e1728]:
+                  - generic [ref=e582]: federal
+                - cell [ref=e1729]:
+                  - button [ref=e1730]: Info
+              - row [ref=e1731]:
+                - cell [ref=e1732]:
+                  - link [ref=e1733] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357005
+                    - text: Research Projects to Enhance Applicability of Mammalian Models for Translational Research (R01 Clinical Trial Not Allowed)
+                - cell [ref=e1734]: National Institutes of Health
+                - cell [ref=e1735]: —
+                - cell [ref=e1736]:
+                  - generic [ref=e592]: 102 days
+                - cell [ref=e1737]:
+                  - generic [ref=e594]: federal
+                - cell [ref=e1738]:
+                  - button [ref=e1739]: Info
+              - row [ref=e1740]:
+                - cell [ref=e1741]:
+                  - link [ref=e1742] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357198
+                    - text: Social disconnection and Suicide Risk in Late Life (R21 Clinical Trial Optional)
+                - cell [ref=e1743]: National Institutes of Health
+                - cell [ref=e1744]: —
+                - cell [ref=e1745]:
+                  - generic [ref=e604]: 102 days
+                - cell [ref=e1746]:
+                  - generic [ref=e606]: federal
+                - cell [ref=e1747]:
+                  - button [ref=e1748]: Info
+              - row [ref=e1749]:
+                - cell [ref=e1750]:
+                  - link [ref=e1751] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/349618
+                    - text: National Centers for Biomedical Imaging and Bioengineering (NCBIB) (P41 Clinical Trials Optional)
+                - cell [ref=e1752]: National Institutes of Health
+                - cell [ref=e1753]: —
+                - cell [ref=e1754]:
+                  - generic [ref=e616]: 102 days
+                - cell [ref=e1755]:
+                  - generic [ref=e618]: federal
+                - cell [ref=e1756]:
+                  - button [ref=e1757]: Info
+              - row [ref=e1758]:
+                - cell [ref=e1759]:
+                  - link [ref=e1760] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/351234
+                    - text: Alcohol Research-Related Resource Award (R24 Clinical Trial Not Allowed)
+                - cell [ref=e1761]: National Institutes of Health
+                - cell [ref=e1762]: —
+                - cell [ref=e1763]:
+                  - generic [ref=e628]: 120 days
+                - cell [ref=e1764]:
+                  - generic [ref=e630]: federal
+                - cell [ref=e1765]:
+                  - button [ref=e1766]: Info
+              - row [ref=e1767]:
+                - cell [ref=e1768]:
+                  - link [ref=e1769] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/350299
+                    - text: Specialized Programs of Research Excellence (SPOREs) in Human Cancers for Years 2024, 2025, and 2026 (P50 Clinical Trial Required)
+                - cell [ref=e1770]: National Institutes of Health
+                - cell [ref=e1771]: —
+                - cell [ref=e1772]:
+                  - generic [ref=e640]: 120 days
+                - cell [ref=e1773]:
+                  - generic [ref=e642]: federal
+                - cell [ref=e1774]:
+                  - button [ref=e1775]: Info
+              - row [ref=e1776]:
+                - cell [ref=e1777]:
+                  - link [ref=e1778] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/350485
+                    - text: National Institute of General Medical Sciences Predoctoral Basic Biomedical Sciences Research Training Program (T32)
+                - cell [ref=e1779]: National Institutes of Health
+                - cell [ref=e1780]: —
+                - cell [ref=e1781]:
+                  - generic [ref=e652]: 120 days
+                - cell [ref=e1782]:
+                  - generic [ref=e654]: federal
+                - cell [ref=e1783]:
+                  - button [ref=e1784]: Info
+              - row [ref=e1785]:
+                - cell [ref=e1786]:
+                  - link [ref=e1787] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/351057
+                    - text: NHLBI Program Project Applications (P01 Clinical Trials Optional)
+                - cell [ref=e1788]: National Institutes of Health
+                - cell [ref=e1789]: —
+                - cell [ref=e1790]:
+                  - generic [ref=e664]: 120 days
+                - cell [ref=e1791]:
+                  - generic [ref=e666]: federal
+                - cell [ref=e1792]:
+                  - button [ref=e1793]: Info
+              - row [ref=e1794]:
+                - cell [ref=e1795]:
+                  - link [ref=e1796] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357710
+                    - text: Institutional Training Programs to Advance Translational Research on Alzheimer's Disease (AD) and AD-Related Dementias (ADRD) (T32 Clinical Trial Not Allowed)
+                - cell [ref=e1797]: National Institutes of Health
+                - cell [ref=e1798]: —
+                - cell [ref=e1799]:
+                  - generic [ref=e676]: 120 days
+                - cell [ref=e1800]:
+                  - generic [ref=e678]: federal
+                - cell [ref=e1801]:
+                  - button [ref=e1802]: Info
+              - row [ref=e1803]:
+                - cell [ref=e1804]:
+                  - link [ref=e1805] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356981
+                    - text: "BRAIN Initiative: Next-Generation Devices for Recording and Modulation in the Human Central Nervous System (UG3/UH3 Clinical Trial Optional)"
+                - cell [ref=e1806]: National Institutes of Health
+                - cell [ref=e1807]: —
+                - cell [ref=e1808]:
+                  - generic [ref=e688]: 123 days
+                - cell [ref=e1809]:
+                  - generic [ref=e690]: federal
+                - cell [ref=e1810]:
+                  - button [ref=e1811]: Info
+              - row [ref=e1812]:
+                - cell [ref=e1813]:
+                  - link [ref=e1814] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356982
+                    - text: "BRAIN Initiative: Clinical Studies to Advance Next-Generation Devices for Recording and Modulation in the Human Central Nervous System (UH3 Clinical Trial Optional)"
+                - cell [ref=e1815]: National Institutes of Health
+                - cell [ref=e1816]: —
+                - cell [ref=e1817]:
+                  - generic [ref=e700]: 123 days
+                - cell [ref=e1818]:
+                  - generic [ref=e702]: federal
+                - cell [ref=e1819]:
+                  - button [ref=e1820]: Info
+              - row [ref=e1821]:
+                - cell [ref=e1822]:
+                  - link [ref=e1823] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357634
+                    - text: "Limited Competition: High Impact Specialized Innovation Programs in Clinical and Translational Science (RC2 Clinical Trials Optional)"
+                - cell [ref=e1824]: National Institutes of Health
+                - cell [ref=e1825]: —
+                - cell [ref=e1826]:
+                  - generic [ref=e712]: 123 days
+                - cell [ref=e1827]:
+                  - generic [ref=e714]: federal
+                - cell [ref=e1828]:
+                  - button [ref=e1829]: Info
+              - row [ref=e1830]:
+                - cell [ref=e1831]:
+                  - link [ref=e1832] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/355297
+                    - text: National Cancer Institute Youth Enjoy Science Research Education Program (R25 Clinical Trial Not Allowed)
+                - cell [ref=e1833]: National Institutes of Health
+                - cell [ref=e1834]: —
+                - cell [ref=e1835]:
+                  - generic [ref=e724]: 123 days
+                - cell [ref=e1836]:
+                  - generic [ref=e726]: federal
+                - cell [ref=e1837]:
+                  - button [ref=e1838]: Info
+              - row [ref=e1839]:
+                - cell [ref=e1840]:
+                  - link [ref=e1841] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/352282
+                    - text: NIDCD's Mentored Research Education Pathway for Otolaryngology Residents and Medical Students (R25 - Clinical Trial Not Allowed)
+                - cell [ref=e1842]: National Institutes of Health
+                - cell [ref=e1843]: —
+                - cell [ref=e1844]:
+                  - generic [ref=e736]: 124 days
+                - cell [ref=e1845]:
+                  - generic [ref=e738]: federal
+                - cell [ref=e1846]:
+                  - button [ref=e1847]: Info
+              - row [ref=e1848]:
+                - cell [ref=e1849]:
+                  - link [ref=e1850] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/351240
+                    - text: GEOSPATIAL INTELLIGENCE PROCESSING AND EXPLOITATION (GeoPEX)
+                - cell [ref=e1851]: Air Force -- Research Lab
+                - cell [ref=e1852]: —
+                - cell [ref=e1853]:
+                  - generic [ref=e748]: 125 days
+                - cell [ref=e1854]:
+                  - generic [ref=e750]: federal
+                - cell [ref=e1855]:
+                  - button [ref=e1856]: Info
+              - row [ref=e1857]:
+                - cell [ref=e1858]:
+                  - link [ref=e1859] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356127
+                    - text: "FY 2024 &ndash; 2026 - Broad Agency Announcement (BAA) Announcement Type: Initial"
+                - cell [ref=e1860]: DOC NOAA - ERA Production
+                - cell [ref=e1861]: —
+                - cell [ref=e1862]:
+                  - generic [ref=e760]: 125 days
+                - cell [ref=e1863]:
+                  - generic [ref=e762]: federal
+                - cell [ref=e1864]:
+                  - button [ref=e1865]: Info
+              - row [ref=e1866]:
+                - cell [ref=e1867]:
+                  - link [ref=e1868] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/355706
+                    - text: FY 2024 &ndash; 2026 Broad Agency Announcement (BAA), National Marine Fisheries Service
+                - cell [ref=e1869]: DOC NOAA - ERA Production
+                - cell [ref=e1870]: —
+                - cell [ref=e1871]:
+                  - generic [ref=e772]: 125 days
+                - cell [ref=e1872]:
+                  - generic [ref=e774]: federal
+                - cell [ref=e1873]:
+                  - button [ref=e1874]: Info
+              - row [ref=e1875]:
+                - cell [ref=e1876]:
+                  - link [ref=e1877] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/355705
+                    - text: FY 2024 &ndash; 2026 - Broad Agency Announcement (BAA)
+                - cell [ref=e1878]: DOC NOAA - ERA Production
+                - cell [ref=e1879]: —
+                - cell [ref=e1880]:
+                  - generic [ref=e784]: 125 days
+                - cell [ref=e1881]:
+                  - generic [ref=e786]: federal
+                - cell [ref=e1882]:
+                  - button [ref=e1883]: Info
+              - row [ref=e1884]:
+                - cell [ref=e1885]:
+                  - link [ref=e1886] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356669
+                    - text: FY 2024 &ndash; 2026 Broad Agency Announcement (BAA), Office of Oceanic and Atmospheric Research (OAR)
+                - cell [ref=e1887]: DOC NOAA - ERA Production
+                - cell [ref=e1888]: —
+                - cell [ref=e1889]:
+                  - generic [ref=e796]: 125 days
+                - cell [ref=e1890]:
+                  - generic [ref=e798]: federal
+                - cell [ref=e1891]:
+                  - button [ref=e1892]: Info
+              - row [ref=e1893]:
+                - cell [ref=e1894]:
+                  - link [ref=e1895] [cursor=pointer]:
+                    - /url: https://www.toryburchfoundation.org/resources/grants/
+                    - text: Tory Burch Foundation Small Business Grant
+                - cell [ref=e1896]: Tory Burch Foundation
+                - cell [ref=e1897]: Up to $5,000
+                - cell [ref=e1898]:
+                  - generic [ref=e808]: 126 days
+                - cell [ref=e1899]:
+                  - generic [ref=e810]: foundation
+                - cell [ref=e1900]:
+                  - generic [ref=e812]:
+                    - button [ref=e1901]: Info
+                    - link [ref=e1902] [cursor=pointer]:
+                      - /url: https://www.toryburchfoundation.org/resources/grants/
+                      - text: Apply
+                      - img [ref=e815]
+              - row [ref=e1903]:
+                - cell [ref=e1904]:
+                  - link [ref=e1905] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/355492
+                    - text: Innovative Programs to Enhance Research Training (IPERT) (R25 Independent Clinical Trial Not Allowed)
+                - cell [ref=e1906]: National Institutes of Health
+                - cell [ref=e1907]: —
+                - cell [ref=e1908]:
+                  - generic [ref=e825]: 139 days
+                - cell [ref=e1909]:
+                  - generic [ref=e827]: federal
+                - cell [ref=e1910]:
+                  - button [ref=e1911]: Info
+              - row [ref=e1912]:
+                - cell [ref=e1913]:
+                  - link [ref=e1914] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356717
+                    - text: Assay Validation of High Quality Markers for Clinical Studies in Cancer (UH3 Clinical Trials Not Allowed)
+                - cell [ref=e1915]: National Institutes of Health
+                - cell [ref=e1916]: —
+                - cell [ref=e1917]:
+                  - generic [ref=e837]: 139 days
+                - cell [ref=e1918]:
+                  - generic [ref=e839]: federal
+                - cell [ref=e1919]:
+                  - button [ref=e1920]: Info
+              - row [ref=e1921]:
+                - cell [ref=e1922]:
+                  - link [ref=e1923] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/350944
+                    - text: NCI Pathway to Independence Award for Early-Stage Postdoctoral Researchers (K99/R00 - Independent Clinical Trial Required)
+                - cell [ref=e1924]: National Institutes of Health
+                - cell [ref=e1925]: —
+                - cell [ref=e1926]:
+                  - generic [ref=e849]: 139 days
+                - cell [ref=e1927]:
+                  - generic [ref=e851]: federal
+                - cell [ref=e1928]:
+                  - button [ref=e1929]: Info
+              - row [ref=e1930]:
+                - cell [ref=e1931]:
+                  - link [ref=e1932] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357658
+                    - text: "Limited Competition: Small Grant Program for the NCATS Clinical and Translational Science Award (CTSA) Program (R03 Clinical Trial Optional)"
+                - cell [ref=e1933]: National Institutes of Health
+                - cell [ref=e1934]: —
+                - cell [ref=e1935]:
+                  - generic [ref=e861]: 144 days
+                - cell [ref=e1936]:
+                  - generic [ref=e863]: federal
+                - cell [ref=e1937]:
+                  - button [ref=e1938]: Info
+              - row [ref=e1939]:
+                - cell [ref=e1940]:
+                  - link [ref=e1941] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357135
+                    - text: Developing novel theory and methods for understanding the genetic architecture of complex human traits (R01 Clinical Trial Not Allowed)
+                - cell [ref=e1942]: National Institutes of Health
+                - cell [ref=e1943]: —
+                - cell [ref=e1944]:
+                  - generic [ref=e873]: 161 days
+                - cell [ref=e1945]:
+                  - generic [ref=e875]: federal
+                - cell [ref=e1946]:
+                  - button [ref=e1947]: Info
+              - row [ref=e1948]:
+                - cell [ref=e1949]:
+                  - link [ref=e1950] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357493
+                    - text: NCCIH Natural Product Mid Phase Clinical Trial (R01 Clinical Trial Required)
+                - cell [ref=e1951]: National Institutes of Health
+                - cell [ref=e1952]: —
+                - cell [ref=e1953]:
+                  - generic [ref=e885]: 169 days
+                - cell [ref=e1954]:
+                  - generic [ref=e887]: federal
+                - cell [ref=e1955]:
+                  - button [ref=e1956]: Info
+              - row [ref=e1957]:
+                - cell [ref=e1958]:
+                  - link [ref=e1959] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/358179
+                    - text: Ethical, Legal and Social Implications (ELSI) Small Research Grant (R03 Clinical Trial Optional)
+                - cell [ref=e1960]: National Institutes of Health
+                - cell [ref=e1961]: —
+                - cell [ref=e1962]:
+                  - generic [ref=e897]: 172 days
+                - cell [ref=e1963]:
+                  - generic [ref=e899]: federal
+                - cell [ref=e1964]:
+                  - button [ref=e1965]: Info
+              - row [ref=e1966]:
+                - cell [ref=e1967]:
+                  - link [ref=e1968] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357305
+                    - text: Feasibility Clinical Trials of Mind and Body Interventions for NCCIH High Priority Research Topics (R34 Clinical Trial Required)
+                - cell [ref=e1969]: National Institutes of Health
+                - cell [ref=e1970]: —
+                - cell [ref=e1971]:
+                  - generic [ref=e909]: 173 days
+                - cell [ref=e1972]:
+                  - generic [ref=e911]: federal
+                - cell [ref=e1973]:
+                  - button [ref=e1974]: Info
+              - row [ref=e1975]:
+                - cell [ref=e1976]:
+                  - link [ref=e1977] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357301
+                    - text: NCCIH Multi-Site Feasibility Clinical Trials of Mind and Body Interventions (R01 Clinical Trial Required)
+                - cell [ref=e1978]: National Institutes of Health
+                - cell [ref=e1979]: —
+                - cell [ref=e1980]:
+                  - generic [ref=e921]: 173 days
+                - cell [ref=e1981]:
+                  - generic [ref=e923]: federal
+                - cell [ref=e1982]:
+                  - button [ref=e1983]: Info
+              - row [ref=e1984]:
+                - cell [ref=e1985]:
+                  - link [ref=e1986] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357303
+                    - text: Investigator Initiated Clinical Trials of Complementary and Integrative Interventions Delivered Remotely or via mHealth (R01 Clinical Trial Required)
+                - cell [ref=e1987]: National Institutes of Health
+                - cell [ref=e1988]: —
+                - cell [ref=e1989]:
+                  - generic [ref=e933]: 173 days
+                - cell [ref=e1990]:
+                  - generic [ref=e935]: federal
+                - cell [ref=e1991]:
+                  - button [ref=e1992]: Info
+              - row [ref=e1993]:
+                - cell [ref=e1994]:
+                  - link [ref=e1995] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/358176
+                    - text: Ethical, Legal and Social Implications (ELSI) Exploratory/Developmental Research Grant (R21 Clinical Trial Optional)
+                - cell [ref=e1996]: National Institutes of Health
+                - cell [ref=e1997]: —
+                - cell [ref=e1998]:
+                  - generic [ref=e945]: 174 days
+                - cell [ref=e1999]:
+                  - generic [ref=e947]: federal
+                - cell [ref=e2000]:
+                  - button [ref=e2001]: Info
+              - row [ref=e2002]:
+                - cell [ref=e2003]:
+                  - link [ref=e2004] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/358181
+                    - text: Ethical, Legal and Social Implications (ELSI) Research (R01 Clinical Trial Optional)
+                - cell [ref=e2005]: National Institutes of Health
+                - cell [ref=e2006]: —
+                - cell [ref=e2007]:
+                  - generic [ref=e957]: 174 days
+                - cell [ref=e2008]:
+                  - generic [ref=e959]: federal
+                - cell [ref=e2009]:
+                  - button [ref=e2010]: Info
+              - row [ref=e2011]:
+                - cell [ref=e2012]:
+                  - link [ref=e2013] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357256
+                    - text: NIH StrokeNet Clinical Trials and Biomarker Studies for Stroke Treatment, Recovery, and Prevention (UG3/UH3 Clinical Trial Optional)
+                - cell [ref=e2014]: National Institutes of Health
+                - cell [ref=e2015]: —
+                - cell [ref=e2016]:
+                  - generic [ref=e969]: 175 days
+                - cell [ref=e2017]:
+                  - generic [ref=e971]: federal
+                - cell [ref=e2018]:
+                  - button [ref=e2019]: Info
+              - row [ref=e2020]:
+                - cell [ref=e2021]:
+                  - link [ref=e2022] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356724
+                    - text: Emerging Global Leader Award (K43 Independent Clinical Trial Required)
+                - cell [ref=e2023]: National Institutes of Health
+                - cell [ref=e2024]: —
+                - cell [ref=e2025]:
+                  - generic [ref=e981]: 189 days
+                - cell [ref=e2026]:
+                  - generic [ref=e983]: federal
+                - cell [ref=e2027]:
+                  - button [ref=e2028]: Info
+              - row [ref=e2029]:
+                - cell [ref=e2030]:
+                  - link [ref=e2031] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/355439
+                    - text: NIH Research Software Engineer (RSE) Award (R50 Clinical Trials Not Allowed)
+                - cell [ref=e2032]: National Institutes of Health
+                - cell [ref=e2033]: —
+                - cell [ref=e2034]:
+                  - generic [ref=e993]: 190 days
+                - cell [ref=e2035]:
+                  - generic [ref=e995]: federal
+                - cell [ref=e2036]:
+                  - button [ref=e2037]: Info
+              - row [ref=e2038]:
+                - cell [ref=e2039]:
+                  - link [ref=e2040] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/358087
+                    - text: "Unveiling Health and Healthcare Disparities in Non-Communicable and Chronic Diseases in Latin America: Setting the Stage for Better Health Outcomes Across the Hemisphere (R01 - Clinical Trials Not Allowed)"
+                - cell [ref=e2041]: National Institutes of Health
+                - cell [ref=e2042]: —
+                - cell [ref=e2043]:
+                  - generic [ref=e1005]: 224 days
+                - cell [ref=e2044]:
+                  - generic [ref=e1007]: federal
+                - cell [ref=e2045]:
+                  - button [ref=e2046]: Info
+              - row [ref=e2047]:
+                - cell [ref=e2048]:
+                  - link [ref=e2049] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357543
+                    - text: NHLBI Early Phase Clinical Trials for Therapeutics and/or Diagnostics for HLBS Disorders (R61/R33 Clinical Trial Required)
+                - cell [ref=e2050]: National Institutes of Health
+                - cell [ref=e2051]: —
+                - cell [ref=e2052]:
+                  - generic [ref=e1017]: 224 days
+                - cell [ref=e2053]:
+                  - generic [ref=e1019]: federal
+                - cell [ref=e2054]:
+                  - button [ref=e2055]: Info
+              - row [ref=e2056]:
+                - cell [ref=e2057]:
+                  - link [ref=e2058] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357021
+                    - text: Population Approaches to Reducing Alcohol-related Cancer Risk (R01 Clinical Trial Optional)
+                - cell [ref=e2059]: National Institutes of Health
+                - cell [ref=e2060]: —
+                - cell [ref=e2061]:
+                  - generic [ref=e1029]: 224 days
+                - cell [ref=e2062]:
+                  - generic [ref=e1031]: federal
+                - cell [ref=e2063]:
+                  - button [ref=e2064]: Info
+              - row [ref=e2065]:
+                - cell [ref=e2066]:
+                  - link [ref=e2067] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356690
+                    - text: Interventions to expand cancer screening and preventive services to ADVANCE health in populations that experience health disparities (R01, Clinical Trial Required)
+                - cell [ref=e2068]: National Institutes of Health
+                - cell [ref=e2069]: —
+                - cell [ref=e2070]:
+                  - generic [ref=e1041]: 224 days
+                - cell [ref=e2071]:
+                  - generic [ref=e1043]: federal
+                - cell [ref=e2072]:
+                  - button [ref=e2073]: Info
+              - row [ref=e2074]:
+                - cell [ref=e2075]:
+                  - link [ref=e2076] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/358373
+                    - text: Intervention Research to Improve Native American Health (R34 Clinical Trial Optional)
+                - cell [ref=e2077]: National Institutes of Health
+                - cell [ref=e2078]: —
+                - cell [ref=e2079]:
+                  - generic [ref=e1053]: 224 days
+                - cell [ref=e2080]:
+                  - generic [ref=e1055]: federal
+                - cell [ref=e2081]:
+                  - button [ref=e2082]: Info
+              - row [ref=e2083]:
+                - cell [ref=e2084]:
+                  - link [ref=e2085] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/358375
+                    - text: Intervention Research to Improve Native American Health (R01 Clinical Trial Optional)
+                - cell [ref=e2086]: National Institutes of Health
+                - cell [ref=e2087]: —
+                - cell [ref=e2088]:
+                  - generic [ref=e1065]: 224 days
+                - cell [ref=e2089]:
+                  - generic [ref=e1067]: federal
+                - cell [ref=e2090]:
+                  - button [ref=e2091]: Info
+              - row [ref=e2092]:
+                - cell [ref=e2093]:
+                  - link [ref=e2094] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/350415
+                    - text: Cancer Research Education Grants Program - Courses for Skills Development (R25 Clinical Trial Not Allowed)
+                - cell [ref=e2095]: National Institutes of Health
+                - cell [ref=e2096]: —
+                - cell [ref=e2097]:
+                  - generic [ref=e1077]: 224 days
+                - cell [ref=e2098]:
+                  - generic [ref=e1079]: federal
+                - cell [ref=e2099]:
+                  - button [ref=e2100]: Info
+              - row [ref=e2101]:
+                - cell [ref=e2102]:
+                  - link [ref=e2103] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/350279
+                    - text: Cancer Research Education Grants Program - Research Experiences (R25 Clinical Trial Not Allowed)
+                - cell [ref=e2104]: National Institutes of Health
+                - cell [ref=e2105]: —
+                - cell [ref=e2106]:
+                  - generic [ref=e1089]: 224 days
+                - cell [ref=e2107]:
+                  - generic [ref=e1091]: federal
+                - cell [ref=e2108]:
+                  - button [ref=e2109]: Info
+              - row [ref=e2110]:
+                - cell [ref=e2111]:
+                  - link [ref=e2112] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357136
+                    - text: Developing novel theory and methods for understanding the genetic architecture of complex human traits (R21 Clinical Trial Not Allowed)
+                - cell [ref=e2113]: National Institutes of Health
+                - cell [ref=e2114]: —
+                - cell [ref=e2115]:
+                  - generic [ref=e1101]: 224 days
+                - cell [ref=e2116]:
+                  - generic [ref=e1103]: federal
+                - cell [ref=e2117]:
+                  - button [ref=e2118]: Info
+              - row [ref=e2119]:
+                - cell [ref=e2120]:
+                  - link [ref=e2121] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357376
+                    - text: Prevention and Intervention Approaches for Fetal Alcohol Spectrum Disorders (R34 Clinical Trial Optional)
+                - cell [ref=e2122]: National Institutes of Health
+                - cell [ref=e2123]: —
+                - cell [ref=e2124]:
+                  - generic [ref=e1113]: 224 days
+                - cell [ref=e2125]:
+                  - generic [ref=e1115]: federal
+                - cell [ref=e2126]:
+                  - button [ref=e2127]: Info
+              - row [ref=e2128]:
+                - cell [ref=e2129]:
+                  - link [ref=e2130] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357202
+                    - text: Mechanisms that Impact Cancer Risk with Use of Incretin Mimetics (R01 Clinical Trial Optional)
+                - cell [ref=e2131]: National Institutes of Health
+                - cell [ref=e2132]: —
+                - cell [ref=e2133]:
+                  - generic [ref=e1125]: 224 days
+                - cell [ref=e2134]:
+                  - generic [ref=e1127]: federal
+                - cell [ref=e2135]:
+                  - button [ref=e2136]: Info
+              - row [ref=e2137]:
+                - cell [ref=e2138]:
+                  - link [ref=e2139] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357524
+                    - text: Accelerating Solutions to Improve Access and Quality of Empirically-Supported Practices for Youth Mental Health (R01 Clinical Trial Optional)
+                - cell [ref=e2140]: National Institutes of Health
+                - cell [ref=e2141]: —
+                - cell [ref=e2142]:
+                  - generic [ref=e1137]: 224 days
+                - cell [ref=e2143]:
+                  - generic [ref=e1139]: federal
+                - cell [ref=e2144]:
+                  - button [ref=e2145]: Info
+              - row [ref=e2146]:
+                - cell [ref=e2147]:
+                  - link [ref=e2148] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357074
+                    - text: Cancer Prevention and Control Clinical Trials Grant Program (R01 Clinical Trial Required)
+                - cell [ref=e2149]: National Institutes of Health
+                - cell [ref=e2150]: —
+                - cell [ref=e2151]:
+                  - generic [ref=e1149]: 224 days
+                - cell [ref=e2152]:
+                  - generic [ref=e1151]: federal
+                - cell [ref=e2153]:
+                  - button [ref=e2154]: Info
+              - row [ref=e2155]:
+                - cell [ref=e2156]:
+                  - link [ref=e2157] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357075
+                    - text: National Cancer Institute's Investigator-Initiated Early Phase Clinical Trials for Cancer Treatment and Diagnosis (R01 Clinical Trial Required)
+                - cell [ref=e2158]: National Institutes of Health
+                - cell [ref=e2159]: —
+                - cell [ref=e2160]:
+                  - generic [ref=e1161]: 224 days
+                - cell [ref=e2161]:
+                  - generic [ref=e1163]: federal
+                - cell [ref=e2162]:
+                  - button [ref=e2163]: Info
+              - row [ref=e2164]:
+                - cell [ref=e2165]:
+                  - link [ref=e2166] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357542
+                    - text: NHLBI Early Phase Clinical Trials for Therapeutics and/or Diagnostics for HLBS Disorders (R33 CT Required)
+                - cell [ref=e2167]: National Institutes of Health
+                - cell [ref=e2168]: —
+                - cell [ref=e2169]:
+                  - generic [ref=e1173]: 224 days
+                - cell [ref=e2170]:
+                  - generic [ref=e1175]: federal
+                - cell [ref=e2171]:
+                  - button [ref=e2172]: Info
+              - row [ref=e2173]:
+                - cell [ref=e2174]:
+                  - link [ref=e2175] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357203
+                    - text: Mechanisms that Impact Cancer Risk with Use of Incretin Mimetics (R21 Clinical Trial Not Allowed)
+                - cell [ref=e2176]: National Institutes of Health
+                - cell [ref=e2177]: —
+                - cell [ref=e2178]:
+                  - generic [ref=e1185]: 224 days
+                - cell [ref=e2179]:
+                  - generic [ref=e1187]: federal
+                - cell [ref=e2180]:
+                  - button [ref=e2181]: Info
+              - row [ref=e2182]:
+                - cell [ref=e2183]:
+                  - link [ref=e2184] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356460
+                    - text: "HEAL Initiative: Studies to Enable Analgesic Discovery (R61/R33 - Clinical Trial Not Allowed)"
+                - cell [ref=e2185]: National Institutes of Health
+                - cell [ref=e2186]: —
+                - cell [ref=e2187]:
+                  - generic [ref=e1197]: 232 days
+                - cell [ref=e2188]:
+                  - generic [ref=e1199]: federal
+                - cell [ref=e2189]:
+                  - button [ref=e2190]: Info
+              - row [ref=e2191]:
+                - cell [ref=e2192]:
+                  - link [ref=e2193] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356310
+                    - text: Tribal Undergraduate to Graduate Research Training and Leadership Experiences (TURTLE) Program (UE5/T34)
+                - cell [ref=e2194]: National Institutes of Health
+                - cell [ref=e2195]: —
+                - cell [ref=e2196]:
+                  - generic [ref=e1209]: 242 days
+                - cell [ref=e2197]:
+                  - generic [ref=e1211]: federal
+                - cell [ref=e2198]:
+                  - button [ref=e2199]: Info
+              - row [ref=e2200]:
+                - cell [ref=e2201]:
+                  - link [ref=e2202] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356309
+                    - text: Tribal Undergraduate to Graduate Research Training and Leadership Experiences (TURTLE) Program (UE5/T32)
+                - cell [ref=e2203]: National Institutes of Health
+                - cell [ref=e2204]: —
+                - cell [ref=e2205]:
+                  - generic [ref=e1221]: 242 days
+                - cell [ref=e2206]:
+                  - generic [ref=e1223]: federal
+                - cell [ref=e2207]:
+                  - button [ref=e2208]: Info
+              - row [ref=e2209]:
+                - cell [ref=e2210]:
+                  - link [ref=e2211] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356902
+                    - text: Biomedical Research Environment and Sponsored Programs Administration Development (BRE-SPAD) Program (UC2- Clinical Trial Not Allowed)
+                - cell [ref=e2212]: National Institutes of Health
+                - cell [ref=e2213]: —
+                - cell [ref=e2214]:
+                  - generic [ref=e1233]: 244 days
+                - cell [ref=e2215]:
+                  - generic [ref=e1235]: federal
+                - cell [ref=e2216]:
+                  - button [ref=e2217]: Info
+              - row [ref=e2218]:
+                - cell [ref=e2219]:
+                  - link [ref=e2220] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356903
+                    - text: Translational Neural Devices (R61/R33 - Clinical Trial Optional)
+                - cell [ref=e2221]: National Institutes of Health
+                - cell [ref=e2222]: —
+                - cell [ref=e2223]:
+                  - generic [ref=e1245]: 245 days
+                - cell [ref=e2224]:
+                  - generic [ref=e1247]: federal
+                - cell [ref=e2225]:
+                  - button [ref=e2226]: Info
+              - row [ref=e2227]:
+                - cell [ref=e2228]:
+                  - link [ref=e2229] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356129
+                    - text: Mid-scale Research Infrastructure-1
+                - cell [ref=e2230]: U.S. National Science Foundation
+                - cell [ref=e2231]: —
+                - cell [ref=e2232]:
+                  - generic [ref=e1257]: 256 days
+                - cell [ref=e2233]:
+                  - generic [ref=e1259]: federal
+                - cell [ref=e2234]:
+                  - button [ref=e2235]: Info
+              - row [ref=e2236]:
+                - cell [ref=e2237]:
+                  - link [ref=e2238] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357137
+                    - text: "BRAIN Initiative: Development and Validation of Novel Tools to Probe Cell-Specific and Circuit-Specific Processes in the Brain (R01 Clinical Trial Not Allowed)"
+                - cell [ref=e2239]: National Institutes of Health
+                - cell [ref=e2240]: —
+                - cell [ref=e2241]:
+                  - generic [ref=e1269]: 256 days
+                - cell [ref=e2242]:
+                  - generic [ref=e1271]: federal
+                - cell [ref=e2243]:
+                  - button [ref=e2244]: Info
+              - row [ref=e2245]:
+                - cell [ref=e2246]:
+                  - link [ref=e2247] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356018
+                    - text: NIDA Animal Genomics Program (U01 Clinical Trial Not Allowed)
+                - cell [ref=e2248]: National Institutes of Health
+                - cell [ref=e2249]: —
+                - cell [ref=e2250]:
+                  - generic [ref=e1281]: 259 days
+                - cell [ref=e2251]:
+                  - generic [ref=e1283]: federal
+                - cell [ref=e2252]:
+                  - button [ref=e2253]: Info
+              - row [ref=e2254]:
+                - cell [ref=e2255]:
+                  - link [ref=e2256] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/324456
+                    - text: Expeditions in Computing
+                - cell [ref=e2257]: U.S. National Science Foundation
+                - cell [ref=e2258]: —
+                - cell [ref=e2259]:
+                  - generic [ref=e1293]: 307 days
+                - cell [ref=e2260]:
+                  - generic [ref=e1295]: federal
+                - cell [ref=e2261]:
+                  - button [ref=e2262]: Info
+              - row [ref=e2263]:
+                - cell [ref=e2264]:
+                  - link [ref=e2265] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/360006
+                    - text: NARMS Cooperative Agreement Program to Strengthen Antibiotic Resistance Surveillance in Retail Food Specimens
+                - cell [ref=e2266]: Food and Drug Administration
+                - cell [ref=e2267]: —
+                - cell [ref=e2268]:
+                  - generic [ref=e1305]: 308 days
+                - cell [ref=e2269]:
+                  - generic [ref=e1307]: federal
+                - cell [ref=e2270]:
+                  - button [ref=e2271]: Info
+              - row [ref=e2272]:
+                - cell [ref=e2273]:
+                  - link [ref=e2274] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/359816
+                    - text: Animal Food Regulatory Program Standards Implementation Development and Maintenance, with Mutual Reliance Initiatives Clinical Trials Not Allowed
+                - cell [ref=e2275]: Food and Drug Administration
+                - cell [ref=e2276]: —
+                - cell [ref=e2277]:
+                  - generic [ref=e1317]: 308 days
+                - cell [ref=e2278]:
+                  - generic [ref=e1319]: federal
+                - cell [ref=e2279]:
+                  - button [ref=e2280]: Info
+              - row [ref=e2281]:
+                - cell [ref=e2282]:
+                  - link [ref=e2283] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/358552
+                    - text: Short Courses on Innovative Methodologies and Approaches in the Behavioral and Social Sciences (R25 Clinical Trials Not Allowed)
+                - cell [ref=e2284]: National Institutes of Health
+                - cell [ref=e2285]: —
+                - cell [ref=e2286]:
+                  - generic [ref=e1329]: 316 days
+                - cell [ref=e2287]:
+                  - generic [ref=e1331]: federal
+                - cell [ref=e2288]:
+                  - button [ref=e2289]: Info
+              - row [ref=e2290]:
+                - cell [ref=e2291]:
+                  - link [ref=e2292] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/356888
+                    - text: Computational Approaches to Curation at Scale for Biomedical Research Assets (R01 Clinical Trial Not Allowed)
+                - cell [ref=e2293]: National Institutes of Health
+                - cell [ref=e2294]: —
+                - cell [ref=e2295]:
+                  - generic [ref=e1341]: 322 days
+                - cell [ref=e2296]:
+                  - generic [ref=e1343]: federal
+                - cell [ref=e2297]:
+                  - button [ref=e2298]: Info
+              - row [ref=e2299]:
+                - cell [ref=e2300]:
+                  - link [ref=e2301] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/353763
+                    - text: NIH Pathway to Independence Award (Parent K99/R00 Independent Clinical Trial Required)
+                - cell [ref=e2302]: National Institutes of Health
+                - cell [ref=e2303]: —
+                - cell [ref=e2304]:
+                  - generic [ref=e1353]: 344 days
+                - cell [ref=e2305]:
+                  - generic [ref=e1355]: federal
+                - cell [ref=e2306]:
+                  - button [ref=e2307]: Info
+              - row [ref=e2308]:
+                - cell [ref=e2309]:
+                  - link [ref=e2310] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357377
+                    - text: New Approaches for Measuring Brain Changes Across Longer Timespans (R21 Clinical Trial Optional)
+                - cell [ref=e2311]: National Institutes of Health
+                - cell [ref=e2312]: —
+                - cell [ref=e2313]:
+                  - generic [ref=e1365]: 344 days
+                - cell [ref=e2314]:
+                  - generic [ref=e1367]: federal
+                - cell [ref=e2315]:
+                  - button [ref=e2316]: Info
+              - row [ref=e2317]:
+                - cell [ref=e2318]:
+                  - link [ref=e2319] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357288
+                    - text: Screening, Brief Intervention and Referral to Treatment or Prevention (SBIRT/P) for alcohol, tobacco, and other drugs (ATOD) use and misuse in adult populations that experience health disparities (R01, Clinical Trial Required)
+                - cell [ref=e2320]: National Institutes of Health
+                - cell [ref=e2321]: —
+                - cell [ref=e2322]:
+                  - generic [ref=e1377]: 344 days
+                - cell [ref=e2323]:
+                  - generic [ref=e1379]: federal
+                - cell [ref=e2324]:
+                  - button [ref=e2325]: Info
+              - row [ref=e2326]:
+                - cell [ref=e2327]:
+                  - link [ref=e2328] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/353749
+                    - text: Mentored Research Scientist Development Award (Parent K01 - Independent Clinical Trial Required)
+                - cell [ref=e2329]: National Institutes of Health
+                - cell [ref=e2330]: —
+                - cell [ref=e2331]:
+                  - generic [ref=e1389]: 344 days
+                - cell [ref=e2332]:
+                  - generic [ref=e1391]: federal
+                - cell [ref=e2333]:
+                  - button [ref=e2334]: Info
+              - row [ref=e2335]:
+                - cell [ref=e2336]:
+                  - link [ref=e2337] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/357378
+                    - text: New Approaches for Measuring Brain Changes Across Longer Timespans (R01 Clinical Trial Optional)
+                - cell [ref=e2338]: National Institutes of Health
+                - cell [ref=e2339]: —
+                - cell [ref=e2340]:
+                  - generic [ref=e1401]: 344 days
+                - cell [ref=e2341]:
+                  - generic [ref=e1403]: federal
+                - cell [ref=e2342]:
+                  - button [ref=e2343]: Info
+              - row [ref=e2344]:
+                - cell [ref=e2345]:
+                  - link [ref=e2346] [cursor=pointer]:
+                    - /url: https://www.grants.gov/search-results-detail/354972
+                    - text: Summer Research Education Experience Program (R25 Clinical Trial Not Allowed)
+                - cell [ref=e2347]: National Institutes of Health
+                - cell [ref=e2348]: —
+                - cell [ref=e2349]:
+                  - generic [ref=e1413]: 344 days
+                - cell [ref=e2350]:
+                  - generic [ref=e1415]: federal
+                - cell [ref=e2351]:
+                  - button [ref=e2352]: Info
+  - alert [ref=e182]
+  - dialog "Dream Makers Founders Grant" [ref=e2356]:
+    - generic [ref=e2357]:
+      - heading "Dream Makers Founders Grant" [level=2] [ref=e2358]
+      - paragraph [ref=e2359]:
+        - generic [ref=e2360]: Dream Makers
+        - generic [ref=e2361]: Foundation
+    - generic [ref=e2362]:
+      - generic [ref=e2364]:
+        - img [ref=e2365]
+        - text: May 30, 2026 · 3 days
+      - generic [ref=e2368]:
+        - img [ref=e2369]
+        - generic [ref=e2371]: Up to $25,000
+      - generic [ref=e2372]:
+        - generic [ref=e2373]: Description
+        - paragraph [ref=e2374]: $25,000 grant for entrepreneurs and founders. Competitive program supporting business growth and community impact.
+      - generic [ref=e2375]:
+        - generic [ref=e2376]:
+          - img [ref=e2377]
+          - text: Tags
+        - generic [ref=e2380]:
+          - generic [ref=e2381]: entrepreneur
+          - generic [ref=e2382]: founder
+          - generic [ref=e2383]: small business
+          - generic [ref=e2384]: growth
+      - generic [ref=e2385]:
+        - link "View Source" [active] [ref=e2386] [cursor=pointer]:
+          - /url: https://www.dreammakersgrant.com
+          - img [ref=e2387]
+          - text: View Source
+        - link "Apply Now" [ref=e2391] [cursor=pointer]:
+          - /url: https://www.dreammakersgrant.com/apply
+          - img [ref=e2392]
+          - text: Apply Now
+    - button "Close" [ref=e2396]:
+      - img
+      - generic [ref=e2397]: Close

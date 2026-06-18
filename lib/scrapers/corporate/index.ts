@@ -19,6 +19,10 @@ import { scrapeGoldmanSachs } from './goldmansachs'
 import { scrapeJpmorgan } from './jpmorgan'
 import { scrapeSalesforce } from './salesforce'
 import { scrapeOtherCorporate } from './others'
+import { scrapeVisa } from './visa'
+import { scrapeSantander } from './santander'
+import { scrapeGoogleBlackFounders } from './google-black-founders'
+import { scrapeJPMorganBlackPathways } from './jpmorgan-black-pathways'
 import type { RawGrant } from '../types'
 
 export async function scrapeCorporate(): Promise<RawGrant[]> {
@@ -44,6 +48,10 @@ export async function scrapeCorporate(): Promise<RawGrant[]> {
     scrapeJpmorgan(),
     scrapeSalesforce(),
     scrapeOtherCorporate(),
+    scrapeVisa(),
+    scrapeSantander(),
+    scrapeGoogleBlackFounders(),
+    scrapeJPMorganBlackPathways(),
   ])
   return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []))
 }

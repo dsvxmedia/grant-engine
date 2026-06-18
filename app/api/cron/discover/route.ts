@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { scrapeGrantsGov } from '@/lib/scrapers/grants-gov'
-import { scrapeSamGov } from '@/lib/scrapers/sam-gov'
 import { scrapeSbir } from '@/lib/scrapers/sbir'
 import { scrapeFoundations } from '@/lib/scrapers/foundations'
 import { scrapeCorporate } from '@/lib/scrapers/corporate'
@@ -28,7 +27,7 @@ type ScraperJob = { source: string; run: () => Promise<RawGrant[]> }
 
 const SCRAPERS: ScraperJob[] = [
   { source: 'grants-gov', run: scrapeGrantsGov },
-  { source: 'sam-gov', run: scrapeSamGov },
+  // sam-gov excluded — API key registration required (re-add when credentials available)
   { source: 'sbir', run: scrapeSbir },
   { source: 'foundations', run: scrapeFoundations },
   { source: 'corporate', run: scrapeCorporate },

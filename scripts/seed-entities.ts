@@ -10,20 +10,22 @@ const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY)
 
 // ── Location ─────────────────────────────────────────────────────────────────
-// TODO: Update city/state if different
-const CITY = 'Birmingham'
-const STATE = 'AL'
+const CITY = 'Los Angeles'
+const STATE = 'CA'
 
 // ── Entities ──────────────────────────────────────────────────────────────────
 
-const entities = [
-  // 1. FlowTech Ventures — primary tech holding arm
+const entities: Record<string, unknown>[] = [
+  // 1. FlowTech Ventures — primary tech holding arm (The Louest Company LLC legal entity)
   {
     name: 'FlowTech Ventures',
     type: 'parent',
     industry: 'Technology Systems / Business Modernization',
     state: STATE,
     city: CITY,
+    founding_date: '2021-01-01',
+    employee_count: 1,
+    revenue_range: 'Under $50,000',
     mission:
       'To build, deploy, and scale modular technology systems that help organizations modernize, organize, and grow through a portfolio of interconnected products, subsidiaries, and ecosystem applications.',
     focus_area: 'Technology Innovation and Systems',
@@ -34,7 +36,6 @@ const entities = [
     is_tech_company: true,
     is_social_enterprise: false,
     is_community_serving: false,
-    category_tags: ['technology', 'innovation', 'systems', 'business-modernization'],
   },
 
   // 2. The Clearstate System — flagship systems company
@@ -60,7 +61,6 @@ const entities = [
     is_tech_company: true,
     is_social_enterprise: false,
     is_community_serving: false,
-    category_tags: ['technology', 'business-modernization', 'systems', 'operational-intelligence', 'ecosystem-design'],
   },
 
   // 3. SALUS — healthcare ecosystem
@@ -88,7 +88,6 @@ const entities = [
     is_tech_company: true,
     is_social_enterprise: false,
     is_community_serving: true,
-    category_tags: ['health-technology', 'patient-communication', 'clinic-intelligence', 'health-equity', 'community-health'],
   },
 
   // 4. BetterU Labs — education and workforce development
@@ -114,7 +113,6 @@ const entities = [
     is_tech_company: false,
     is_social_enterprise: true,
     is_community_serving: true,
-    category_tags: ['education', 'workforce-development', 'youth-empowerment', 'entrepreneurship-education', 'economic-mobility'],
   },
 
   // 5. Phoenix House Pictures — film and content production
@@ -138,7 +136,6 @@ const entities = [
     is_tech_company: false,
     is_social_enterprise: false,
     is_community_serving: false,
-    category_tags: ['arts', 'film', 'media', 'cultural-production', 'creative-economy', 'documentary'],
   },
 
   // 6. Sounds of the City Entertainment — music and culture
@@ -163,23 +160,20 @@ const entities = [
     is_tech_company: false,
     is_social_enterprise: false,
     is_community_serving: false,
-    category_tags: ['music', 'arts', 'creative-economy', 'sync-licensing', 'cultural-production', 'entertainment'],
   },
 ]
 
 // ── Founder profile ───────────────────────────────────────────────────────────
 
 const founderProfile = {
-  owner_name: 'D Jackson',
-  origin_story: `D Jackson is an ecosystem architect, founder, and builder operating at the intersection of technology, culture, creativity, and ownership.
+  owner_name: 'Donameche Jackson',
+  origin_story: `Donameche Jackson is an ecosystem architect, founder, and builder operating at the intersection of technology, culture, creativity, and ownership.
 
 After years of working inside businesses and watching operational dysfunction cost organizations their potential — fragmented tools, broken workflows, missed opportunities, and disconnected systems — Jackson built The Clearstate System to solve the problem at the root level. Not with another app. With an operational ecosystem.
 
 The central insight behind TCS is what Jackson calls the Operational Genome Theory: every business has a core operational DNA, just like biological organisms. Most businesses are operating with a broken or dormant genome — systems that aren't communicating, workflows that are mutating into chaos, and processes that were built for a version of the company that no longer exists. TCS maps, decodes, and rebuilds that genome for performance.
 
-Jackson built FlowTech Ventures as the holding architecture for this work — a portfolio of interconnected systems companies, each solving a specific operational problem across technology, healthcare, education, media, and culture. The goal is permanence. Not exits. Not one-and-done products. Interconnected systems that get stronger over time.
-
-The Grant Engine itself is one of those systems — built to fund the others.`,
+Jackson built FlowTech Ventures as the holding architecture for this work — a portfolio of interconnected systems companies, each solving a specific operational problem across technology, healthcare, education, media, and culture. The goal is permanence. Not exits. Not one-and-done products. Interconnected systems that get stronger over time.`,
   personal_community_ties:
     'Founded and operates businesses focused on serving underrepresented entrepreneurs, small businesses, and communities that have been underserved by traditional technology and capital systems.',
   why_i_started: {
@@ -198,23 +192,35 @@ The Grant Engine itself is one of those systems — built to fund the others.`,
 // and core story. The pipeline builds around them — never over them.
 
 const narratives: Record<string, string> = {
-  'FlowTech Ventures': `FlowTech Ventures is a technology systems and innovation company focused on designing and deploying intelligent business systems, operational ecosystems, and technology infrastructure for small and medium-sized businesses and organizations across multiple sectors.
+  'FlowTech Ventures': `FlowTech Ventures is a Los Angeles-based technology systems and innovation company founded by Donameche Jackson in 2021. FlowTech builds, deploys, and scales intelligent business systems and technology infrastructure through a portfolio of interconnected subsidiaries and products serving small and medium-sized businesses and underserved communities.
 
-Founded by D Jackson, FlowTech Ventures builds modular technology systems that help organizations modernize, organize, and scale through a portfolio of interconnected products and subsidiaries.
+The company operates at the intersection of technology innovation and operational design — developing systems that solve real, costly problems for organizations that have historically been priced out of enterprise-grade technology solutions.
 
-Current priorities include The Clearstate System — a business modernization and systems ecosystem platform — SALUS, a healthcare communication and operational intelligence system, Synq, a consumer technology product in development, and BetterU Labs, an education and workforce development organization.
+FlowTech's current operating portfolio includes The Clearstate System (TCS), the flagship systems and ecosystem company building operational infrastructure for SMBs and professional services organizations; BetterU Labs, an education and workforce development organization providing practical, high-impact learning for underrepresented professionals and youth; and Phoenix House Pictures, the media and visual storytelling arm of the ecosystem. Additional technology systems are in active development across healthcare and enterprise sectors.
 
-FlowTech Ventures represents a systems-forward, innovation-driven approach to business modernization with a strong focus on underserved markets and communities. The company's portfolio is designed to create interconnected impact across technology, healthcare, education, and creative industries — building systems that improve how organizations operate at every level.`,
+FlowTech Ventures represents a systems-forward approach to business modernization: not single products, but interconnected ecosystems designed to grow in value and effectiveness over time. The company's philosophy — rooted in TCS's Operational Genome Theory — is that the right systems, built and integrated intelligently, create the most durable competitive advantage a business can possess. That philosophy drives every entity in the portfolio and every market it serves.`,
 
-  'The Clearstate System': `The Clearstate System is a systems and ecosystem company focused on designing, building, implementing, and optimizing intelligent business systems and operational ecosystems that help organizations grow, organize, modernize, and perform more effectively.
+  'The Clearstate System': `The Clearstate System (TCS) is a Los Angeles-based systems and ecosystem company founded by Donameche Jackson in 2021. TCS designs, builds, implements, and optimizes intelligent business systems and operational ecosystems — creating interconnected environments where technology, communication, workflows, and continuity operate as a unified system rather than a collection of disconnected tools.
 
-TCS creates interconnected operational environments where technology, communication, workflows, intelligence, growth, and continuity work together — replacing fragmented tools and disconnected processes with fully integrated business ecosystems.
+The problem TCS was built to solve is structural. Most small and growing businesses are not suffering from a shortage of tools. They are suffering from a shortage of integration. Fragmented systems, broken workflows, and disconnected processes quietly drain revenue, stall growth, and prevent organizations from performing at anything close to their potential. Enterprise-grade operational infrastructure has historically been inaccessible to smaller organizations — and that gap costs them every single day.
 
-The Clearstate System operates from a foundational philosophy it calls the Operational Genome Theory — the idea that every business has a core operational DNA, just like biological organisms. TCS maps, decodes, and optimizes that genome — identifying which systems are thriving, which are dormant, and which are mutating in ways that hurt performance. The result is a business that operates at full performance, not just functional baseline.
+TCS closes that gap through operational ecosystems: fully integrated business environments that replace the fragmented tool stack with systems that work together, communicate, and reinforce one another.
 
-Current products and systems include Front Desk (communication ecosystem), Form & Lifecycle Operations (workflow ecosystem), Revenue Expansion & Acquisition Hub (growth ecosystem), REVOLVE (retention ecosystem), Property Logistics & Operations Technology (property ecosystem), SALUS (healthcare ecosystem), and C.O.R.E. (large-scale ecosystem architecture layer).
+The Clearstate System operates from a foundational philosophy called the Operational Genome Theory — the idea that every business has a core operational DNA, just like biological organisms. TCS maps, decodes, and optimizes that genome — identifying which systems are performing, which are dormant, and which are mutating in ways that damage organizational health. The result is not a business that is merely functional. It is a business operating at full performance.
 
-TCS serves small and medium-sized businesses, healthcare organizations, professional services firms, and growth-stage companies seeking to modernize their operational infrastructure and build systems that scale.`,
+TCS's current deployed product ecosystem addresses four critical operational domains:
+
+Front Desk is TCS's communication ecosystem — ensuring every inbound contact, inquiry, and client communication is captured, routed, and followed through without gaps.
+
+F.L.O. (Form & Lifecycle Operations) is TCS's workflow ecosystem — providing full-lifecycle management of forms, documents, signatures, and operational processes, replacing paper chaos and digital sprawl with structured, trackable systems.
+
+REVOLVE is TCS's retention ecosystem — managing client continuity, re-engagement, and relationship maintenance to convert one-time transactions into long-term revenue relationships.
+
+P.L.O.T. (Property Logistics & Operations Technology) is TCS's property management ecosystem — purpose-built for real estate and property management organizations navigating the unique coordination and compliance demands of the industry.
+
+Two additional systems are in active development: SALUS, a patient communication and clinic intelligence system for healthcare organizations, and C.O.R.E., the large-scale ecosystem architecture layer that allows organizations to run multiple TCS systems simultaneously in a unified operational environment.
+
+TCS serves small and medium-sized businesses, professional services firms, property management organizations, and growth-stage companies — with particular focus on organizations in communities that have historically lacked access to the kind of operational infrastructure that larger, better-resourced companies take for granted.`,
 
   'BetterU Labs': `BetterU Labs is an education and personal development company focused on providing accessible, practical, and high-impact learning experiences for individuals and organizations committed to growth, skill development, and career advancement.
 
@@ -224,15 +230,13 @@ BetterU Labs operates from the belief that transformative education should not b
 
 Programming includes youth-focused entrepreneurship and financial literacy programs, one-on-one and group coaching, self-paced digital courses, and organizational workshop facilitation. BetterU Labs measures success in outcomes: careers started, businesses launched, skills acquired, and economic mobility achieved.`,
 
-  'SALUS': `SALUS is a healthcare ecosystem focused on patient communication, patient education, operational support, and clinic intelligence for healthcare organizations.
+  'SALUS': `SALUS is a healthcare ecosystem in development within the FlowTech Ventures portfolio, designed to address patient communication, patient education, operational support, and clinic intelligence for healthcare organizations.
 
-SALUS designs systems that improve the connection between healthcare providers and their patients — streamlining communication, improving health literacy, and strengthening the operational infrastructure of clinics, practices, and health-focused organizations.
+SALUS is being built to close a persistent and damaging gap in healthcare delivery: the breakdown between clinical care and the communication and operational systems that surround it. When patients don't understand their treatment plan, don't receive timely follow-up, and when clinics operate on fragmented administrative infrastructure, outcomes suffer — and organizations bear the cost in compliance burden, staff time, and patient attrition. SALUS is designed to repair those gaps with purpose-built intelligent systems designed specifically for the healthcare environment.
 
-The SALUS platform addresses a persistent and damaging gap in healthcare delivery: the breakdown between clinical care and the communication and operational systems that surround it. When patients don't understand their treatment, don't receive timely follow-up, and when clinics operate with fragmented administrative systems, outcomes suffer. SALUS repairs those gaps with purpose-built, intelligent systems designed specifically for the healthcare environment.
+Applying The Clearstate System's Operational Genome Theory to healthcare organizations, SALUS maps and optimizes the operational DNA of clinical environments — identifying where communication breaks down, where workflows create friction, and where technology can restore continuity and patient-centered performance.
 
-SALUS operates as a subsidiary of The Clearstate System within the FlowTech Ventures portfolio, applying the TCS Operational Genome Theory to healthcare organizations — identifying where operational DNA is breaking down and rebuilding it for performance and patient-centered care.
-
-SALUS serves private healthcare practices, community health clinics, specialty medical groups, behavioral health organizations, and health-focused nonprofits.`,
+SALUS is designed to serve private healthcare practices, community health clinics, specialty medical groups, behavioral health organizations, and health-focused nonprofits.`,
 
   'Phoenix House Pictures': `Phoenix House Pictures is a film and content production company focused on developing and producing narrative media, documentary, brand storytelling, and cultural content.
 
@@ -259,21 +263,30 @@ async function seed() {
   const existingNames = new Set((existing ?? []).map((e: { name: string }) => e.name))
   console.log(`Existing entities: ${existingNames.size > 0 ? [...existingNames].join(', ') : 'none'}`)
 
-  // Upsert entities
+  // Update or insert entities
   let created = 0
   let updated = 0
 
   for (const entity of entities) {
-    const { error } = await supabase
-      .from('business_entities')
-      .upsert(entity, { onConflict: 'name' })
-
-    if (error) {
-      console.error(`  ✗ ${entity.name}:`, error.message)
-    } else {
-      if (existingNames.has(entity.name)) {
+    if (existingNames.has(entity.name as string)) {
+      // Update existing record by name
+      const { error } = await supabase
+        .from('business_entities')
+        .update(entity)
+        .eq('name', entity.name)
+      if (error) {
+        console.error(`  ✗ ${entity.name}:`, error.message)
+      } else {
         console.log(`  ↺ Updated: ${entity.name}`)
         updated++
+      }
+    } else {
+      // Insert new record
+      const { error } = await supabase
+        .from('business_entities')
+        .insert(entity)
+      if (error) {
+        console.error(`  ✗ ${entity.name}:`, error.message)
       } else {
         console.log(`  + Created: ${entity.name}`)
         created++
@@ -303,16 +316,14 @@ async function seed() {
       .update(founderProfile)
       .eq('id', existingFounder[0].id)
     if (error) console.error('  ✗ Founder profile update:', error.message)
-    else console.log('  ↺ Updated: Founder profile (D Jackson)')
+    else console.log('  ↺ Updated: Founder profile (Donameche Jackson)')
   } else {
     const { error } = await supabase.from('founder_profile').insert(founderProfile)
     if (error) console.error('  ✗ Founder profile insert:', error.message)
-    else console.log('  + Created: Founder profile (D Jackson)')
+    else console.log('  + Created: Founder profile (Donameche Jackson)')
   }
 
   console.log(`\n✓ Done — ${created} created, ${updated} updated`)
-  console.log('\nNext: Set parent_id relationships via Profile Manager or re-run with ID lookup.')
-  console.log('NOTE: Update city/state at top of this file if Birmingham, AL is incorrect.')
 }
 
 seed().catch(console.error)

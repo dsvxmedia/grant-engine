@@ -1,0 +1,423 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - heading "Grant Engine" [level=1] [ref=e5]
+      - navigation [ref=e6]:
+        - link "Pipeline" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e9]
+          - text: Pipeline
+        - link "Review Queue" [ref=e14] [cursor=pointer]:
+          - /url: /review
+          - img [ref=e16]
+          - text: Review Queue
+        - link "LOI Queue" [ref=e19] [cursor=pointer]:
+          - /url: /loi
+          - img [ref=e21]
+          - text: LOI Queue
+        - link "Explorer" [ref=e24] [cursor=pointer]:
+          - /url: /explorer
+          - img [ref=e26]
+          - text: Explorer
+        - link "Calendar" [ref=e29] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e31]
+          - text: Calendar
+        - link "Profile" [ref=e33] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e35]
+          - text: Profile
+        - link "Analytics" [ref=e38] [cursor=pointer]:
+          - /url: /analytics
+          - img [ref=e40]
+          - text: Analytics
+        - link "1 Notifications" [ref=e42] [cursor=pointer]:
+          - /url: /notifications
+          - generic [ref=e43]:
+            - img [ref=e44]
+            - generic [ref=e47]: "1"
+          - text: Notifications
+        - link "Video Queue" [ref=e48] [cursor=pointer]:
+          - /url: /video
+          - img [ref=e50]
+          - text: Video Queue
+        - link "Settings" [ref=e53] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e55]
+          - text: Settings
+        - link "Relationships" [ref=e58] [cursor=pointer]:
+          - /url: /relationships
+          - img [ref=e60]
+          - text: Relationships
+        - link "Coalition" [ref=e65] [cursor=pointer]:
+          - /url: /coalition
+          - img [ref=e67]
+          - text: Coalition
+    - main [ref=e70]:
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - heading "Pipeline" [level=2] [ref=e73]
+          - link "Notifications" [ref=e75] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e76]
+        - generic [ref=e80]:
+          - generic [ref=e82]:
+            - img
+            - textbox "Search grants…" [ref=e83]
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - generic [ref=e86]:
+                - generic [ref=e87]: Discovered
+                - generic [ref=e88]: "228"
+              - generic [ref=e91]: Empty
+            - generic [ref=e92]:
+              - generic [ref=e93]:
+                - generic [ref=e94]: LOI Queue
+                - generic [ref=e95]: "0"
+              - generic [ref=e98]: Empty
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - generic [ref=e101]: Matched
+                - generic [ref=e102]: "45"
+              - generic [ref=e104]:
+                - generic [ref=e106] [cursor=pointer]:
+                  - generic [ref=e107]:
+                    - generic [ref=e108]: SBA Community Advantage Loans & Grants
+                    - generic [ref=e109]: "86.1"
+                  - generic [ref=e110]: U.S. Small Business Administration
+                  - generic [ref=e112]: $5,000 – $250,000
+                  - generic [ref=e113]: LegalFlow
+                - generic [ref=e115] [cursor=pointer]:
+                  - generic [ref=e116]:
+                    - generic [ref=e117]: NAACP Economic Growth Grant
+                    - generic [ref=e118]: "82.4"
+                  - generic [ref=e119]: NAACP
+                  - generic [ref=e121]: $2,500 – $25,000
+                  - generic [ref=e122]: LegalFlow
+                - generic [ref=e124] [cursor=pointer]:
+                  - generic [ref=e125]:
+                    - generic [ref=e126]: JPMorgan Chase Advancing Black Pathways
+                    - generic [ref=e127]: "81.7"
+                  - generic [ref=e128]: JPMorgan Chase
+                  - generic [ref=e130]: $5,000 – $50,000
+                  - generic [ref=e131]: LegalFlow
+                - generic [ref=e133] [cursor=pointer]:
+                  - generic [ref=e134]:
+                    - generic [ref=e135]: Comcast RISE Investment Fund
+                    - generic [ref=e136]: "81.7"
+                  - generic [ref=e137]: Comcast
+                  - generic [ref=e139]: $10,000 – $25,000
+                  - generic [ref=e140]: LegalFlow
+                - generic [ref=e142] [cursor=pointer]:
+                  - generic [ref=e143]:
+                    - generic [ref=e144]: Wells Fargo Open for Business Fund
+                    - generic [ref=e145]: "81.7"
+                  - generic [ref=e146]: Wells Fargo
+                  - generic [ref=e148]: $5,000 – $100,000
+                  - generic [ref=e149]: LegalFlow
+                - generic [ref=e151] [cursor=pointer]:
+                  - generic [ref=e152]:
+                    - generic [ref=e153]: T-Mobile Small Business Grant
+                    - generic [ref=e154]: "81.7"
+                  - generic [ref=e155]: T-Mobile
+                  - generic [ref=e157]: Up to $10,000
+                  - generic [ref=e158]: FlowTech Ventures
+                - generic [ref=e160] [cursor=pointer]:
+                  - generic [ref=e161]:
+                    - generic [ref=e162]: National Minority Business Council Grant Program
+                    - generic [ref=e163]: "80.6"
+                  - generic [ref=e164]: National Minority Business Council
+                  - generic [ref=e166]: $2,500 – $25,000
+                  - generic [ref=e167]: LegalFlow
+                - generic [ref=e169] [cursor=pointer]:
+                  - generic [ref=e170]:
+                    - generic [ref=e171]: Santander X Cultivate Small Business Grant
+                    - generic [ref=e172]: "78.6"
+                  - generic [ref=e173]: Santander Bank / Cultivate Small Business
+                  - generic [ref=e174]:
+                    - generic [ref=e175]: $2,500 – $20,000
+                    - generic [ref=e176]: 96 days
+                  - generic [ref=e177]: LegalFlow
+                - generic [ref=e179] [cursor=pointer]:
+                  - generic [ref=e180]:
+                    - generic [ref=e181]: Halstead Grant
+                    - generic [ref=e182]: "71.8"
+                  - generic [ref=e183]: Halstead
+                  - generic [ref=e184]:
+                    - generic [ref=e185]: Up to $8,500
+                    - generic [ref=e186]: 80 days
+                  - generic [ref=e187]: FlowTech Ventures
+                - generic [ref=e189] [cursor=pointer]:
+                  - generic [ref=e190]:
+                    - generic [ref=e191]: Google for Startups Black Founders Fund
+                    - generic [ref=e192]: "71.4"
+                  - generic [ref=e193]: Google for Startups
+                  - generic [ref=e195]: Up to $350,000
+                  - generic [ref=e196]: LegalFlow
+                - generic [ref=e198] [cursor=pointer]:
+                  - generic [ref=e199]:
+                    - generic [ref=e200]: Kickstarter × Google Next Wave Fund
+                    - generic [ref=e201]: "69.4"
+                  - generic [ref=e202]: Kickstarter / Google
+                  - generic [ref=e204]: Up to $10,000
+                  - generic [ref=e205]: LegalFlow
+                - generic [ref=e207] [cursor=pointer]:
+                  - generic [ref=e208]:
+                    - generic [ref=e209]: IFundWomen Universal Grant
+                    - generic [ref=e210]: "67.8"
+                  - generic [ref=e211]: IFundWomen
+                  - generic [ref=e213]: $500 – $50,000
+                  - generic [ref=e214]: LegalFlow
+                - generic [ref=e216] [cursor=pointer]:
+                  - generic [ref=e217]:
+                    - generic [ref=e218]: Digital Health Technology Derived Biomarkers and Outcome Assessments for Remote Monitoring and Endpoint Development (UG3/UH3 - Clinical Trial Optional)
+                    - generic [ref=e219]: "67.6"
+                  - generic [ref=e220]: National Institutes of Health
+                  - generic [ref=e222]: 25 days
+                  - generic [ref=e223]: FlowTech Ventures
+                - generic [ref=e225] [cursor=pointer]:
+                  - generic [ref=e226]:
+                    - generic [ref=e227]: FedEx Small Business Grant Contest
+                    - generic [ref=e228]: "65.9"
+                  - generic [ref=e229]: FedEx
+                  - generic [ref=e230]:
+                    - generic [ref=e231]: $25,000 – $50,000
+                    - generic [ref=e232]: 65 days
+                  - generic [ref=e233]: FlowTech Ventures
+                - generic [ref=e235] [cursor=pointer]:
+                  - generic [ref=e236]:
+                    - generic [ref=e237]: Freed Fellowship Grant
+                    - generic [ref=e238]: "65.9"
+                  - generic [ref=e239]: Freed Fellowship
+                  - generic [ref=e241]: Up to $500
+                  - generic [ref=e242]: FlowTech Ventures
+                - generic [ref=e244] [cursor=pointer]:
+                  - generic [ref=e245]:
+                    - generic [ref=e246]: Tory Burch Foundation Small Business Grant
+                    - generic [ref=e247]: "65.8"
+                  - generic [ref=e248]: Tory Burch Foundation
+                  - generic [ref=e249]:
+                    - generic [ref=e250]: Up to $5,000
+                    - generic [ref=e251]: 126 days
+                  - generic [ref=e252]: CreatorOS
+                - generic [ref=e254] [cursor=pointer]:
+                  - generic [ref=e255]:
+                    - generic [ref=e256]: "BRAIN Initiative: Promoting Health for All Through BRAIN Technology Partnerships (R34 - Clinical Trials Not Allowed)"
+                    - generic [ref=e257]: "64.8"
+                  - generic [ref=e258]: National Institutes of Health
+                  - generic [ref=e260]: 20 days
+                  - generic [ref=e261]: NeuroFlow Studio
+                - generic [ref=e263] [cursor=pointer]:
+                  - generic [ref=e264]:
+                    - generic [ref=e265]: Accelerating Solutions to Improve Access and Quality of Empirically-Supported Practices for Youth Mental Health (R01 Clinical Trial Optional)
+                    - generic [ref=e266]: "64.1"
+                  - generic [ref=e267]: National Institutes of Health
+                  - generic [ref=e269]: 224 days
+                  - generic [ref=e270]: NeuroFlow Studio
+                - generic [ref=e272] [cursor=pointer]:
+                  - generic [ref=e273]:
+                    - generic [ref=e274]: "Blueprint Neurotherapeutics Network (BPN): Small Molecule Drug Discovery and Development of Disorders of the Nervous System (UG3/UH3 Clinical Trial Optional)"
+                    - generic [ref=e275]: "63.8"
+                  - generic [ref=e276]: National Institutes of Health
+                  - generic [ref=e278]: 82 days
+                  - generic [ref=e279]: CreatorOS
+                - generic [ref=e281] [cursor=pointer]:
+                  - generic [ref=e282]:
+                    - generic [ref=e283]: Screening, Brief Intervention and Referral to Treatment or Prevention (SBIRT/P) for alcohol, tobacco, and other drugs (ATOD) use and misuse in adult populations that experience health disparities (R01, Clinical Trial Required)
+                    - generic [ref=e284]: "63.2"
+                  - generic [ref=e285]: National Institutes of Health
+                  - generic [ref=e287]: 344 days
+                  - generic [ref=e288]: FlowTech Ventures
+                - generic [ref=e290] [cursor=pointer]:
+                  - generic [ref=e291]:
+                    - generic [ref=e292]: Developing novel theory and methods for understanding the genetic architecture of complex human traits (R21 Clinical Trial Not Allowed)
+                    - generic [ref=e293]: "63.2"
+                  - generic [ref=e294]: National Institutes of Health
+                  - generic [ref=e296]: 224 days
+                  - generic [ref=e297]: FlowTech Ventures
+                - generic [ref=e299] [cursor=pointer]:
+                  - generic [ref=e300]:
+                    - generic [ref=e301]: "BRAIN Initiative: Production and distribution facilities for brain cell type-specific access reagents (U24 Clinical Trial Not Allowed)"
+                    - generic [ref=e302]: "61.8"
+                  - generic [ref=e303]: National Institutes of Health
+                  - generic [ref=e305]: 34 days
+                  - generic [ref=e306]: FlowTech Ventures
+                - generic [ref=e308] [cursor=pointer]:
+                  - generic [ref=e309]:
+                    - generic [ref=e310]: Clinical Coordinating Center for NCCIH Multi-Site Investigator-Initiated Clinical Trials of Mind and Body Interventions (Collaborative UG3/UH3 Clinical Trial Required)
+                    - generic [ref=e311]: "61.8"
+                  - generic [ref=e312]: National Institutes of Health
+                  - generic [ref=e314]: 47 days
+                  - generic [ref=e315]: FlowTech Ventures
+                - generic [ref=e317] [cursor=pointer]:
+                  - generic [ref=e318]:
+                    - generic [ref=e319]: "Blueprint Neurotherapeutics Network (BPN): Biologic-based Drug Discovery and Development for Disorders of the Nervous System (UG3/UH3 Clinical Trial Optional)"
+                    - generic [ref=e320]: "61.6"
+                  - generic [ref=e321]: National Institutes of Health
+                  - generic [ref=e323]: 447 days
+                  - generic [ref=e324]: CreatorOS
+                - generic [ref=e326] [cursor=pointer]:
+                  - generic [ref=e327]:
+                    - generic [ref=e328]: "BRAIN Initiative: Clinical Studies to Advance Next-Generation Devices for Recording and Modulation in the Human Central Nervous System (UH3 Clinical Trial Optional)"
+                    - generic [ref=e329]: "61.6"
+                  - generic [ref=e330]: National Institutes of Health
+                  - generic [ref=e332]: 123 days
+                  - generic [ref=e333]: CreatorOS
+                - generic [ref=e335] [cursor=pointer]:
+                  - generic [ref=e336]:
+                    - generic [ref=e337]: Kirabo Grant
+                    - generic [ref=e338]: "61"
+                  - generic [ref=e339]: Kirabo
+                  - generic [ref=e340]:
+                    - generic [ref=e341]: Up to $5,000
+                    - generic [ref=e342]: 32 days
+                  - generic [ref=e343]: FlowTech Ventures
+                - generic [ref=e345] [cursor=pointer]:
+                  - generic [ref=e346]:
+                    - generic [ref=e347]: Automated Processes for Knowledge Discovery and Information Retrieval
+                    - generic [ref=e348]: "60.9"
+                  - generic [ref=e349]: Air Force -- Research Lab
+                  - generic [ref=e351]: 1200 days
+                  - generic [ref=e352]: LegalFlow
+                - generic [ref=e354] [cursor=pointer]:
+                  - generic [ref=e355]:
+                    - generic [ref=e356]: "Unveiling Health and Healthcare Disparities in Non-Communicable and Chronic Diseases in Latin America: Setting the Stage for Better Health Outcomes Across the Hemisphere (R01 - Clinical Trials Not Allowed)"
+                    - generic [ref=e357]: "60.6"
+                  - generic [ref=e358]: National Institutes of Health
+                  - generic [ref=e360]: 224 days
+                  - generic [ref=e361]: Motherbox
+                - generic [ref=e363] [cursor=pointer]:
+                  - generic [ref=e364]:
+                    - generic [ref=e365]: National Centers for Biomedical Imaging and Bioengineering (NCBIB) (P41 Clinical Trials Optional)
+                    - generic [ref=e366]: "59.5"
+                  - generic [ref=e367]: National Institutes of Health
+                  - generic [ref=e369]: 102 days
+                  - generic [ref=e370]: FlowTech Ventures
+                - generic [ref=e372] [cursor=pointer]:
+                  - generic [ref=e373]:
+                    - generic [ref=e374]: Cancer Research Education Grants Program - Courses for Skills Development (R25 Clinical Trial Not Allowed)
+                    - generic [ref=e375]: "58.5"
+                  - generic [ref=e376]: National Institutes of Health
+                  - generic [ref=e378]: 224 days
+                  - generic [ref=e379]: BetterU Labs
+                - generic [ref=e381] [cursor=pointer]:
+                  - generic [ref=e382]:
+                    - generic [ref=e383]: "BRAIN Initiative: Data Archives for the BRAIN Initiative (R24 Clinical Trial Optional)"
+                    - generic [ref=e384]: "58"
+                  - generic [ref=e385]: National Institutes of Health
+                  - generic [ref=e387]: 27 days
+                  - generic [ref=e388]: CreatorOS
+                - generic [ref=e390] [cursor=pointer]:
+                  - generic [ref=e391]:
+                    - generic [ref=e392]: Leveraging Network Infrastructure to Conduct Innovative Research for Women, Children, Pregnant and Lactating Women, and Persons with Disabilities (UG3/UH3 - Clinical Trial Optional)
+                    - generic [ref=e393]: "57.6"
+                  - generic [ref=e394]: National Institutes of Health
+                  - generic [ref=e396]: 536 days
+                  - generic [ref=e397]: CreatorOS
+                - generic [ref=e399] [cursor=pointer]:
+                  - generic [ref=e400]:
+                    - generic [ref=e401]: "Limited Competition: Small Grant Program for the NCATS Clinical and Translational Science Award (CTSA) Program (R03 Clinical Trial Optional)"
+                    - generic [ref=e402]: "57.6"
+                  - generic [ref=e403]: National Institutes of Health
+                  - generic [ref=e405]: 144 days
+                  - generic [ref=e406]: FlowTech Ventures
+                - generic [ref=e408] [cursor=pointer]:
+                  - generic [ref=e409]:
+                    - generic [ref=e410]: UNITED STATES ARMY RESEARCH INSTITUTE FOR THE BEHAVIORAL AND SOCIAL SCIENCES (ARI) BROAD AGENCY ANNOUNCEMENT FOR BASIC, APPLIED, AND ADVANCED SCIENTIFIC RESEARCH
+                    - generic [ref=e411]: "57.6"
+                  - generic [ref=e412]: Dept of the Army -- Materiel Command
+                  - generic [ref=e414]: 703 days
+                  - generic [ref=e415]: CreatorOS
+                - generic [ref=e417] [cursor=pointer]:
+                  - generic [ref=e418]:
+                    - generic [ref=e419]: NHLBI Career Transition Award for Intramural Postdoctoral Fellows and Research Trainees (K22 Independent Clinical Trial Not Allowed)
+                    - generic [ref=e420]: "57.6"
+                  - generic [ref=e421]: National Institutes of Health
+                  - generic [ref=e423]: 410 days
+                  - generic [ref=e424]: CreatorOS
+                - generic [ref=e426] [cursor=pointer]:
+                  - generic [ref=e427]:
+                    - generic [ref=e428]: Developing novel theory and methods for understanding the genetic architecture of complex human traits (R01 Clinical Trial Not Allowed)
+                    - generic [ref=e429]: "57.6"
+                  - generic [ref=e430]: National Institutes of Health
+                  - generic [ref=e432]: 161 days
+                  - generic [ref=e433]: FlowTech Ventures
+                - generic [ref=e435] [cursor=pointer]:
+                  - generic [ref=e436]:
+                    - generic [ref=e437]: Sky's the Limit Startup Grant
+                    - generic [ref=e438]: "57.4"
+                  - generic [ref=e439]: Sky's the Limit
+                  - generic [ref=e441]: $2,500 – $2,500
+                  - generic [ref=e442]: Motherbox
+                - generic [ref=e444] [cursor=pointer]:
+                  - generic [ref=e445]:
+                    - generic [ref=e446]: Feasibility Clinical Trials of Mind and Body Interventions for NCCIH High Priority Research Topics (R34 Clinical Trial Required)
+                    - generic [ref=e447]: "57.3"
+                  - generic [ref=e448]: National Institutes of Health
+                  - generic [ref=e450]: 173 days
+                  - generic [ref=e451]: FlowTech Ventures
+                - generic [ref=e453] [cursor=pointer]:
+                  - generic [ref=e454]:
+                    - generic [ref=e455]: "Limited Competition: High Impact Specialized Innovation Programs in Clinical and Translational Science (RC2 Clinical Trials Optional)"
+                    - generic [ref=e456]: "57.3"
+                  - generic [ref=e457]: National Institutes of Health
+                  - generic [ref=e459]: 123 days
+                  - generic [ref=e460]: FlowTech Ventures
+                - generic [ref=e462] [cursor=pointer]:
+                  - generic [ref=e463]:
+                    - generic [ref=e464]: Research Enhancement Award Program (REAP) for Health Professional Schools and Graduate Schools (R15 Clinical Trial Not Allowed)
+                    - generic [ref=e465]: "57.3"
+                  - generic [ref=e466]: National Institutes of Health
+                  - generic [ref=e468]: 589 days
+                  - generic [ref=e469]: FlowTech Ventures
+                - generic [ref=e471] [cursor=pointer]:
+                  - generic [ref=e472]:
+                    - generic [ref=e473]: Ethical, Legal and Social Implications (ELSI) Small Research Grant (R03 Clinical Trial Optional)
+                    - generic [ref=e474]: "57.3"
+                  - generic [ref=e475]: National Institutes of Health
+                  - generic [ref=e477]: 172 days
+                  - generic [ref=e478]: FlowTech Ventures
+                - generic [ref=e480] [cursor=pointer]:
+                  - generic [ref=e481]:
+                    - generic [ref=e482]: Focused Technology Research and Development (R01 Clinical Trial Not Allowed)
+                    - generic [ref=e483]: "57.3"
+                  - generic [ref=e484]: National Institutes of Health
+                  - generic [ref=e486]: 589 days
+                  - generic [ref=e487]: FlowTech Ventures
+                - generic [ref=e489] [cursor=pointer]:
+                  - generic [ref=e490]:
+                    - generic [ref=e491]: NIDA Research Education Program for Clinical Researchers and Clinicians (R25 Clinical Trial Not Allowed)
+                    - generic [ref=e492]: "57.3"
+                  - generic [ref=e493]: National Institutes of Health
+                  - generic [ref=e495]: 533 days
+                  - generic [ref=e496]: FlowTech Ventures
+                - generic [ref=e498] [cursor=pointer]:
+                  - generic [ref=e499]:
+                    - generic [ref=e500]: Advancement and Innovation in Measurement of Language Development and Predictors (R01 Clinical Trial Not Allowed)
+                    - generic [ref=e501]: "57.3"
+                  - generic [ref=e502]: National Institutes of Health
+                  - generic [ref=e504]: 467 days
+                  - generic [ref=e505]: FlowTech Ventures
+                - generic [ref=e507] [cursor=pointer]:
+                  - generic [ref=e508]:
+                    - generic [ref=e509]: Development of Biomarkers or Composite Biomarkers for Neurological and Neuromuscular Disorders (R61/R33 - Clinical Trial Optional)
+                    - generic [ref=e510]: "57.3"
+                  - generic [ref=e511]: National Institutes of Health
+                  - generic [ref=e513]: 589 days
+                  - generic [ref=e514]: FlowTech Ventures
+            - generic [ref=e517]:
+              - generic [ref=e518]:
+                - generic [ref=e519]: QA Review
+                - generic [ref=e520]: "0"
+              - generic [ref=e523]: Empty
+            - generic [ref=e524]:
+              - generic [ref=e525]:
+                - generic [ref=e526]: Review
+                - generic [ref=e527]: "0"
+              - generic [ref=e530]: Empty
+            - generic [ref=e531]:
+              - generic [ref=e532]:
+                - generic [ref=e533]: Submitted
+                - generic [ref=e534]: "0"
+              - generic [ref=e537]: Empty
+  - alert [ref=e538]

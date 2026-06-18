@@ -1,0 +1,11 @@
+[     863ms] Error: Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at rY (https://grant-engine-snowy.vercel.app/_next/static/chunks/110q6k5sdl4es.js:1:40199)
+    at rG (https://grant-engine-snowy.vercel.app/_next/static/chunks/110q6k5sdl4es.js:1:41232)
+    at https://grant-engine-snowy.vercel.app/_next/static/chunks/110q6k5sdl4es.js:1:135580
+    at sh (https://grant-engine-snowy.vercel.app/_next/static/chunks/110q6k5sdl4es.js:1:140741)
+    at sd (https://grant-engine-snowy.vercel.app/_next/static/chunks/110q6k5sdl4es.js:1:131991)
+    at https://grant-engine-snowy.vercel.app/_next/static/chunks/110q6k5sdl4es.js:1:126816
+    at se (https://grant-engine-snowy.vercel.app/_next/static/chunks/110q6k5sdl4es.js:1:126917)
+    at sH (https://grant-engine-snowy.vercel.app/_next/static/chunks/110q6k5sdl4es.js:1:153481)
+    at MessagePort._ (https://grant-engine-snowy.vercel.app/_next/static/chunks/110q6k5sdl4es.js:1:1646)
+[     991ms] [WARNING] Clerk: Clerk has been loaded with development keys. Development instances have strict usage limits and should not be used when deploying your application to production. Learn more: https://clerk.com/docs/deployments/overview @ https://arriving-horse-12.clerk.accounts.dev/npm/@clerk/clerk-js@6/dist/clerk.browser.js:11

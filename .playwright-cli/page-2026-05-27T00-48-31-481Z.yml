@@ -1,0 +1,573 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - heading [level=1] [ref=e446]: Grant Engine
+      - navigation [ref=e6]:
+        - link [ref=e447] [cursor=pointer]:
+          - /url: /
+          - img [ref=e9]
+          - text: Pipeline
+        - link [ref=e448] [cursor=pointer]:
+          - /url: /review
+          - img [ref=e16]
+          - text: Review Queue
+        - link [ref=e449] [cursor=pointer]:
+          - /url: /loi
+          - img [ref=e21]
+          - text: LOI Queue
+        - link [ref=e450] [cursor=pointer]:
+          - /url: /explorer
+          - img [ref=e26]
+          - text: Explorer
+        - link [ref=e451] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e31]
+          - text: Calendar
+        - link [ref=e452] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e35]
+          - text: Profile
+        - link [ref=e453] [cursor=pointer]:
+          - /url: /analytics
+          - img [ref=e40]
+          - text: Analytics
+        - link [ref=e454] [cursor=pointer]:
+          - /url: /notifications
+          - generic [ref=e43]:
+            - img [ref=e44]
+            - generic [ref=e47]: 9+
+          - text: Notifications
+        - link [ref=e455] [cursor=pointer]:
+          - /url: /video
+          - img [ref=e50]
+          - text: Video Queue
+        - link [ref=e456] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e55]
+          - text: Settings
+        - link [ref=e457] [cursor=pointer]:
+          - /url: /relationships
+          - img [ref=e60]
+          - text: Relationships
+        - link [ref=e458] [cursor=pointer]:
+          - /url: /coalition
+          - img [ref=e67]
+          - text: Coalition
+    - main [ref=e70]:
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - heading [level=2] [ref=e459]: Profile Manager
+          - generic [ref=e74]:
+            - link [ref=e460] [cursor=pointer]:
+              - /url: /notifications
+              - img [ref=e76]
+            - button [ref=e461] [cursor=pointer]:
+              - img [ref=e462]
+        - generic [ref=e80]:
+          - tablist [ref=e81]:
+            - tab [selected] [ref=e463]: Entities
+            - tab [ref=e464]: Founder Story
+            - tab [ref=e465]: Impact
+            - tab [ref=e466]: Documents
+          - tabpanel [ref=e467]:
+            - generic [ref=e87]:
+              - generic [ref=e98]:
+                - paragraph [ref=e99]: 13 entities
+                - button [ref=e468]:
+                  - img
+                  - text: Add Entity
+              - generic [ref=e101]:
+                - generic [ref=e102]:
+                  - generic [ref=e103]:
+                    - generic [ref=e104]:
+                      - text: The Louest Company
+                      - generic [ref=e105]: Holding Company
+                    - paragraph [ref=e106]: Diversified · Los Angeles, CA
+                  - generic [ref=e107]:
+                    - paragraph [ref=e108]: A diversified holding company building systems, creativity, technology, media, and brands — rooted in the belief that ownership, innovation, and storytelling change everything.
+                    - generic [ref=e109]:
+                      - generic [ref=e110]: African American Owned
+                      - generic [ref=e111]: Minority Owned
+                    - separator [ref=e112]
+                    - generic [ref=e113]:
+                      - generic [ref=e114]:
+                        - generic [ref=e115]: Pitch Angles
+                        - button [ref=e469]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e117]:
+                        - listitem [ref=e118]: Founder-led holding company spanning technology, entertainment, education, and consumer brands
+                        - listitem [ref=e119]: Los Angeles-based ecosystem company building across systems, media, AI, and consumer goods
+                        - listitem [ref=e120]: Minority-founded enterprise creating economic infrastructure through owned technology, IP, and brands
+                        - listitem [ref=e121]: Diversified company unifying systems innovation, creative media, and consumer brands under one operating philosophy
+                    - separator [ref=e122]
+                    - generic [ref=e123]:
+                      - button [ref=e470]:
+                        - img
+                        - text: Edit
+                      - button [ref=e471]:
+                        - img
+                        - text: Delete
+                - generic [ref=e126]:
+                  - generic [ref=e127]:
+                    - generic [ref=e128]:
+                      - text: LegalFlow
+                      - generic [ref=e129]: Legal Technology SaaS
+                    - paragraph [ref=e130]: Legal Technology, SaaS, Access to Justice · Los Angeles, CA
+                  - generic [ref=e131]:
+                    - paragraph [ref=e132]: Making legal processes accessible and automated for small businesses and entrepreneurs through intelligent legal workflow technology.
+                    - generic [ref=e133]:
+                      - generic [ref=e134]: African American Owned
+                      - generic [ref=e135]: Minority Owned
+                      - generic [ref=e136]: Underserved Community Tied
+                      - generic [ref=e137]: Tech Company
+                      - generic [ref=e138]: Social Enterprise
+                      - generic [ref=e139]: Community Serving
+                    - separator [ref=e140]
+                    - generic [ref=e141]:
+                      - generic [ref=e142]:
+                        - generic [ref=e143]: Pitch Angles
+                        - button [ref=e472]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e145]:
+                        - listitem [ref=e146]: Legal technology company making legal tools accessible and affordable for small businesses and entrepreneurs
+                        - listitem [ref=e147]: Founder-led legaltech SaaS closing the legal access gap for small businesses who cannot afford traditional legal services
+                        - listitem [ref=e148]: Technology company using AI to democratize legal workflow automation for the businesses that need it most
+                        - listitem [ref=e149]: Los Angeles-based social enterprise building legal infrastructure for underserved small businesses and entrepreneurs
+                    - separator [ref=e150]
+                    - generic [ref=e151]:
+                      - button [ref=e473]:
+                        - img
+                        - text: Edit
+                      - button [ref=e474]:
+                        - img
+                        - text: Delete
+                - generic [ref=e154]:
+                  - generic [ref=e155]:
+                    - generic [ref=e156]:
+                      - text: CreatorOS
+                      - generic [ref=e157]: SaaS / Creator Economy Platform
+                    - paragraph [ref=e158]: Creator Economy, SaaS, Technology · Los Angeles, CA
+                  - generic [ref=e159]:
+                    - paragraph [ref=e160]: Building the operating system for the creator economy — giving independent creators the business infrastructure and tools to run their creative work like a company.
+                    - generic [ref=e161]:
+                      - generic [ref=e162]: African American Owned
+                      - generic [ref=e163]: Minority Owned
+                      - generic [ref=e164]: Underserved Community Tied
+                      - generic [ref=e165]: Tech Company
+                      - generic [ref=e166]: Community Serving
+                    - separator [ref=e167]
+                    - generic [ref=e168]:
+                      - generic [ref=e169]:
+                        - generic [ref=e170]: Pitch Angles
+                        - button [ref=e475]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e172]:
+                        - listitem [ref=e173]: SaaS company building the operating system for the creator economy — tools to run a creative business at scale
+                        - listitem [ref=e174]: Founder-led technology platform giving independent creators the business infrastructure to monetize and grow
+                        - listitem [ref=e175]: Creator economy company building tools that close the business knowledge gap for independent creators everywhere
+                        - listitem [ref=e176]: Los Angeles-based tech startup democratizing entrepreneurship tools for the next generation of creative business owners
+                    - separator [ref=e177]
+                    - generic [ref=e178]:
+                      - button [ref=e476]:
+                        - img
+                        - text: Edit
+                      - button [ref=e477]:
+                        - img
+                        - text: Delete
+                - generic [ref=e181]:
+                  - generic [ref=e182]:
+                    - generic [ref=e183]:
+                      - text: NeuroFlow Studio
+                      - generic [ref=e184]: Mental Health Technology Company
+                    - paragraph [ref=e185]: Mental Health Tech, Neurodiversity, Consumer Apps · Los Angeles, CA
+                  - generic [ref=e186]:
+                    - paragraph [ref=e187]: Building accessible mental health and neurodiversity technology — Synq, Brain Buddy, Reset Pulse — for individuals and communities who deserve better tools for cognitive wellness.
+                    - generic [ref=e188]:
+                      - generic [ref=e189]: African American Owned
+                      - generic [ref=e190]: Minority Owned
+                      - generic [ref=e191]: Underserved Community Tied
+                      - generic [ref=e192]: Tech Company
+                      - generic [ref=e193]: Social Enterprise
+                      - generic [ref=e194]: Community Serving
+                    - separator [ref=e195]
+                    - generic [ref=e196]:
+                      - generic [ref=e197]:
+                        - generic [ref=e198]: Pitch Angles
+                        - button [ref=e478]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e200]:
+                        - listitem [ref=e201]: Mental health technology company building accessible tools for neurodiverse individuals and underserved communities
+                        - listitem [ref=e202]: Wellness technology studio closing the mental health gap through apps designed for real people — Synq, Brain Buddy, Reset Pulse
+                        - listitem [ref=e203]: Founder-led social enterprise using technology to make mental health support accessible to everyone, regardless of background
+                        - listitem [ref=e204]: Los Angeles-based company building neurodiversity tools grounded in lived experience and cultural competence
+                        - listitem [ref=e205]: Tech company addressing the global mental health crisis through accessible, scalable consumer wellness applications
+                    - separator [ref=e206]
+                    - generic [ref=e207]:
+                      - button [ref=e479]:
+                        - img
+                        - text: Edit
+                      - button [ref=e480]:
+                        - img
+                        - text: Delete
+                - generic [ref=e210]:
+                  - generic [ref=e211]:
+                    - generic [ref=e212]:
+                      - text: The Clearstate System
+                      - generic [ref=e213]: Systems & Ecosystems Company
+                    - paragraph [ref=e214]: Business Systems, AI, Enterprise Technology · Los Angeles, CA
+                  - generic [ref=e215]:
+                    - paragraph [ref=e216]: Building intelligent systems and ecosystems that businesses operate within — giving every company the infrastructure, automation, and operating logic to perform at an enterprise level.
+                    - generic [ref=e217]:
+                      - generic [ref=e218]: African American Owned
+                      - generic [ref=e219]: Minority Owned
+                      - generic [ref=e220]: Underserved Community Tied
+                      - generic [ref=e221]: Tech Company
+                      - generic [ref=e222]: Community Serving
+                    - separator [ref=e223]
+                    - generic [ref=e224]:
+                      - generic [ref=e225]:
+                        - generic [ref=e226]: Pitch Angles
+                        - button [ref=e481]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e228]:
+                        - listitem [ref=e229]: Los Angeles-based systems and ecosystem company building intelligent business infrastructure for companies of all sizes
+                        - listitem [ref=e230]: AI-powered business modernization company — front desk automation, revenue expansion, property operations, and more
+                        - listitem [ref=e231]: "Founder-led tech company creating modular business ecosystems: the operating layer that makes companies run like enterprises"
+                        - listitem [ref=e232]: Minority-founded software company whose products (Front Desk, SALUS, C.O.R.E., REVOLVE) form a complete business operating system
+                        - listitem [ref=e233]: Systems innovation company building the ecosystem logic that powers how modern businesses operate and scale
+                    - separator [ref=e234]
+                    - generic [ref=e235]:
+                      - button [ref=e482]:
+                        - img
+                        - text: Edit
+                      - button [ref=e483]:
+                        - img
+                        - text: Delete
+                - generic [ref=e238]:
+                  - generic [ref=e239]:
+                    - generic [ref=e240]:
+                      - text: HoloHaus
+                      - generic [ref=e241]: AI / Digital Experience Company
+                    - paragraph [ref=e242]: AI, Digital Media, Immersive Technology · Los Angeles, CA
+                  - generic [ref=e243]:
+                    - paragraph [ref=e244]: Creating AI-powered digital experiences, characters, and immersive properties at the intersection of technology, culture, and storytelling.
+                    - generic [ref=e245]:
+                      - generic [ref=e246]: African American Owned
+                      - generic [ref=e247]: Minority Owned
+                      - generic [ref=e248]: Tech Company
+                    - separator [ref=e249]
+                    - generic [ref=e250]:
+                      - generic [ref=e251]:
+                        - generic [ref=e252]: Pitch Angles
+                        - button [ref=e484]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e254]:
+                        - listitem [ref=e255]: African American-owned AI and digital experience company building immersive properties at the intersection of technology and culture
+                        - listitem [ref=e256]: Black-founded immersive tech company developing AI characters and digital IP rooted in Black culture and storytelling
+                        - listitem [ref=e257]: Minority-owned emerging technology company pioneering AI-powered digital experiences and next-generation media properties
+                        - listitem [ref=e258]: Los Angeles-based Black-owned company building the future of AI-generated entertainment and digital identity
+                    - separator [ref=e259]
+                    - generic [ref=e260]:
+                      - button [ref=e485]:
+                        - img
+                        - text: Edit
+                      - button [ref=e486]:
+                        - img
+                        - text: Delete
+                - generic [ref=e263]:
+                  - generic [ref=e264]:
+                    - generic [ref=e265]:
+                      - text: Phoenix House Pictures
+                      - generic [ref=e266]: Film & Media Production Company
+                    - paragraph [ref=e267]: Film, Media Production, Entertainment · Los Angeles, CA
+                  - generic [ref=e268]:
+                    - paragraph [ref=e269]: Producing authentic, culturally resonant film and media content that centers real stories and real voices for mainstream and global audiences.
+                    - generic [ref=e270]:
+                      - generic [ref=e271]: African American Owned
+                      - generic [ref=e272]: Minority Owned
+                      - generic [ref=e273]: Underserved Community Tied
+                      - generic [ref=e274]: Community Serving
+                    - separator [ref=e275]
+                    - generic [ref=e276]:
+                      - generic [ref=e277]:
+                        - generic [ref=e278]: Pitch Angles
+                        - button [ref=e487]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e280]:
+                        - listitem [ref=e281]: Independent film and media production company creating authentic storytelling for mainstream audiences
+                        - listitem [ref=e282]: Founder-led production company building a body of work that reflects the depth and diversity of human experience
+                        - listitem [ref=e283]: Los Angeles-based entertainment company producing culturally resonant film and media content
+                        - listitem [ref=e284]: Independent production company investing in the next generation of authentic storytelling in film and media
+                    - separator [ref=e285]
+                    - generic [ref=e286]:
+                      - button [ref=e488]:
+                        - img
+                        - text: Edit
+                      - button [ref=e489]:
+                        - img
+                        - text: Delete
+                - generic [ref=e289]:
+                  - generic [ref=e290]:
+                    - generic [ref=e291]:
+                      - text: Louest Brands
+                      - generic [ref=e292]: Brand Portfolio Company
+                    - paragraph [ref=e293]: Consumer Goods, Fashion, Lifestyle · Los Angeles, CA
+                  - generic [ref=e294]:
+                    - paragraph [ref=e295]: Building culturally driven consumer brands that reflect Black creativity, identity, and lifestyle.
+                    - generic [ref=e296]:
+                      - generic [ref=e297]: African American Owned
+                      - generic [ref=e298]: Minority Owned
+                      - generic [ref=e299]: Underserved Community Tied
+                    - separator [ref=e300]
+                    - generic [ref=e301]:
+                      - generic [ref=e302]:
+                        - generic [ref=e303]: Pitch Angles
+                        - button [ref=e490]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e305]:
+                        - listitem [ref=e306]: African American-owned brand portfolio company building culturally authentic lifestyle and fashion brands
+                        - listitem [ref=e307]: Black-founded consumer goods company — The Real Tee Company, The Art & Sex Era, Lina Jack, Motherbox
+                        - listitem [ref=e308]: Minority-owned Los Angeles brand house creating economic opportunity through culturally driven products
+                        - listitem [ref=e309]: Black entrepreneur building an independent brand ecosystem rooted in creativity and ownership
+                    - separator [ref=e310]
+                    - generic [ref=e311]:
+                      - button [ref=e491]:
+                        - img
+                        - text: Edit
+                      - button [ref=e492]:
+                        - img
+                        - text: Delete
+                - generic [ref=e314]:
+                  - generic [ref=e315]:
+                    - generic [ref=e316]:
+                      - text: Sounds of the City Entertainment
+                      - generic [ref=e317]: Music Entity
+                    - paragraph [ref=e318]: Music, Entertainment, Media · Los Angeles, CA
+                  - generic [ref=e319]:
+                    - paragraph [ref=e320]: An independent music label and production company rooted in Los Angeles, amplifying authentic artistic voices and building a body of work that reflects real culture and real stories.
+                    - generic [ref=e321]:
+                      - generic [ref=e322]: African American Owned
+                      - generic [ref=e323]: Minority Owned
+                      - generic [ref=e324]: Underserved Community Tied
+                      - generic [ref=e325]: Community Serving
+                    - separator [ref=e326]
+                    - generic [ref=e327]:
+                      - generic [ref=e328]:
+                        - generic [ref=e329]: Pitch Angles
+                        - button [ref=e493]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e331]:
+                        - listitem [ref=e332]: Independent music label and production company rooted in Los Angeles culture
+                        - listitem [ref=e333]: Founder-led entertainment company building a catalog of authentic music and media for global audiences
+                        - listitem [ref=e334]: Minority-founded independent label creating economic opportunity for artists outside the traditional music industry
+                        - listitem [ref=e335]: LA-based music and production company investing in independent artistry and cultural storytelling
+                    - separator [ref=e336]
+                    - generic [ref=e337]:
+                      - button [ref=e494]:
+                        - img
+                        - text: Edit
+                      - button [ref=e495]:
+                        - img
+                        - text: Delete
+                - generic [ref=e340]:
+                  - generic [ref=e341]:
+                    - generic [ref=e342]:
+                      - text: V8 Network
+                      - generic [ref=e343]: Media & Audience Property
+                    - paragraph [ref=e344]: Digital Media, Publishing, Audience Development · Los Angeles, CA
+                  - generic [ref=e345]:
+                    - paragraph [ref=e346]: Building a network of culturally relevant media properties and audience platforms that amplify authentic voices, culture, and perspective.
+                    - generic [ref=e347]:
+                      - generic [ref=e348]: African American Owned
+                      - generic [ref=e349]: Minority Owned
+                      - generic [ref=e350]: Underserved Community Tied
+                      - generic [ref=e351]: Community Serving
+                    - separator [ref=e352]
+                    - generic [ref=e353]:
+                      - generic [ref=e354]:
+                        - generic [ref=e355]: Pitch Angles
+                        - button [ref=e496]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e357]:
+                        - listitem [ref=e358]: Digital media network building culturally relevant audience properties for diverse communities
+                        - listitem [ref=e359]: Founder-led media company developing a portfolio of digital properties that center authentic culture and perspective
+                        - listitem [ref=e360]: Minority-founded media network creating economic opportunity through owned audience platforms
+                        - listitem [ref=e361]: LA-based media company building the infrastructure for independent media ownership in the digital age
+                    - separator [ref=e362]
+                    - generic [ref=e363]:
+                      - button [ref=e497]:
+                        - img
+                        - text: Edit
+                      - button [ref=e498]:
+                        - img
+                        - text: Delete
+                - generic [ref=e366]:
+                  - generic [ref=e367]:
+                    - generic [ref=e368]:
+                      - text: BetterU Labs
+                      - generic [ref=e369]: Education Technology Company
+                    - paragraph [ref=e370]: Education Technology, Workforce Development, Personal Development · Los Angeles, CA
+                  - generic [ref=e371]:
+                    - paragraph [ref=e372]: Developing education technology and learning systems that expand access to knowledge, skills, and professional development for learners who have been left behind by traditional education.
+                    - generic [ref=e373]:
+                      - generic [ref=e374]: African American Owned
+                      - generic [ref=e375]: Minority Owned
+                      - generic [ref=e376]: Underserved Community Tied
+                      - generic [ref=e377]: Tech Company
+                      - generic [ref=e378]: Social Enterprise
+                      - generic [ref=e379]: Community Serving
+                    - separator [ref=e380]
+                    - generic [ref=e381]:
+                      - generic [ref=e382]:
+                        - generic [ref=e383]: Pitch Angles
+                        - button [ref=e499]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e385]:
+                        - listitem [ref=e386]: Education technology company expanding access to learning and workforce development for underserved and adult learners
+                        - listitem [ref=e387]: Founder-led EdTech company building skills and knowledge platforms for people traditional education failed to serve
+                        - listitem [ref=e388]: Social enterprise using technology to close the education and economic opportunity gap
+                        - listitem [ref=e389]: Los Angeles-based learning technology company developing workforce development tools for the next generation of professionals
+                        - listitem [ref=e390]: EdTech company building the education infrastructure that gives every learner access to quality learning — regardless of zip code
+                    - separator [ref=e391]
+                    - generic [ref=e392]:
+                      - button [ref=e500]:
+                        - img
+                        - text: Edit
+                      - button [ref=e501]:
+                        - img
+                        - text: Delete
+                - generic [ref=e395]:
+                  - generic [ref=e396]:
+                    - generic [ref=e397]:
+                      - text: FlowTech Ventures
+                      - generic [ref=e398]: Technology Division
+                    - paragraph [ref=e399]: Technology, AI, Systems · Los Angeles, CA
+                  - generic [ref=e400]:
+                    - paragraph [ref=e401]: Developing technology companies and AI-powered systems that solve real problems for businesses and communities.
+                    - generic [ref=e402]:
+                      - generic [ref=e403]: African American Owned
+                      - generic [ref=e404]: Minority Owned
+                      - generic [ref=e405]: Tech Company
+                    - separator [ref=e406]
+                    - generic [ref=e407]:
+                      - generic [ref=e408]:
+                        - generic [ref=e409]: Pitch Angles
+                        - button [ref=e502]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e411]:
+                        - listitem [ref=e412]: African American-owned technology venture studio building AI-powered business systems
+                        - listitem [ref=e413]: Black-founded tech company developing intelligent software solutions for underserved markets
+                        - listitem [ref=e414]: Minority-owned innovation lab creating tools that level the playing field for small businesses
+                    - separator [ref=e415]
+                    - generic [ref=e416]:
+                      - button [ref=e503]:
+                        - img
+                        - text: Edit
+                      - button [ref=e504]:
+                        - img
+                        - text: Delete
+                - generic [ref=e419]:
+                  - generic [ref=e420]:
+                    - generic [ref=e421]:
+                      - text: Motherbox
+                      - generic [ref=e422]: Maternal Health Consumer Brand
+                    - paragraph [ref=e423]: Maternal Health, Consumer Goods, Femtech · Los Angeles, CA
+                  - generic [ref=e424]:
+                    - paragraph [ref=e425]: Creating consumer products and resources that support maternal health, motherhood, and the wellness of all mothers and families.
+                    - generic [ref=e426]:
+                      - generic [ref=e427]: African American Owned
+                      - generic [ref=e428]: Minority Owned
+                      - generic [ref=e429]: Underserved Community Tied
+                      - generic [ref=e430]: Social Enterprise
+                      - generic [ref=e431]: Community Serving
+                    - separator [ref=e432]
+                    - generic [ref=e433]:
+                      - generic [ref=e434]:
+                        - generic [ref=e435]: Pitch Angles
+                        - button [ref=e505]:
+                          - img
+                          - text: Regenerate
+                      - list [ref=e437]:
+                        - listitem [ref=e438]: African American-owned maternal health brand building consumer products and resources for all mothers and families
+                        - listitem [ref=e439]: Black-founded company addressing the maternal health and wellness gap through accessible consumer products for women everywhere
+                        - listitem [ref=e440]: Minority-owned brand creating the support ecosystem that mothers of all backgrounds deserve — health, wellness, and community
+                        - listitem [ref=e441]: Los Angeles-based women's health brand dedicated to maternal wellness, pregnancy support, and postpartum care for all women
+                    - separator [ref=e442]
+                    - generic [ref=e443]:
+                      - button [ref=e506]:
+                        - img
+                        - text: Edit
+                      - button [ref=e507]:
+                        - img
+                        - text: Delete
+  - alert [ref=e91]
+  - dialog "Edit Entity" [ref=e511]:
+    - heading "Edit Entity" [level=2] [ref=e513]
+    - generic [ref=e514]:
+      - generic [ref=e515]:
+        - generic [ref=e516]: Name
+        - textbox "Name" [active] [ref=e517]:
+          - /placeholder: Acme Inc.
+          - text: The Louest Company
+      - generic [ref=e518]:
+        - generic [ref=e519]: Type
+        - combobox [ref=e520]:
+          - generic [ref=e521]: Holding Company
+          - img: ▼
+        - textbox [ref=e522]: Holding Company
+      - generic [ref=e523]:
+        - generic [ref=e524]:
+          - generic [ref=e525]: Industry
+          - textbox "Industry" [ref=e526]: Diversified
+        - generic [ref=e527]:
+          - generic [ref=e528]: Focus Area
+          - textbox "Focus Area" [ref=e529]: Systems, Creativity, Innovation, Storytelling, Culture, Technology, IP, Ownership
+      - generic [ref=e530]:
+        - generic [ref=e531]:
+          - generic [ref=e532]: State
+          - textbox "State" [ref=e533]: CA
+        - generic [ref=e534]:
+          - generic [ref=e535]: City
+          - textbox "City" [ref=e536]: Los Angeles
+      - generic [ref=e537]:
+        - generic [ref=e538]: Mission
+        - textbox "Mission" [ref=e539]: A diversified holding company building systems, creativity, technology, media, and brands — rooted in the belief that ownership, innovation, and storytelling change everything.
+      - generic [ref=e540]:
+        - generic [ref=e541]: Eligibility Attributes
+        - generic [ref=e542]:
+          - generic [ref=e543] [cursor=pointer]:
+            - checkbox "African American Owned" [checked] [ref=e544]
+            - text: African American Owned
+          - generic [ref=e545] [cursor=pointer]:
+            - checkbox "Minority Owned" [checked] [ref=e546]
+            - text: Minority Owned
+          - generic [ref=e547] [cursor=pointer]:
+            - checkbox "Underserved Community Tied" [ref=e548]
+            - text: Underserved Community Tied
+          - generic [ref=e549] [cursor=pointer]:
+            - checkbox "Tech Company" [ref=e550]
+            - text: Tech Company
+          - generic [ref=e551] [cursor=pointer]:
+            - checkbox "Social Enterprise" [ref=e552]
+            - text: Social Enterprise
+          - generic [ref=e553] [cursor=pointer]:
+            - checkbox "Community Serving" [ref=e554]
+            - text: Community Serving
+    - generic [ref=e555]:
+      - button "Cancel" [ref=e556]
+      - button "Save Changes" [ref=e557]
+    - button "Close" [ref=e558]:
+      - img
+      - generic [ref=e559]: Close
