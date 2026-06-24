@@ -7,7 +7,7 @@ Every nonprofit and small business leaves money on the table because grant resea
 [![CI](https://github.com/dsvxmedia/grant-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/dsvxmedia/grant-engine/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**[Try it live →](https://grant-engine-demo.vercel.app)** · [Report a bug](https://github.com/dsvxmedia/grant-engine/issues) · [Request a feature](https://github.com/dsvxmedia/grant-engine/issues)
+**[Try it live →](https://grant-engine-snowy.vercel.app)** · [Report a bug](https://github.com/dsvxmedia/grant-engine/issues) · [Request a feature](https://github.com/dsvxmedia/grant-engine/issues)
 
 ---
 
