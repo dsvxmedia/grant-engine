@@ -1,36 +1,208 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Grant Engine
 
-## Getting Started
+**The open-source AI grant discovery and writing engine.**
 
-First, run the development server:
+Every nonprofit and small business leaves money on the table because grant research is a full-time job. The SaaS alternatives cost $300–600/month and keep their code closed. Grant Engine is the self-hostable, fully open alternative: it scrapes every major grant source daily, scores opportunities against your organization using semantic matching, and writes tailored applications through a 5-pass AI pipeline.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[![CI](https://github.com/dsvxmedia/grant-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/dsvxmedia/grant-engine/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+**[Try it live →](https://grant-engine-demo.vercel.app)** · [Report a bug](https://github.com/dsvxmedia/grant-engine/issues) · [Request a feature](https://github.com/dsvxmedia/grant-engine/issues)
+
+---
+
+## What it does
+
+```
+                    GRANT ENGINE — DAILY PIPELINE
+ ─────────────────────────────────────────────────────────────────
+
+  6 SCRAPER CATEGORIES           MATCHING ENGINE
+  ─────────────────              ───────────────
+  Federal (Grants.gov,           Eligibility hard filter
+  SAM.gov, SBIR/STTR,    ──▶    (location, org type,
+  Federal Register)              award size, deadline)
+  State grant portals                    │
+  Corporate CSR programs                 ▼
+  Private foundations            Semantic fit score (0–100)
+  Niche / community              via pgvector embeddings:
+  sources                        Mission alignment   35%
+                                 Angle match         25%
+         ▼                       Award size fit      15%
+                                 Deadline urgency    10%
+  SCORES 70+: AUTO-DRAFT         Funder prestige     10%
+  SCORES 50–69: REVIEW LIST      Win/Loss (V2)       10%
+  SCORES <50: DEPRIORITIZED              │
+                                         ▼
+                             5-PASS WRITING PIPELINE
+                             ────────────────────────
+                             Pass 1: First draft
+                                     (Claude Sonnet — mirrors
+                                      funder language)
+                             Pass 2: Self-critique
+                                     (same model reviews
+                                      against rubric)
+                             Pass 3: Revision
+                                     (targeted edits, not
+                                      a full rewrite)
+                             Pass 4: Humanizer
+                                     (removes AI patterns,
+                                      varies sentence structure)
+                             Pass 5: Uniqueness guard
+                                     (cosine similarity check
+                                      vs. active applications)
+                                         │
+                                         ▼
+                             MULTI-MODEL QA GATE
+                             ───────────────────
+                             Model A (Sonnet):
+                               narrative + funder alignment
+                             Model B (Haiku):
+                               clarity + readability + tone
+                             Model C (Haiku):
+                               compliance — sections present,
+                               word limits, budget math
+
+                             All must score 7.0+
+                             Failed → back to Pass 3
+                             Max 2 retries → manual review
+                                         │
+                                         ▼
+                             REVIEW DASHBOARD
+                             (nothing submits without
+                              your explicit approval)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Why Grant Engine?
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Feature | Grant Engine | Granted AI | Instrumentl |
+|---------|-------------|------------|-------------|
+| Open source | ✅ MIT | ❌ Closed | ❌ Closed |
+| Self-hostable | ✅ Vercel + Supabase | ❌ SaaS only | ❌ SaaS only |
+| Monthly cost | $0 (+ API usage) | ~$179–499/mo | ~$179–399/mo |
+| 5-pass AI writing pipeline | ✅ | Partial | ❌ |
+| Multi-model QA gate | ✅ | ❌ | ❌ |
+| Federal sources | ✅ Grants.gov, SAM.gov, SBIR, Federal Register | ✅ | ✅ |
+| State grant portals | ✅ (expanding) | ✅ | Partial |
+| Custom scraper sources | ✅ Contribute your own | ❌ | ❌ |
+| Humanizer pass (anti-AI-detection) | ✅ | ❌ | ❌ |
 
-## Learn More
+_Competitor pricing and features based on publicly available information as of June 2026._
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Status
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**V1 — Active development.** The core pipeline (discovery, matching, writing, QA gate) is implemented and functional. This is a work in progress — test coverage is minimal and some features are still being refined. The highest-value contribution area is adding new scrapers and writing integration tests.
 
-## Deploy on Vercel
+**V2** (planned): Relationship Engine, Win/Loss Learning, Competitive Intelligence, Grant Calendar.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**V3** (planned): AI pitch video pipeline (HeyGen + ElevenLabs voice clone).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15 App Router, TypeScript |
+| Hosting | Vercel (Cron Jobs, Queues, Blob, 300s functions) |
+| Database | Supabase — PostgreSQL + pgvector |
+| Auth | Clerk |
+| AI Writing | Claude Sonnet 4.6 |
+| AI Classification | Claude Haiku 4.5 |
+| AI QA Gate | Claude Opus 4.7 |
+| Email | Resend |
+| Scraping | Playwright + Cheerio |
+| UI | shadcn/ui, Tailwind CSS |
+
+---
+
+## Quick Start
+
+**Prerequisites:** Node.js 20+, Docker, accounts at Supabase, Clerk, and Anthropic.
+
+```bash
+# 1. Clone and install
+git clone https://github.com/dsvxmedia/grant-engine.git
+cd grant-engine
+npm install
+
+# 2. Set up environment variables
+cp .env.example .env.local
+# Edit .env.local and fill in all values
+
+# 3. Start Supabase locally (requires Docker)
+npx supabase start
+
+# 4. Apply migrations
+npx supabase db reset
+
+# 5. Generate TypeScript types
+npx supabase gen types typescript --local > lib/supabase/database.types.ts
+
+# 6. Start the dev server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full development guide.
+
+---
+
+## Project Structure
+
+```
+grant-engine/
+├── app/
+│   ├── (auth)/              # Clerk sign-in/sign-up
+│   ├── (dashboard)/         # All protected dashboard pages
+│   └── api/
+│       ├── cron/            # Daily discovery pipeline (cron-protected)
+│       ├── grants/          # Grant CRUD
+│       └── applications/    # Application management
+├── lib/
+│   ├── scrapers/            # One file per grant source
+│   ├── matching/            # Eligibility filter + semantic fit scorer
+│   ├── writing/
+│   │   └── passes/          # draft, critique, revision, humanizer, uniqueness
+│   ├── qa/                  # Multi-model QA gate (4 scoring dimensions)
+│   └── supabase/            # Database client + generated types
+└── supabase/migrations/     # All schema migrations (never edit, always add)
+```
+
+---
+
+## Hard Rules
+
+- **Never auto-submit** — every application and every LOI requires your explicit approval
+- **Never fabricate eligibility** — all entity attributes must be truthful facts
+- **Never skip the humanizer** — Pass 4 always runs; AI-sounding text hurts win rates
+
+---
+
+## Contributing
+
+The most valuable contributions:
+- **New scrapers** for city/county portals, community foundations, international sources
+- **Integration tests** for the writing pipeline and matching engine
+- **Documentation** improvements
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and the scraper extension guide.
+
+---
+
+## Legal Notice
+
+Grant Engine accesses publicly available grant data from government and foundation sources. **Users are responsible for complying with each data source's terms of service.** Some sources (including SAM.gov and SBIR.gov) restrict automated access — review their ToS before running scrapers at scale in production. This software is provided for informational and research purposes; users assume all responsibility for their use of it.
+
+---
+
+## License
+
+[MIT](LICENSE) — free to use, fork, modify, and self-host. Commercial use permitted.
+
+Built by [Donameche Jackson](https://www.theclearstate.io/) / [The Clear State](https://www.theclearstate.io/).
