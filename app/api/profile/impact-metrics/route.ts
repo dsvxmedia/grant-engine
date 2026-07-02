@@ -21,7 +21,8 @@ export async function GET(request: NextRequest) {
   const { data, error } = await query.order('updated_at', { ascending: false })
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('GET /api/profile/impact-metrics failed:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 
   return NextResponse.json({ metrics: data ?? [] })
@@ -66,7 +67,8 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('POST /api/profile/impact-metrics failed:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 
   return NextResponse.json({ metric: data }, { status: 201 })

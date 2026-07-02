@@ -12,8 +12,11 @@ const ReviseSchema = z.object({
 // Body: { notes: string }  — user notes for the revision
 // Updates status back to 'drafting', stores user notes in draft_content.user_revision_notes
 // Returns: { application: ApplicationRecord }
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 export async function POST(request: NextRequest, { params }: RouteContext) {
   const { id } = await params
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
 
   let body: unknown
   try {

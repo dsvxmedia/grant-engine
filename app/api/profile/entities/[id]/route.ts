@@ -105,7 +105,8 @@ export async function DELETE(_request: NextRequest, { params }: RouteContext) {
     .eq('id', id)
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error(`DELETE /api/profile/entities/${id} failed:`, error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 
   if (count === 0) {

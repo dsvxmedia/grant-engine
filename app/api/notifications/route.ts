@@ -24,6 +24,8 @@ export async function GET(_request: NextRequest) {
   return NextResponse.json({ notifications, unreadCount })
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 // PATCH /api/notifications
 // Body: { id: string }          → mark one notification read
 // Body: { markAllRead: true }   → mark all read
@@ -33,6 +35,9 @@ export async function PATCH(request: NextRequest) {
   const body = await request.json().catch(() => ({}))
 
   if (body.id) {
+    if (!UUID_RE.test(body.id)) {
+      return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
+    }
     await (supabase as any)
       .from('notifications')
       .update({ read: true })

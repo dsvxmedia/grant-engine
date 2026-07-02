@@ -4,9 +4,12 @@ import { LoiUpdateSchema } from '@/lib/loi/schema'
 
 type RouteContext = { params: Promise<{ id: string }> }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 // GET /api/loi/[id] — fetch a single LOI submission.
 export async function GET(_request: NextRequest, { params }: RouteContext) {
   const { id } = await params
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
   const supabase = await createServiceClient()
 
   // Cast bypasses placeholder database.types.ts that lacks loi_submissions.
@@ -39,6 +42,7 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
 // When it transitions to 'submitted', also stamp submitted_at server-side.
 export async function PATCH(request: NextRequest, { params }: RouteContext) {
   const { id } = await params
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
 
   let body: unknown
   try {
@@ -94,6 +98,7 @@ export async function DELETE(
   { params }: RouteContext
 ) {
   const { id } = await params
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
   const supabase = await createServiceClient()
 
   const { data: existing, error: fetchError } = await (supabase as any)

@@ -5,8 +5,11 @@ type RouteContext = { params: Promise<{ id: string }> }
 
 // GET /api/applications/[id]/qa — fetch QA scores for an application
 // Returns: { application: { id, qa_scores, qa_passed, qa_retry_count, status } } or 404
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 export async function GET(_request: NextRequest, { params }: RouteContext) {
   const { id } = await params
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
   const supabase = await createServiceClient()
 
   const { data, error } = await (supabase as any)

@@ -5,11 +5,14 @@ import { createServiceClient } from '@/lib/supabase/server'
 // Body: { notes?: string }
 // Updates render_status = 'rejected'
 // Returns: { submission: updated } or 404
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
 
   let notes: string | undefined
   try {

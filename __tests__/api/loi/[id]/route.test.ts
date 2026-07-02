@@ -36,7 +36,7 @@ describe('GET /api/loi/[id]', () => {
 
     const { GET } = await import('@/app/api/loi/[id]/route')
     const res = await GET(jsonRequest('http://localhost/x', 'GET') as any, {
-      params: Promise.resolve({ id: 'missing' }),
+      params: Promise.resolve({ id: '00000000-0000-0000-0000-000000000000' }),
     })
     expect(res.status).toBe(404)
     const json = await res.json()
@@ -45,7 +45,7 @@ describe('GET /api/loi/[id]', () => {
 
   it('returns submission when found', async () => {
     const submission = {
-      id: 'sub-1',
+      id: '33333333-3333-3333-3333-333333333333',
       grant_id: 'g1',
       entity_id: 'e1',
       loi_content: 'hi',
@@ -61,7 +61,7 @@ describe('GET /api/loi/[id]', () => {
 
     const { GET } = await import('@/app/api/loi/[id]/route')
     const res = await GET(jsonRequest('http://localhost/x', 'GET') as any, {
-      params: Promise.resolve({ id: 'sub-1' }),
+      params: Promise.resolve({ id: '33333333-3333-3333-3333-333333333333' }),
     })
     expect(res.status).toBe(200)
     const json = await res.json()
@@ -72,7 +72,7 @@ describe('GET /api/loi/[id]', () => {
 describe('PATCH /api/loi/[id]', () => {
   it('updates loi_content', async () => {
     const updated = {
-      id: 'sub-1',
+      id: '33333333-3333-3333-3333-333333333333',
       grant_id: 'g1',
       entity_id: 'e1',
       loi_content: 'new content',
@@ -90,7 +90,7 @@ describe('PATCH /api/loi/[id]', () => {
       loi_content: 'new content',
     })
     const res = await PATCH(req as any, {
-      params: Promise.resolve({ id: 'sub-1' }),
+      params: Promise.resolve({ id: '33333333-3333-3333-3333-333333333333' }),
     })
     expect(res.status).toBe(200)
     const json = await res.json()
@@ -100,7 +100,7 @@ describe('PATCH /api/loi/[id]', () => {
 
   it('sets submitted_at when status becomes submitted', async () => {
     const updated = {
-      id: 'sub-1',
+      id: '33333333-3333-3333-3333-333333333333',
       grant_id: 'g1',
       entity_id: 'e1',
       loi_content: 'final',
@@ -119,7 +119,7 @@ describe('PATCH /api/loi/[id]', () => {
       status: 'submitted',
     })
     const res = await PATCH(req as any, {
-      params: Promise.resolve({ id: 'sub-1' }),
+      params: Promise.resolve({ id: '33333333-3333-3333-3333-333333333333' }),
     })
     expect(res.status).toBe(200)
     expect(update).toHaveBeenCalledTimes(1)
@@ -135,7 +135,7 @@ describe('DELETE /api/loi/[id]', () => {
     const maybeSingle = vi
       .fn()
       .mockResolvedValue({
-        data: { id: 'sub-1', status: 'submitted' },
+        data: { id: '33333333-3333-3333-3333-333333333333', status: 'submitted' },
         error: null,
       })
     const eq = vi.fn().mockReturnValue({ maybeSingle })
@@ -145,7 +145,7 @@ describe('DELETE /api/loi/[id]', () => {
 
     const { DELETE } = await import('@/app/api/loi/[id]/route')
     const res = await DELETE(jsonRequest('http://localhost/x', 'DELETE') as any, {
-      params: Promise.resolve({ id: 'sub-1' }),
+      params: Promise.resolve({ id: '33333333-3333-3333-3333-333333333333' }),
     })
     expect(res.status).toBe(400)
     const json = await res.json()

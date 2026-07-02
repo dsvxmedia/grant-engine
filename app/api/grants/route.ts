@@ -21,7 +21,10 @@ export async function GET(request: NextRequest) {
     .eq('status', status)
 
   if (search) {
-    query = query.or(`title.ilike.%${search}%,funder_name.ilike.%${search}%`)
+    // Strip PostgREST filter-syntax characters that could escape the ilike value
+    // and inject additional filter clauses (comma separates conditions in .or()).
+    const safe = search.replace(/[,()\[\]]/g, '').slice(0, 200)
+    query = query.or(`title.ilike.%${safe}%,funder_name.ilike.%${safe}%`)
   }
 
   if (funderType) {

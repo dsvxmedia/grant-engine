@@ -5,8 +5,11 @@ type RouteContext = { params: Promise<{ id: string }> }
 
 // GET /api/applications/[id] — fetch a single application with its draft
 // Returns: { application: ApplicationRecord } or 404
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 export async function GET(_request: NextRequest, { params }: RouteContext) {
   const { id } = await params
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
   const supabase = await createServiceClient()
 
   // Cast bypasses placeholder database.types.ts that lacks grant_applications table yet.

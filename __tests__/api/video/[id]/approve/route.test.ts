@@ -16,7 +16,7 @@ beforeEach(() => {
 describe('PATCH /api/video/[id]/approve', () => {
   it('returns 200 on success with approved status', async () => {
     const updated = {
-      id: 'sub-1',
+      id: '33333333-3333-3333-3333-333333333333',
       render_status: 'approved',
       approved_at: '2026-05-22T00:00:00.000Z',
     }
@@ -31,7 +31,7 @@ describe('PATCH /api/video/[id]/approve', () => {
     const req = new Request('http://localhost/api/video/sub-1/approve', {
       method: 'PATCH',
     })
-    const res = await PATCH(req as any, { params: Promise.resolve({ id: 'sub-1' }) })
+    const res = await PATCH(req as any, { params: Promise.resolve({ id: '33333333-3333-3333-3333-333333333333' }) })
     expect(res.status).toBe(200)
     const json = await res.json()
     expect(json.submission.render_status).toBe('approved')
@@ -49,7 +49,7 @@ describe('PATCH /api/video/[id]/approve', () => {
     const req = new Request('http://localhost/api/video/missing/approve', {
       method: 'PATCH',
     })
-    const res = await PATCH(req as any, { params: Promise.resolve({ id: 'missing' }) })
+    const res = await PATCH(req as any, { params: Promise.resolve({ id: '00000000-0000-0000-0000-000000000000' }) })
     expect(res.status).toBe(404)
   })
 })

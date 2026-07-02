@@ -56,7 +56,7 @@ function buildSupabaseMock(application: unknown) {
 describe('PATCH /api/applications/[id]/reject', () => {
   it('returns 200 with updated application on success', async () => {
     const application = {
-      id: 'app-1',
+      id: '11111111-1111-1111-1111-111111111111',
       grant_match_id: 'gm-1',
       status: 'rejected',
       outcome: 'rejected',
@@ -67,7 +67,7 @@ describe('PATCH /api/applications/[id]/reject', () => {
 
     const { PATCH } = await import('@/app/api/applications/[id]/reject/route')
     const req = jsonRequest('http://localhost/api/applications/app-1/reject', {})
-    const res = await PATCH(req as any, { params: Promise.resolve({ id: 'app-1' }) })
+    const res = await PATCH(req as any, { params: Promise.resolve({ id: '11111111-1111-1111-1111-111111111111' }) })
     expect(res.status).toBe(200)
     const json = await res.json()
     expect(json.application).toEqual(application)
@@ -86,7 +86,7 @@ describe('PATCH /api/applications/[id]/reject', () => {
 
     const { PATCH } = await import('@/app/api/applications/[id]/reject/route')
     const req = jsonRequest('http://localhost/api/applications/missing/reject', {})
-    const res = await PATCH(req as any, { params: Promise.resolve({ id: 'missing' }) })
+    const res = await PATCH(req as any, { params: Promise.resolve({ id: '00000000-0000-0000-0000-000000000000' }) })
     expect(res.status).toBe(404)
     const json = await res.json()
     expect(json.error).toBeDefined()
@@ -94,7 +94,7 @@ describe('PATCH /api/applications/[id]/reject', () => {
 
   it('returns feedbackEmailDraft when feedbackEmail is true', async () => {
     const application = {
-      id: 'app-1',
+      id: '11111111-1111-1111-1111-111111111111',
       grant_match_id: 'gm-1',
       status: 'rejected',
       outcome: 'rejected',
@@ -107,7 +107,7 @@ describe('PATCH /api/applications/[id]/reject', () => {
     const req = jsonRequest('http://localhost/api/applications/app-1/reject', {
       feedbackEmail: true,
     })
-    const res = await PATCH(req as any, { params: Promise.resolve({ id: 'app-1' }) })
+    const res = await PATCH(req as any, { params: Promise.resolve({ id: '11111111-1111-1111-1111-111111111111' }) })
     expect(res.status).toBe(200)
     const json = await res.json()
     expect(json.feedbackEmailDraft).not.toBeNull()
@@ -117,7 +117,7 @@ describe('PATCH /api/applications/[id]/reject', () => {
 
   it('returns null feedbackEmailDraft when Claude fails', async () => {
     const application = {
-      id: 'app-1',
+      id: '11111111-1111-1111-1111-111111111111',
       grant_match_id: 'gm-1',
       status: 'rejected',
       outcome: 'rejected',
@@ -133,7 +133,7 @@ describe('PATCH /api/applications/[id]/reject', () => {
     const req = jsonRequest('http://localhost/api/applications/app-1/reject', {
       feedbackEmail: true,
     })
-    const res = await PATCH(req as any, { params: Promise.resolve({ id: 'app-1' }) })
+    const res = await PATCH(req as any, { params: Promise.resolve({ id: '11111111-1111-1111-1111-111111111111' }) })
     expect(res.status).toBe(200)
     const json = await res.json()
     expect(json.feedbackEmailDraft).toBeNull()

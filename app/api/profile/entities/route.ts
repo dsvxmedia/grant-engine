@@ -12,7 +12,8 @@ export async function GET() {
     .order('parent_id', { ascending: true, nullsFirst: true })
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('GET /api/profile/entities failed:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 
   return NextResponse.json({ entities: data ?? [] })
@@ -49,7 +50,8 @@ export async function POST(request: NextRequest) {
     .single()
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('POST /api/profile/entities failed:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 
   return NextResponse.json({ entity: data }, { status: 201 })

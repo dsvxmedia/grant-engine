@@ -10,8 +10,11 @@ type RouteContext = { params: Promise<{ id: string }> }
 // Also updates linked grant_matches: status = 'rejected'
 // Optionally generates a feedback request email draft via Claude Haiku
 // Returns: { application: ApplicationRecord, feedbackEmailDraft: string | null }
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 export async function PATCH(request: NextRequest, { params }: RouteContext) {
   const { id } = await params
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
 
   let body: { feedbackEmail?: boolean } = {}
   try {

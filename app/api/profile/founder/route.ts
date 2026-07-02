@@ -19,7 +19,8 @@ export async function GET() {
   const { data, error } = await fetchProfile(supabase)
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('GET /api/profile/founder failed:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 
   return NextResponse.json({ profile: data ?? null })
@@ -49,7 +50,8 @@ export async function PATCH(request: NextRequest) {
   const { data: existing, error: fetchError } = await fetchProfile(supabase)
 
   if (fetchError) {
-    return NextResponse.json({ error: fetchError.message }, { status: 500 })
+    console.error('PATCH /api/profile/founder fetch failed:', fetchError)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 
   // Casts bypass the incomplete placeholder database.types.ts (see
@@ -62,7 +64,8 @@ export async function PATCH(request: NextRequest) {
       .single()
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
+      console.error('PATCH /api/profile/founder update failed:', error)
+      return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
     }
 
     return NextResponse.json({ profile: data })
@@ -81,7 +84,8 @@ export async function PATCH(request: NextRequest) {
     .single()
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('PATCH /api/profile/founder insert failed:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 
   return NextResponse.json({ profile: data })

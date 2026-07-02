@@ -24,7 +24,7 @@ function jsonRequest(url: string, body: unknown) {
 describe('POST /api/applications/[id]/revise', () => {
   it('returns 200 after updating status to drafting with user notes', async () => {
     const updated = {
-      id: 'app-1',
+      id: '11111111-1111-1111-1111-111111111111',
       status: 'drafting',
       draft_content: { user_revision_notes: 'Please improve the narrative.' },
     }
@@ -40,7 +40,7 @@ describe('POST /api/applications/[id]/revise', () => {
       notes: 'Please improve the narrative.',
     })
     const res = await POST(req as any, {
-      params: Promise.resolve({ id: 'app-1' }),
+      params: Promise.resolve({ id: '11111111-1111-1111-1111-111111111111' }),
     })
     expect(res.status).toBe(200)
     const json = await res.json()
@@ -57,7 +57,7 @@ describe('POST /api/applications/[id]/revise', () => {
       notes: '',
     })
     const res = await POST(req as any, {
-      params: Promise.resolve({ id: 'app-1' }),
+      params: Promise.resolve({ id: '11111111-1111-1111-1111-111111111111' }),
     })
     expect(res.status).toBe(400)
     const json = await res.json()
@@ -77,7 +77,7 @@ describe('POST /api/applications/[id]/revise', () => {
       notes: 'Improve this section.',
     })
     const res = await POST(req as any, {
-      params: Promise.resolve({ id: 'missing' }),
+      params: Promise.resolve({ id: '00000000-0000-0000-0000-000000000000' }),
     })
     expect(res.status).toBe(404)
     const json = await res.json()

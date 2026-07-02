@@ -20,7 +20,7 @@ function makeRequest(url: string) {
 describe('GET /api/applications/[id]/qa', () => {
   it('returns 200 with qa data when application is found', async () => {
     const qaData = {
-      id: 'app-1',
+      id: '11111111-1111-1111-1111-111111111111',
       qa_scores: {
         narrative: { score: 8, issues: [], passed: true },
         clarity: { score: 7.5, issues: [], passed: true },
@@ -39,7 +39,7 @@ describe('GET /api/applications/[id]/qa', () => {
 
     const { GET } = await import('@/app/api/applications/[id]/qa/route')
     const res = await GET(makeRequest('http://localhost/api/applications/app-1/qa') as any, {
-      params: Promise.resolve({ id: 'app-1' }),
+      params: Promise.resolve({ id: '11111111-1111-1111-1111-111111111111' }),
     })
 
     expect(res.status).toBe(200)
@@ -58,7 +58,7 @@ describe('GET /api/applications/[id]/qa', () => {
 
     const { GET } = await import('@/app/api/applications/[id]/qa/route')
     const res = await GET(makeRequest('http://localhost/api/applications/missing/qa') as any, {
-      params: Promise.resolve({ id: 'missing' }),
+      params: Promise.resolve({ id: '00000000-0000-0000-0000-000000000000' }),
     })
 
     expect(res.status).toBe(404)
@@ -75,7 +75,7 @@ describe('GET /api/applications/[id]/qa', () => {
 
     const { GET } = await import('@/app/api/applications/[id]/qa/route')
     const res = await GET(makeRequest('http://localhost/api/applications/app-1/qa') as any, {
-      params: Promise.resolve({ id: 'app-1' }),
+      params: Promise.resolve({ id: '11111111-1111-1111-1111-111111111111' }),
     })
 
     expect(res.status).toBe(500)

@@ -6,8 +6,11 @@ type RouteContext = { params: Promise<{ id: string }> }
 // PATCH /api/applications/[id]/approve
 // Updates grant_applications status to 'approved' and linked grant_matches status to 'approved'
 // Returns: { application: ApplicationRecord } or 404
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 export async function PATCH(_request: NextRequest, { params }: RouteContext) {
   const { id } = await params
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
   const supabase = await createServiceClient()
 
   // Update the application status
