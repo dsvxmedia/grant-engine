@@ -17,6 +17,7 @@ function matchToCard(match: MatchRecord): KanbanCard {
     awardMax: grant?.award_max ?? null,
     deadline: grant?.deadline ?? null,
     fitScore: match.fit_score,
+    scoreComponents: match.score_components ?? null,
     entityName: match.business_entities?.name ?? null,
     status: match.status,
     isReviewable: false,
@@ -44,6 +45,7 @@ function appToCard(app: ApplicationRecord, colId: string): KanbanCard {
     awardMax: grant?.award_max ?? null,
     deadline: grant?.deadline ?? null,
     fitScore: app.fit_score ?? null,
+    scoreComponents: null,
     entityName: app.business_entities?.name ?? null,
     status: app.status,
     isReviewable: colId === 'review',
@@ -72,6 +74,7 @@ function loiToCard(loi: LoiRecord): KanbanCard {
     awardMax: grant?.award_max ?? null,
     deadline,
     fitScore: null,
+    scoreComponents: null,
     entityName: loi.business_entities?.name ?? null,
     status: loi.status,
     isReviewable: false,
@@ -107,7 +110,7 @@ export default async function PipelinePage() {
   // Matched grants — deduplicated by grant_id so each grant appears once on the board
   const { data: matchesRaw } = await (supabase as any)
     .from('grant_matches')
-    .select('*, grants(title, funder_name, funder_type, award_min, award_max, deadline, source, source_url, application_url, description, eligibility_tags, category_tags, requires_loi, coalition_preferred), business_entities(id, name)')
+    .select('*, score_components, grants(title, funder_name, funder_type, award_min, award_max, deadline, source, source_url, application_url, description, eligibility_tags, category_tags, requires_loi, coalition_preferred), business_entities(id, name)')
     .in('status', ['queued', 'pending_review'])
     .order('fit_score', { ascending: false })
     .limit(200)

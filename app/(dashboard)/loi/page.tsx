@@ -1,5 +1,7 @@
+import { FileText } from 'lucide-react'
 import { Header } from '@/components/layout/Header'
 import { LoiCard, type LoiSubmission } from '@/components/loi/LoiCard'
+import { EmptyState } from '@/components/shared/EmptyState'
 import { createServiceClient } from '@/lib/supabase/server'
 
 async function fetchSubmissions(): Promise<LoiSubmission[]> {
@@ -25,7 +27,11 @@ export default async function LoiQueuePage() {
       <Header title="LOI Queue" />
       <div className="flex-1 overflow-y-auto p-6">
         {submissions.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No LOI drafts yet.</p>
+          <EmptyState
+            icon={FileText}
+            title="No LOI drafts yet"
+            description="When the matching engine identifies grants that require a Letter of Inquiry, they'll appear here for review and submission before the full application is triggered."
+          />
         ) : (
           <div className="flex flex-col gap-4 max-w-2xl">
             {submissions.map((submission) => (

@@ -4,6 +4,7 @@ import { DeadlineChip } from '@/components/shared/DeadlineChip'
 import { ScoreBadge } from '@/components/shared/ScoreBadge'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { ApplicationDraft } from '@/components/review/ApplicationDraft'
+import { ApplicationReviewFooter } from '@/components/review/ApplicationReviewFooter'
 import { createServiceClient } from '@/lib/supabase/server'
 import { formatCurrency } from '@/lib/utils'
 import type { ApplicationRecord } from '@/components/pipeline/types'
@@ -83,7 +84,7 @@ export default async function ApplicationReviewPage({ params }: PageProps) {
       <Header title="Application Review" />
       <div className="flex-1 overflow-y-auto p-6">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-          {/* Left sidebar */}
+          {/* Left sidebar — grant meta + QA scores */}
           <aside className="w-full shrink-0 lg:w-64 xl:w-72">
             <div className="rounded-xl border border-border bg-card p-5 flex flex-col gap-4">
               {/* Grant info */}
@@ -155,12 +156,21 @@ export default async function ApplicationReviewPage({ params }: PageProps) {
             </div>
           </aside>
 
-          {/* Main content */}
+          {/* Main content — draft sections + inline edit */}
           <div className="flex-1 min-w-0">
             <ApplicationDraft application={app} />
           </div>
         </div>
       </div>
+
+      {/* Sticky action footer — always visible regardless of scroll position */}
+      <ApplicationReviewFooter
+        applicationId={app.id}
+        status={app.status}
+        grantTitle={grant?.title}
+        deadline={grant?.deadline}
+        qaScores={qaScores}
+      />
     </div>
   )
 }

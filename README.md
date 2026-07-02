@@ -158,20 +158,58 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full development guide.
 ```
 grant-engine/
 ├── app/
-│   ├── (auth)/              # Clerk sign-in/sign-up
-│   ├── (dashboard)/         # All protected dashboard pages
+│   ├── (auth)/                    # Clerk sign-in/sign-up
+│   ├── (dashboard)/
+│   │   ├── page.tsx               # Pipeline Kanban (main view)
+│   │   ├── review/                # Review queue — approve/reject applications
+│   │   ├── explorer/              # Grant discovery browser
+│   │   ├── profile/               # Business entity + founder profile manager
+│   │   ├── loi/                   # Letter of Inquiry pipeline
+│   │   ├── calendar/              # Grant calendar (V2)
+│   │   ├── analytics/             # Win/loss analytics (V2)
+│   │   ├── relationships/         # Program officer CRM (V2)
+│   │   ├── coalition/             # Coalition module (V2)
+│   │   ├── notifications/         # Notification log
+│   │   └── video/                 # AI pitch video pipeline (V3)
 │   └── api/
-│       ├── cron/            # Daily discovery pipeline (cron-protected)
-│       ├── grants/          # Grant CRUD
-│       └── applications/    # Application management
+│       ├── cron/                  # discover, match, draft, analyze, reminders, cleanup
+│       ├── grants/                # Grant CRUD
+│       ├── applications/[id]/     # approve, reject, revise, QA trigger
+│       ├── matches/[id]/          # queue, archive
+│       ├── loi/                   # LOI generation + status
+│       ├── profile/               # entities, founder, impact-metrics, documents
+│       ├── video/                 # Video pipeline
+│       ├── notifications/         # Notification log
+│       ├── analytics/             # Win/loss data
+│       ├── relationships/         # Program officer CRM
+│       ├── coalition/             # Coalition matching
+│       ├── admin/                 # Health check, notify
+│       └── webhooks/              # QA + video callbacks
+├── components/
+│   ├── ui/                        # shadcn/ui primitives (never modify)
+│   ├── layout/                    # Sidebar, Header
+│   ├── shared/                    # DeadlineChip, ScoreBadge, StatusBadge, GrantDetailSheet
+│   ├── pipeline/                  # KanbanBoard, KanbanColumn, GrantCard
+│   ├── review/                    # ReviewQueue, MatchReviewList, ApplicationDraft
+│   ├── profile/                   # EntityForm, EntityList, ProfileTabs, FounderStory,
+│   │                              #   EligibilityAttributes, AnglePreview, ImpactMetrics,
+│   │                              #   DocumentUpload
+│   ├── loi/                       # LoiCard
+│   ├── notifications/             # NotificationList
+│   └── video/                     # VideoActions
 ├── lib/
-│   ├── scrapers/            # One file per grant source
-│   ├── matching/            # Eligibility filter + semantic fit scorer
+│   ├── scrapers/                  # One file per grant source (60+ sources)
+│   ├── matching/                  # Eligibility filter + semantic fit scorer
 │   ├── writing/
-│   │   └── passes/          # draft, critique, revision, humanizer, uniqueness
-│   ├── qa/                  # Multi-model QA gate (4 scoring dimensions)
-│   └── supabase/            # Database client + generated types
-└── supabase/migrations/     # All schema migrations (never edit, always add)
+│   │   └── passes/                # draft, critique, revision, humanizer, uniqueness
+│   ├── qa/                        # Multi-model QA gate (narrative, clarity, compliance)
+│   ├── loi/                       # LOI generation + schema
+│   ├── profile/                   # Entity schema, founder schema, angles, impact, documents
+│   ├── intelligence/              # V2: win-loss, relationships, calendar, coalition, competitive
+│   ├── video/                     # V3: HeyGen + ElevenLabs pipeline
+│   └── supabase/                  # Database client + generated types
+├── __tests__/                     # Vitest — mirrors lib/ and app/api/ structure
+└── supabase/migrations/           # All schema migrations (never edit, always add)
 ```
 
 ---
@@ -205,4 +243,4 @@ Grant Engine accesses publicly available grant data from government and foundati
 
 [MIT](LICENSE) — free to use, fork, modify, and self-host. Commercial use permitted.
 
-Built by [Donameche Jackson](https://www.theclearstate.io/) / [The Clear State](https://www.theclearstate.io/).
+Built by [Donameche Jackson](https://www.theclearstate.io/) / [The Clearstate System (TCS)](https://www.theclearstate.io/).
