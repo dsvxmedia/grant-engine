@@ -95,7 +95,7 @@ _Competitor pricing and features based on publicly available information as of J
 
 ## Status
 
-**V1 — Active development.** The core pipeline (discovery, matching, writing, QA gate) is implemented and functional. This is a work in progress — test coverage is minimal and some features are still being refined. The highest-value contribution area is adding new scrapers and writing integration tests.
+**V1 — Active development.** The core pipeline (discovery, matching, writing, QA gate) is implemented and functional. 511 unit tests passing. The highest-value contribution area is adding new scrapers and writing end-to-end integration tests.
 
 **V2** (planned): Relationship Engine, Win/Loss Learning, Competitive Intelligence, Grant Calendar.
 
@@ -107,7 +107,7 @@ _Competitor pricing and features based on publicly available information as of J
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Next.js 15 App Router, TypeScript |
+| Framework | Next.js 16 App Router, TypeScript |
 | Hosting | Vercel (Cron Jobs, Queues, Blob, 300s functions) |
 | Database | Supabase — PostgreSQL + pgvector |
 | Auth | Clerk |
