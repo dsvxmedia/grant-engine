@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { DeadlineChip } from '@/components/shared/DeadlineChip'
 import { GrantDetailSheet, type GrantDetailData } from '@/components/shared/GrantDetailSheet'
 import { formatCurrency } from '@/lib/utils'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink, X } from 'lucide-react'
 
 type GrantRow = {
   id: string
@@ -196,6 +196,51 @@ export default function ExplorerPage() {
             </label>
           </div>
         </div>
+
+        {/* Active filter chips */}
+        {(funderType || requiresLoi || isNewProgram) && (
+          <div className="flex flex-wrap items-center gap-1.5 mb-4">
+            <span className="text-xs text-muted-foreground">Filters:</span>
+            {funderType && (
+              <button
+                onClick={() => handleFunderTypeChange('')}
+                className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
+              >
+                {FUNDER_TYPES.find((f) => f.value === funderType)?.label ?? funderType}
+                <X className="size-3" aria-hidden="true" />
+              </button>
+            )}
+            {requiresLoi && (
+              <button
+                onClick={() => handleRequiresLoiChange(false)}
+                className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
+              >
+                Requires LOI
+                <X className="size-3" aria-hidden="true" />
+              </button>
+            )}
+            {isNewProgram && (
+              <button
+                onClick={() => handleIsNewProgramChange(false)}
+                className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
+              >
+                New program
+                <X className="size-3" aria-hidden="true" />
+              </button>
+            )}
+            <button
+              onClick={() => {
+                setFunderType('')
+                setRequiresLoi(false)
+                setIsNewProgram(false)
+                fetchGrants({ search, funderType: '', requiresLoi: false, isNewProgram: false })
+              }}
+              className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors"
+            >
+              Clear all
+            </button>
+          </div>
+        )}
 
         {/* Status / count row */}
         <p className="text-xs text-muted-foreground mb-3">

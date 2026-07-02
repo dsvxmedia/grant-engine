@@ -42,10 +42,11 @@ Remove all AI-sounding patterns including:
 - "In the realm of"
 
 Apply these writing techniques:
-- Vary sentence length: mix short punchy sentences with longer, more detailed ones
-- Vary sentence starts: never allow 3 consecutive sentences to start with the same word
+- Inject sentence-length burstiness: deliberately alternate between very short sentences (5–8 words) and longer, more complex ones (20–35 words). Natural human writing varies sentence length far more than AI output does; uniform sentence lengths are a strong AI detection signal.
+- Vary sentence starts: never allow 3 consecutive sentences to start with the same word or the same structural pattern (subject-verb, subject-verb, subject-verb reads as AI-written)
 - Convert passive voice to active voice where natural and clear
 - Use concrete, specific language instead of vague generalities
+- Embed at least 2 verifiable specifics per section — a real name, a precise date, a dollar figure, a city — to anchor the text in particulars that AI-generated prose tends to omit
 
 Preserve without change:
 - All facts, statistics, names, and dates

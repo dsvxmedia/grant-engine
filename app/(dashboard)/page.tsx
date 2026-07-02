@@ -179,9 +179,31 @@ export default async function PipelinePage() {
     col.count = col.cards.length
   }
 
+  const reviewCount = colMap.get('review')!.count
+  const submittedCount = colMap.get('submitted')!.count
+
+  const kpis = [
+    { label: 'Discovered',      value: discoveredCount ?? 0, sub: 'Active grants' },
+    { label: 'Matched',         value: seenOnBoard.size,     sub: 'Scored & queued' },
+    { label: 'Awaiting Review', value: reviewCount,          sub: 'Need approval' },
+    { label: 'Submitted',       value: submittedCount,       sub: 'In pipeline' },
+  ]
+
   return (
     <div className="flex flex-col h-full">
       <Header title="Pipeline" />
+
+      {/* KPI row */}
+      <div className="grid grid-cols-4 gap-3 px-6 pt-4 pb-1 shrink-0">
+        {kpis.map(({ label, value, sub }) => (
+          <div key={label} className="rounded-xl border border-border bg-card px-4 py-3">
+            <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide">{label}</p>
+            <p className="mt-1 text-2xl font-semibold tabular-nums">{value.toLocaleString()}</p>
+            <p className="text-[11px] text-muted-foreground mt-0.5">{sub}</p>
+          </div>
+        ))}
+      </div>
+
       <div className="flex-1 overflow-hidden">
         <KanbanBoard columns={columns} discoveredCount={discoveredCount ?? 0} />
       </div>

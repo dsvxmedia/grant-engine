@@ -40,13 +40,13 @@ const BUDGET_RULES: Record<string, GrantTypeRules> = {
   federal: {
     label: 'Federal (non-SBIR)',
     rules: `
-- Indirect cost rate: 10% de minimis (note "negotiated rate if applicable").
+- Indirect cost rate: 15% de minimis MTDC (OMB 2 CFR 200.414, effective Oct 1 2024 — note "negotiated rate if applicable").
 - Fringe benefits: 30% of personnel costs.
 - Include travel, supplies, and equipment line items.
 - All costs must be allowable, allocable, and reasonable per 2 CFR 200.
     `.trim(),
-    indirectRateLabel: '10% de minimis',
-    computeIndirect: (direct) => Math.round(direct * 0.10),
+    indirectRateLabel: '15% de minimis MTDC (OMB 2024)',
+    computeIndirect: (direct) => Math.round(direct * 0.15),
   },
   sbir: {
     label: 'SBIR Phase I',
@@ -82,11 +82,12 @@ const BUDGET_RULES: Record<string, GrantTypeRules> = {
     label: 'State',
     rules: `
 - Similar to federal allowability rules.
+- Indirect cost rate: 15% de minimis MTDC (mirrors OMB 2024 federal update; confirm with state agency).
 - Add a matching requirement note (commonly 1:1 or 1:2 match).
 - Clearly identify the source and nature of any match funds.
     `.trim(),
-    indirectRateLabel: '10% de minimis (state)',
-    computeIndirect: (direct) => Math.round(direct * 0.10),
+    indirectRateLabel: '15% de minimis (OMB 2024 aligned)',
+    computeIndirect: (direct) => Math.round(direct * 0.15),
   },
   niche: {
     label: 'Niche / Other',

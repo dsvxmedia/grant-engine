@@ -73,6 +73,7 @@ Evaluate the draft against ALL of the following dimensions:
 4. **Equity framing** — Does the narrative center the community being served, not the organization? Is the language equity-centered?
 5. **Language mirroring** — Does the draft use the funder's key phrases listed above? Flag any missing phrases.
 6. **Word limit compliance** — Flag any section where the word count exceeds its limit.
+7. **Output vs. outcome framing** — Are program goals described as measurable *outcomes* (changes in knowledge, behavior, or condition in the community) rather than just *outputs* (activities delivered, workshops held, people reached)? Flag any section that describes only activities without linking them to a demonstrable change in the community's condition.
 
 ---
 ## Draft Application

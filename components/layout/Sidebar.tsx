@@ -36,12 +36,15 @@ export function Sidebar({ unreadCount }: { unreadCount?: number }) {
             key={href}
             href={href}
             className={cn(
-              'flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm transition-colors',
+              'relative flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm transition-colors',
               pathname === href
-                ? 'bg-primary/10 text-primary font-medium'
+                ? 'bg-primary/5 text-primary font-medium'
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground'
             )}
           >
+            {pathname === href && (
+              <span className="absolute left-0 inset-y-1.5 w-0.5 rounded-full bg-primary" aria-hidden="true" />
+            )}
             <span className="relative flex-none">
               <Icon className="h-4 w-4" />
               {href === '/notifications' && unreadCount != null && unreadCount > 0 && (
