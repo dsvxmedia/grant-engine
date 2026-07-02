@@ -34,7 +34,7 @@ export function KanbanColumn({ id, label, count, cards }: KanbanColumnProps) {
         </span>
       </div>
 
-      <ScrollArea className="h-[calc(100vh-9rem)]">
+      <ScrollArea className="h-[calc(100vh-16rem)]">
         <div className="flex flex-col gap-2 pr-2">
           {cards.length === 0 ? (
             <div className="rounded-lg border border-dashed border-border px-3 py-4 text-center text-xs text-muted-foreground">
