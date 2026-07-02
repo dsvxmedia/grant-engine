@@ -108,8 +108,8 @@ export default async function AnalyticsPage() {
   const statCards: StatCardProps[] = [
     { label: 'Grants discovered', value: discovered.toLocaleString() },
     { label: 'Applications submitted', value: applied.toLocaleString() },
-    { label: 'Awarded', value: won.toLocaleString(), colorClass: 'text-green-600' },
-    { label: 'Rejected', value: rejected.toLocaleString(), colorClass: 'text-red-500' },
+    { label: 'Awarded', value: won.toLocaleString(), colorClass: won > 0 ? 'text-green-600' : undefined },
+    { label: 'Rejected', value: rejected.toLocaleString(), colorClass: rejected > 0 ? 'text-red-500' : undefined },
     { label: 'Pipeline value', value: formatCurrency(pipelineValue) },
     { label: 'Win rate', value: `${winRate.toFixed(1)}%` },
   ]

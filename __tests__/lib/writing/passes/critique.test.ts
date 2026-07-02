@@ -273,13 +273,13 @@ describe('selfCritique', () => {
       expect(callArgs.model).toBe('claude-haiku-4-5-20251001')
     })
 
-    it('calls Claude with max_tokens 1024', async () => {
+    it('calls Claude with max_tokens 2048', async () => {
       const { selfCritique } = await import('@/lib/writing/passes/critique')
 
       await selfCritique(makeDraft(), makePassInput())
 
       const callArgs = createMock.mock.calls[0][0]
-      expect(callArgs.max_tokens).toBe(1024)
+      expect(callArgs.max_tokens).toBe(2048)
     })
   })
 })

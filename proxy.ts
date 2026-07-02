@@ -24,6 +24,11 @@ export default clerkMiddleware(async (auth, request) => {
     }
   }
 
+  // Dev bypass: NEXT_PUBLIC_DEV_BYPASS=true skips auth for local QA testing
+  if (process.env.NEXT_PUBLIC_DEV_BYPASS === 'true' && process.env.NODE_ENV !== 'production') {
+    return NextResponse.next()
+  }
+
   if (!isPublicRoute(request)) {
     await auth.protect()
   }
