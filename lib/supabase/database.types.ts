@@ -340,6 +340,7 @@ export type Database = {
           hard_filter_passed: boolean
           id: string
           matched_angles: string[] | null
+          score_components: Json | null
           status: Database["public"]["Enums"]["match_status"] | null
         }
         Insert: {
@@ -352,6 +353,7 @@ export type Database = {
           hard_filter_passed: boolean
           id?: string
           matched_angles?: string[] | null
+          score_components?: Json | null
           status?: Database["public"]["Enums"]["match_status"] | null
         }
         Update: {
@@ -364,6 +366,7 @@ export type Database = {
           hard_filter_passed?: boolean
           id?: string
           matched_angles?: string[] | null
+          score_components?: Json | null
           status?: Database["public"]["Enums"]["match_status"] | null
         }
         Relationships: [

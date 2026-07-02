@@ -1,20 +1,10 @@
 'use client'
 
-import { useState, useTransition } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from '@/components/ui/dialog'
 import { toast } from 'sonner'
 import type { ApplicationRecord } from '@/components/pipeline/types'
 
@@ -101,9 +91,7 @@ function SectionEditor({
       ) : (
         <div className="flex flex-col gap-2">
           <div className="prose prose-sm prose-slate max-w-none text-sm leading-relaxed [&>p]:text-muted-foreground [&>ul]:text-muted-foreground [&>ol]:text-muted-foreground [&>blockquote]:text-muted-foreground">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {section.text}
-            </ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{section.text}</ReactMarkdown>
           </div>
           <Button
             size="sm"
@@ -127,17 +115,12 @@ interface ApplicationDraftProps {
 }
 
 export function ApplicationDraft({ application }: ApplicationDraftProps) {
-  const router = useRouter()
-  const [isPending, startTransition] = useTransition()
   const [sections, setSections] = useState<DraftSection[]>(
     parseSections(application.draft_content)
   )
-  const [rejectOpen, setRejectOpen] = useState(false)
-  const [reviseOpen, setReviseOpen] = useState(false)
-  const [reviseNotes, setReviseNotes] = useState('')
-  const [actionLoading, setActionLoading] = useState(false)
 
-  const busy = isPending || actionLoading
+  const pdfUrl = (application as any).draft_pdf_url as string | null | undefined
+  const docxUrl = (application as any).draft_docx_url as string | null | undefined
 
   function handleSectionSaved(index: number, newText: string) {
     setSections((prev) =>
@@ -145,101 +128,8 @@ export function ApplicationDraft({ application }: ApplicationDraftProps) {
     )
   }
 
-  async function handleApprove() {
-    setActionLoading(true)
-    try {
-      const res = await fetch(`/api/applications/${application.id}/approve`, {
-        method: 'PATCH',
-      })
-      if (!res.ok) {
-        toast.error('Failed to approve application')
-        return
-      }
-      toast.success('Application approved')
-      startTransition(() => router.push('/review'))
-    } finally {
-      setActionLoading(false)
-    }
-  }
-
-  async function handleRevise() {
-    if (!reviseNotes.trim()) return
-    setActionLoading(true)
-    setReviseOpen(false)
-    try {
-      const res = await fetch(`/api/applications/${application.id}/revise`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ notes: reviseNotes }),
-      })
-      if (!res.ok) {
-        toast.error('Failed to request revision')
-        return
-      }
-      toast.success('Revision requested')
-      setReviseNotes('')
-      startTransition(() => router.push('/review'))
-    } finally {
-      setActionLoading(false)
-    }
-  }
-
-  async function handleReject() {
-    setActionLoading(true)
-    setRejectOpen(false)
-    try {
-      const res = await fetch(`/api/applications/${application.id}/reject`, {
-        method: 'PATCH',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({}),
-      })
-      if (!res.ok) {
-        toast.error('Failed to reject application')
-        return
-      }
-      toast.success('Application rejected')
-      startTransition(() => router.push('/review'))
-    } finally {
-      setActionLoading(false)
-    }
-  }
-
-  const pdfUrl = (application as any).draft_pdf_url as string | null | undefined
-  const docxUrl = (application as any).draft_docx_url as string | null | undefined
-
   return (
     <div className="flex flex-col gap-6">
-      {/* Action bar */}
-      <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-4 py-3">
-        <Button
-          size="sm"
-          className="bg-green-600 text-white hover:bg-green-700"
-          disabled={busy}
-          onClick={handleApprove}
-        >
-          Approve
-        </Button>
-        <Button
-          size="sm"
-          variant="outline"
-          disabled={busy}
-          onClick={() => {
-            setReviseNotes('')
-            setReviseOpen(true)
-          }}
-        >
-          Request Revision
-        </Button>
-        <Button
-          size="sm"
-          variant="destructive"
-          disabled={busy}
-          onClick={() => setRejectOpen(true)}
-        >
-          Reject
-        </Button>
-      </div>
-
       {/* Download row */}
       {(pdfUrl || docxUrl) && (
         <div className="flex items-center gap-3 text-sm">
@@ -286,55 +176,6 @@ export function ApplicationDraft({ application }: ApplicationDraftProps) {
           No draft content available yet.
         </p>
       )}
-
-      {/* Reject dialog */}
-      <Dialog open={rejectOpen} onOpenChange={setRejectOpen}>
-        <DialogContent showCloseButton={false}>
-          <DialogHeader>
-            <DialogTitle>Reject this application?</DialogTitle>
-            <DialogDescription>
-              This will mark the application as rejected. This action cannot be undone.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <DialogClose render={<Button variant="outline" />}>
-              Cancel
-            </DialogClose>
-            <Button variant="destructive" disabled={busy} onClick={handleReject}>
-              Reject
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Revise dialog */}
-      <Dialog open={reviseOpen} onOpenChange={(open) => { if (!open) { setReviseOpen(false); setReviseNotes('') } }}>
-        <DialogContent showCloseButton={false}>
-          <DialogHeader>
-            <DialogTitle>Request revision</DialogTitle>
-            <DialogDescription>
-              Describe what needs to change. The writing agent will use these notes in its next pass.
-            </DialogDescription>
-          </DialogHeader>
-          <Textarea
-            value={reviseNotes}
-            onChange={(e) => setReviseNotes(e.target.value)}
-            placeholder="e.g. Strengthen the impact section and reduce budget by 10%..."
-            className="min-h-28"
-          />
-          <DialogFooter>
-            <DialogClose render={<Button variant="outline" />}>
-              Cancel
-            </DialogClose>
-            <Button
-              disabled={busy || !reviseNotes.trim()}
-              onClick={handleRevise}
-            >
-              Send for revision
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }

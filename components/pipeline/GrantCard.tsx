@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { DeadlineChip } from '@/components/shared/DeadlineChip'
 import { ScoreBadge } from '@/components/shared/ScoreBadge'
 import { GrantDetailSheet } from '@/components/shared/GrantDetailSheet'
-import { formatCurrency } from '@/lib/utils'
+import { FitScoreBreakdown } from '@/components/shared/FitScoreBreakdown'
+import { formatCurrency, isUrgent, cn } from '@/lib/utils'
 import type { KanbanCard } from './types'
 
 interface GrantCardProps {
@@ -23,9 +24,13 @@ export function GrantCard({ card }: GrantCardProps) {
         : null
 
   const deadline = card.deadline ? new Date(card.deadline) : null
+  const urgent = deadline ? isUrgent(deadline) : false
 
   const inner = (
-    <div className="flex flex-col gap-2 rounded-lg border border-border bg-card px-3 py-2.5 text-sm transition-colors hover:bg-muted/50 cursor-pointer">
+    <div className={cn(
+      'flex flex-col gap-2 rounded-lg border bg-card px-3 py-2.5 text-sm transition-colors hover:bg-muted/50 cursor-pointer',
+      urgent ? 'border-red-200 border-l-2 border-l-red-400' : 'border-border'
+    )}>
       <div className="flex items-start justify-between gap-2">
         <span className="font-medium leading-snug line-clamp-2 flex-1">
           {card.title}
@@ -37,6 +42,10 @@ export function GrantCard({ card }: GrantCardProps) {
         <span className="text-xs text-muted-foreground truncate">
           {card.funderName}
         </span>
+      )}
+
+      {card.scoreComponents && (
+        <FitScoreBreakdown components={card.scoreComponents} />
       )}
 
       <div className="flex flex-wrap items-center gap-1.5">
@@ -85,6 +94,7 @@ export function GrantCard({ card }: GrantCardProps) {
           categoryTags: card.categoryTags,
           requiresLoi: card.requiresLoi,
           fitScore: card.fitScore,
+          scoreComponents: card.scoreComponents,
           entityName: card.entityName,
           matchedAngles: card.matchedAngles,
         }}

@@ -2,13 +2,14 @@
 
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search } from 'lucide-react'
+import { Search, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { DeadlineChip } from '@/components/shared/DeadlineChip'
 import { ScoreBadge } from '@/components/shared/ScoreBadge'
 import { GrantDetailSheet, type GrantDetailData } from '@/components/shared/GrantDetailSheet'
 import { formatCurrency } from '@/lib/utils'
+import { EmptyState } from '@/components/shared/EmptyState'
 import type { MatchRecord } from '@/components/pipeline/types'
 
 interface MatchReviewListProps {
@@ -90,7 +91,11 @@ export function MatchReviewList({ matches }: MatchReviewListProps) {
 
   if (matches.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">No matched grants pending review.</p>
+      <EmptyState
+        icon={Sparkles}
+        title="No matched grants yet"
+        description="Once the daily discovery run scores your portfolio against active grants, matches in the 50–69 range will appear here for your review."
+      />
     )
   }
 

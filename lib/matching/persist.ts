@@ -1,5 +1,13 @@
 import { createServiceClient } from '@/lib/supabase/server'
 
+export type ScoreComponents = {
+  missionAlignment: number
+  angleMatch: number
+  awardSizeFit: number
+  deadlineUrgency: number
+  funderPrestige: number
+}
+
 export type MatchRecord = {
   grant_id: string
   entity_id: string
@@ -8,6 +16,7 @@ export type MatchRecord = {
   fit_score: number | null
   competitive_density_score: null
   matched_angles: string[]
+  score_components: ScoreComponents | null
   status: 'queued' | 'pending_review' | 'rejected' | 'archived'
 }
 
@@ -34,6 +43,7 @@ export function buildMatchRecord(input: {
   hard_filter_failures: string[]
   fit_score: number | null
   matched_angles: string[]
+  score_components?: ScoreComponents | null
 }): MatchRecord {
   return {
     grant_id: input.grant_id,
@@ -43,6 +53,7 @@ export function buildMatchRecord(input: {
     fit_score: input.fit_score,
     competitive_density_score: null,
     matched_angles: input.matched_angles,
+    score_components: input.score_components ?? null,
     status: resolveStatus({
       hard_filter_passed: input.hard_filter_passed,
       fit_score: input.fit_score,

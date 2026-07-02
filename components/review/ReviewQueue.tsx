@@ -3,8 +3,10 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { CheckSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
+import { EmptyState } from '@/components/shared/EmptyState'
 import {
   Dialog,
   DialogContent,
@@ -206,7 +208,11 @@ export function ReviewQueue({ applications }: ReviewQueueProps) {
         })}
 
         {applications.length === 0 && (
-          <p className="text-sm text-muted-foreground">No applications pending review.</p>
+          <EmptyState
+            icon={CheckSquare}
+            title="No applications pending review"
+            description="Applications that have completed the 5-pass writing pipeline and passed QA will appear here for your approval."
+          />
         )}
       </div>
 

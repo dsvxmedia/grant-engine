@@ -9,7 +9,9 @@ import {
   SheetDescription,
 } from '@/components/ui/sheet'
 import { ScoreBadge } from '@/components/shared/ScoreBadge'
+import { FitScoreBreakdown } from '@/components/shared/FitScoreBreakdown'
 import { formatCurrency, formatDeadline, isUrgent, cn } from '@/lib/utils'
+import type { ScoreComponents } from '@/components/pipeline/types'
 
 const FUNDER_TYPE_LABEL: Record<string, string> = {
   federal: 'Federal',
@@ -34,6 +36,7 @@ export type GrantDetailData = {
   requiresLoi?: boolean
   coalitionPreferred?: boolean
   fitScore?: number | null
+  scoreComponents?: ScoreComponents | null
   entityName?: string | null
   matchedAngles?: string[] | null
 }
@@ -49,7 +52,7 @@ export function GrantDetailSheet({ open, onOpenChange, data }: GrantDetailSheetP
     title, funderName, funderType, awardMin, awardMax, deadline,
     description, sourceUrl, applicationUrl, eligibilityTags = [],
     categoryTags = [], requiresLoi, coalitionPreferred, fitScore,
-    entityName, matchedAngles,
+    scoreComponents, entityName, matchedAngles,
   } = data
 
   const deadlineDate = deadline ? new Date(deadline) : null
@@ -114,6 +117,15 @@ export function GrantDetailSheet({ open, onOpenChange, data }: GrantDetailSheetP
               </span>
             )}
           </div>
+
+          {scoreComponents && (
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                Score Breakdown
+              </span>
+              <FitScoreBreakdown components={scoreComponents} />
+            </div>
+          )}
 
           {/* Award + entity */}
           {(awardRange || entityName) && (

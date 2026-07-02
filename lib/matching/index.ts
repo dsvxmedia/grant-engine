@@ -171,6 +171,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
 
       let fitScore: number | null = null
       let matchedAngles: string[] = []
+      let scoreComponents: import('./persist').ScoreComponents | null = null
 
       if (eligibilityResult.passed) {
         pairsPassedFilter += 1
@@ -204,6 +205,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
 
         fitScore = scoreResult.score
         matchedAngles = scoreResult.matchedAngles
+        scoreComponents = scoreResult.components
 
         if (fitScore >= 70) {
           pairsQueued += 1
@@ -225,6 +227,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
           hard_filter_failures: eligibilityResult.failures,
           fit_score: fitScore,
           matched_angles: matchedAngles,
+          score_components: scoreComponents,
         }),
       )
     }

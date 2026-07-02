@@ -20,6 +20,14 @@ export type EntityInfo = {
   name: string
 }
 
+export type ScoreComponents = {
+  missionAlignment: number
+  angleMatch: number
+  awardSizeFit: number
+  deadlineUrgency: number
+  funderPrestige: number
+}
+
 export type MatchRecord = {
   id: string
   grant_id: string
@@ -28,6 +36,7 @@ export type MatchRecord = {
   fit_score: number | null
   hard_filter_passed: boolean
   matched_angles: string[] | null
+  score_components: ScoreComponents | null
   created_at: string
   grants: GrantInfo | null
   business_entities: EntityInfo | null
@@ -77,6 +86,7 @@ export type KanbanCard = {
   awardMax: number | null
   deadline: string | null
   fitScore: number | null
+  scoreComponents: ScoreComponents | null
   entityName: string | null
   status: string
   isReviewable: boolean
