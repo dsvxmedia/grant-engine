@@ -1,0 +1,6 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Discussion / Questions
+    url: https://github.com/dsvxmedia/grant-engine/discussions
+    about: Not a bug? Ask a question or start a discussion here.

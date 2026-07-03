@@ -99,6 +99,7 @@ describe('PATCH /api/loi/[id]', () => {
   })
 
   it('sets submitted_at when status becomes submitted', async () => {
+    const loiRow = { id: '33333333-3333-3333-3333-333333333333', grants: { loi_deadline: null, deadline: null } }
     const updated = {
       id: '33333333-3333-3333-3333-333333333333',
       grant_id: 'g1',
@@ -107,11 +108,21 @@ describe('PATCH /api/loi/[id]', () => {
       status: 'submitted',
       submitted_at: '2026-05-21T00:00:00.000Z',
     }
-    const single = vi.fn().mockResolvedValue({ data: updated, error: null })
-    const select = vi.fn().mockReturnValue({ single })
-    const eq = vi.fn().mockReturnValue({ select })
-    const update = vi.fn().mockReturnValue({ eq })
-    const from = vi.fn().mockReturnValue({ update })
+
+    // First from() call: deadline fetch — select().eq().single()
+    const fetchSingle = vi.fn().mockResolvedValue({ data: loiRow, error: null })
+    const fetchEq = vi.fn().mockReturnValue({ single: fetchSingle })
+    const fetchSelect = vi.fn().mockReturnValue({ eq: fetchEq })
+
+    // Second from() call: update — update().eq().select().single()
+    const updateSingle = vi.fn().mockResolvedValue({ data: updated, error: null })
+    const updateSelect = vi.fn().mockReturnValue({ single: updateSingle })
+    const updateEq = vi.fn().mockReturnValue({ select: updateSelect })
+    const update = vi.fn().mockReturnValue({ eq: updateEq })
+
+    const from = vi.fn()
+      .mockReturnValueOnce({ select: fetchSelect })
+      .mockReturnValueOnce({ update })
     mockedCreateServiceClient.mockResolvedValue({ from } as any)
 
     const { PATCH } = await import('@/app/api/loi/[id]/route')
@@ -127,6 +138,26 @@ describe('PATCH /api/loi/[id]', () => {
     expect(updatePayload.status).toBe('submitted')
     expect(typeof updatePayload.submitted_at).toBe('string')
     expect(updatePayload.submitted_at.length).toBeGreaterThan(0)
+  })
+
+  it('returns 422 when grant deadline has passed', async () => {
+    const pastDeadline = new Date(Date.now() - 86_400_000).toISOString()
+    const loiRow = { id: '33333333-3333-3333-3333-333333333333', grants: { loi_deadline: pastDeadline, deadline: null } }
+
+    const fetchSingle = vi.fn().mockResolvedValue({ data: loiRow, error: null })
+    const fetchEq = vi.fn().mockReturnValue({ single: fetchSingle })
+    const fetchSelect = vi.fn().mockReturnValue({ eq: fetchEq })
+    const from = vi.fn().mockReturnValue({ select: fetchSelect })
+    mockedCreateServiceClient.mockResolvedValue({ from } as any)
+
+    const { PATCH } = await import('@/app/api/loi/[id]/route')
+    const req = jsonRequest('http://localhost/x', 'PATCH', { status: 'submitted' })
+    const res = await PATCH(req as any, {
+      params: Promise.resolve({ id: '33333333-3333-3333-3333-333333333333' }),
+    })
+    expect(res.status).toBe(422)
+    const json = await res.json()
+    expect(json.error).toBe('Grant deadline has passed')
   })
 })
 

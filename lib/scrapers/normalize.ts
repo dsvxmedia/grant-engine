@@ -40,11 +40,79 @@ const ROLLING_CATEGORY_TAGS = new Set([
 
 const ROLLING_SOURCES = new Set(['monthly-programs', 'monthly_programs'])
 
+// Curated catalog sources — these are always-open or cycle regularly and don't carry
+// a deadline field in their source data. Treating them as rolling prevents the
+// normalize filter from silently discarding every grant they return.
+const CATALOG_SOURCES = new Set([
+  // Foundations
+  'ford-foundation',
+  'gates-foundation',
+  'kellogg-foundation',
+  'knight-foundation',
+  'womensnet',
+  // Corporate CSR programs
+  'allstate-foundation',
+  'amazon',
+  'att',
+  'bank-of-america',
+  'capital-one',
+  'citi-foundation',
+  'coca-cola-foundation',
+  'comcast-rise',
+  'fedex',
+  'goldman-sachs',
+  'google-black-founders',
+  'google-org',
+  'hubspot',
+  'intuit',
+  'jpmorgan-black-pathways',
+  'jpmorgan-chase',
+  'mastercard',
+  'meta',
+  'microsoft',
+  'nike',
+  'paypal',
+  'salesforce',
+  'santander',
+  'sba',
+  'shopify',
+  'square-block',
+  'starbucks',
+  't-mobile',
+  'verizon',
+  'visa',
+  'wally-amos-foundation',
+  'walmart-foundation',
+  'wells-fargo',
+  // Niche / community catalogs
+  'atomic-vc',
+  'black-enterprise',
+  'california-arts-council',
+  'camelback-ventures',
+  'digitalundivided',
+  'dream-makers-grant',
+  'echoing-green',
+  'founders-first',
+  'freed-fellowship',
+  'ifundwomen',
+  'kirabo',
+  'lisc',
+  'mbda',
+  'naacp',
+  'national-urban-league',
+  'nea',
+  'osv-fellowships',
+  'rwjf',
+  'skysthelimit',
+  'tory-burch-foundation',
+])
+
 const ROLLING_TEXT_RE =
   /rolling\s+(?:application|deadline|basis)|year[\s-]round|always\s+open|no\s+deadline|ongoing\s+(?:grant|program|funding)|monthly\s+(?:grant|award|program)|accept(?:s|ing)\s+applications?\s+(?:at\s+any\s+time|anytime|year[\s-]round)/i
 
 export function isRollingGrant(raw: Pick<import('./types').RawGrant, 'source' | 'categoryTags' | 'title' | 'description'>): boolean {
   if (ROLLING_SOURCES.has(raw.source)) return true
+  if (CATALOG_SOURCES.has(raw.source)) return true
   if ((raw.categoryTags ?? []).some((t) => ROLLING_CATEGORY_TAGS.has(t.toLowerCase()))) return true
   const text = `${raw.title} ${raw.description ?? ''}`
   return ROLLING_TEXT_RE.test(text)

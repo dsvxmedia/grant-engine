@@ -74,6 +74,26 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
   }
 
   const supabase = await createServiceClient()
+
+  // Guard: never submit a LOI past the grant deadline.
+  if (parsed.data.status === 'submitted') {
+    const { data: loiRow, error: fetchErr } = await (supabase as any)
+      .from('loi_submissions')
+      .select('id, grants(loi_deadline, deadline)')
+      .eq('id', id)
+      .single()
+
+    if (fetchErr || !loiRow) {
+      return NextResponse.json({ error: 'LOI submission not found' }, { status: 404 })
+    }
+
+    const grantData = loiRow.grants as { loi_deadline?: string | null; deadline?: string | null } | null
+    const deadline = grantData?.loi_deadline ?? grantData?.deadline
+    if (deadline && new Date(deadline) < new Date()) {
+      return NextResponse.json({ error: 'Grant deadline has passed' }, { status: 422 })
+    }
+  }
+
   const { data, error } = await (supabase as any)
     .from('loi_submissions')
     .update(updateObj)

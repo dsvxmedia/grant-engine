@@ -39,7 +39,7 @@ function parseSections(text: string): ApplicationSection[] {
   return sections
 }
 
-function buildPrompt(draft: ApplicationDraft, critique: CritiqueOutput): string {
+function buildPrompt(draft: ApplicationDraft, critique: CritiqueOutput, userRevisionNotes?: string): string {
   // Sort items: critical first, then important, then minor
   const severityOrder = { critical: 0, important: 1, minor: 2 }
   const sortedItems = [...critique.items].sort(
@@ -53,10 +53,14 @@ function buildPrompt(draft: ApplicationDraft, critique: CritiqueOutput): string 
     )
     .join('\n\n')
 
+  const userNotesSection = userRevisionNotes
+    ? `\n---\n## User-Requested Changes (address these first)\n\n${userRevisionNotes}\n`
+    : ''
+
   return `You are revising a grant application based on a self-critique. Make targeted, surgical edits to address the critique items. Do not rewrite sections that were not critiqued. Preserve all factual content.
 
 Return the revised full text maintaining the ## Section Name heading format exactly as used in the original draft.
-
+${userNotesSection}
 ---
 ## Critique Summary
 
@@ -87,7 +91,7 @@ Begin the revised application now:`
 export async function reviseApplication(
   draft: ApplicationDraft,
   critique: CritiqueOutput,
-  _input: PassInput
+  input: PassInput
 ): Promise<RevisionOutput> {
   const passthroughFields = {
     selectedAngles: draft.selectedAngles,
@@ -115,7 +119,7 @@ export async function reviseApplication(
       messages: [
         {
           role: 'user',
-          content: buildPrompt(draft, critique),
+          content: buildPrompt(draft, critique, input.userRevisionNotes),
         },
       ],
     })

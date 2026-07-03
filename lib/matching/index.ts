@@ -119,6 +119,31 @@ export async function runMatching(): Promise<RunMatchingResult> {
     ),
   )
 
+  // Build per-entity pgvector similarity maps before the pair loop.
+  // Best-effort: if an entity has no mission_embedding or the RPC fails,
+  // the pair falls back to keyword-token Jaccard scoring (missionSimilarity = null).
+  const entitySimilarityMap = new Map<string, Map<string, number>>()
+
+  await Promise.allSettled(
+    entitiesList.map(async (entity: any) => {
+      try {
+        const { data: rows, error } = await (supabase as any).rpc('match_grants_for_entity', {
+          p_entity_id: entity.id,
+          p_match_threshold: 0.0,
+          p_match_count: 1000,
+        })
+        if (error || !Array.isArray(rows)) return
+        const grantMap = new Map<string, number>()
+        for (const row of rows) {
+          grantMap.set(row.grant_id, row.similarity)
+        }
+        entitySimilarityMap.set(entity.id, grantMap)
+      } catch {
+        // Falls back to keyword matching for this entity
+      }
+    }),
+  )
+
   const records: MatchRecord[] = []
   const newHighScoreMatches: Array<{ grantTitle: string; score: number }> = []
   let pairsEvaluated = 0
@@ -201,6 +226,7 @@ export async function runMatching(): Promise<RunMatchingResult> {
             // eligibility_tags is passed for downstream use by the scorer
             ...({ eligibility_tags: tags } as Record<string, unknown>),
           } as any,
+          missionSimilarity: entitySimilarityMap.get(entity.id)?.get(grant.id) ?? null,
         })
 
         fitScore = scoreResult.score

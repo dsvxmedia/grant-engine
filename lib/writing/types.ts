@@ -49,6 +49,7 @@ export type PassInput = {
   founderStory: string | null
   research: ResearchFindings
   matchedAngles: string[]    // from grant_match.matched_angles
+  userRevisionNotes?: string  // populated on re-draft when user submitted revision notes
 }
 
 export type DraftOutput = ApplicationDraft

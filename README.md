@@ -9,6 +9,8 @@ Every nonprofit and small business leaves money on the table because grant resea
 
 **[Try it live →](https://grant-engine-snowy.vercel.app)** · [Report a bug](https://github.com/dsvxmedia/grant-engine/issues) · [Request a feature](https://github.com/dsvxmedia/grant-engine/issues)
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdsvxmedia%2Fgrant-engine&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY,ANTHROPIC_API_KEY,RESEND_API_KEY,RESEND_FROM_EMAIL,RESEND_ALERT_EMAIL,CRON_SECRET&envDescription=See%20.env.example%20for%20descriptions%20of%20each%20variable&envLink=https%3A%2F%2Fgithub.com%2Fdsvxmedia%2Fgrant-engine%2Fblob%2Fmain%2F.env.example&project-name=grant-engine&repository-name=grant-engine)
+
 ---
 
 ## What it does
@@ -97,13 +99,25 @@ _Competitor pricing and features based on publicly available information as of J
 
 ---
 
+## Screenshots
+
+| Pipeline Kanban | Grant Detail | Review Queue |
+|---|---|---|
+| ![Kanban board showing grants moving through Queued → Drafting → Review stages](https://grant-engine-snowy.vercel.app/og-kanban.png) | ![Grant detail sheet with fit score breakdown and AI-written draft](https://grant-engine-snowy.vercel.app/og-detail.png) | ![Review queue with approve/reject controls](https://grant-engine-snowy.vercel.app/og-review.png) |
+
+_Screenshots from the [live demo](https://grant-engine-snowy.vercel.app). Demo is read-only — all write operations return 423._
+
+---
+
 ## Status
 
-**V1 — Active development.** The core pipeline (discovery, matching, writing, QA gate) is implemented and functional. 511 unit tests passing. The highest-value contribution area is adding new scrapers and writing end-to-end integration tests.
+**V1 — Active development.** The core pipeline (discovery, matching, writing, QA gate) is implemented and functional. 511+ unit tests passing. The highest-value contribution area is adding new scrapers and writing end-to-end integration tests.
 
 **V2** (planned): Relationship Engine, Win/Loss Learning, Competitive Intelligence, Grant Calendar.
 
 **V3** (planned): AI pitch video pipeline (HeyGen + ElevenLabs voice clone).
+
+See [ROADMAP.md](ROADMAP.md) for the full feature list and contribution opportunities.
 
 ---
 

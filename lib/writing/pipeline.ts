@@ -157,6 +157,26 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
     // Founder profile is optional — proceed without it
   }
 
+  // ── Step 4.5: Fetch user revision notes from existing draft (re-draft support)
+  let userRevisionNotes: string | undefined = undefined
+
+  try {
+    const { data: existingApp } = await (supabase as any)
+      .from('grant_applications')
+      .select('draft_content')
+      .eq('grant_match_id', grantMatchId)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+
+    const notes = (existingApp?.draft_content as any)?.user_revision_notes
+    if (typeof notes === 'string' && notes.trim()) {
+      userRevisionNotes = notes.trim()
+    }
+  } catch {
+    // Optional — proceed without notes if fetch fails
+  }
+
   // ── Step 5: Update grant_match status to 'drafting' ───────────────────────
   try {
     await (supabase as any)
@@ -214,6 +234,7 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
     founderStory,
     research,
     matchedAngles: grantMatch.matched_angles ?? [],
+    userRevisionNotes,
   }
 
   // ── Pass 1: First draft ────────────────────────────────────────────────────

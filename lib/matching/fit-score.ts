@@ -85,6 +85,8 @@ export type FitScoreInput = {
     is_social_enterprise: boolean | null
     is_community_serving: boolean | null
   }
+  /** Cosine similarity from pgvector (0–1), or null when either embedding is missing. */
+  missionSimilarity?: number | null
 }
 
 export type FitScoreResult = {
@@ -128,7 +130,23 @@ function expandTagTokens(tags: string[]): string[] {
   return tags.flatMap((tag) => tag.toLowerCase().split(/[_-]+/).filter(Boolean))
 }
 
+// text-embedding-3-small cosine similarities cluster in ~0.10–0.60 for
+// unrelated → strongly-related text. Rescale to full [0,1] so mission
+// alignment stays comparable to the other weighted components.
+const SIM_FLOOR = 0.15
+const SIM_CEIL = 0.55
+
+function normalizeCosine(sim: number): number {
+  return Math.min(Math.max((sim - SIM_FLOOR) / (SIM_CEIL - SIM_FLOOR), 0), 1)
+}
+
 function computeMissionAlignment(input: FitScoreInput): number {
+  // Semantic path: pgvector cosine similarity injected by the matching engine
+  if (typeof input.missionSimilarity === 'number' && Number.isFinite(input.missionSimilarity)) {
+    return normalizeCosine(input.missionSimilarity)
+  }
+
+  // Fallback: keyword-token Jaccard overlap
   const { entity, grant } = input
   if (!entity.mission && !entity.focus_area) {
     return 0.5
