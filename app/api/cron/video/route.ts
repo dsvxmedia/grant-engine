@@ -9,7 +9,7 @@ import { createServiceClient } from '@/lib/supabase/server'
 // Returns: { ok: true, queued: number }
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization')
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!process.env.CRON_SECRET || authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -44,7 +44,17 @@ export async function GET(request: Request) {
       continue
     }
 
-    // Create a notification so the team knows this grant entered the queue
+    // Create the video_submissions row so the dedup check works on future runs
+    const { error: insertError } = await (supabase as any)
+      .from('video_submissions')
+      .insert({ grant_id: grant.id, status: 'queued' })
+
+    if (insertError) {
+      console.error(`[cron/video] Failed to create video_submission for grant ${grant.id}:`, insertError)
+      continue
+    }
+
+    // Notify the team
     await (supabase as any).from('notifications').insert({
       type: 'video_queued',
       title: 'Grant added to Video Queue',

@@ -24,6 +24,11 @@ export default clerkMiddleware(async (auth, request) => {
     }
   }
 
+  // Demo mode: public read-only instance — skip auth so anyone can browse without signing up
+  if (process.env.DEMO_MODE === 'true') {
+    return NextResponse.next()
+  }
+
   // Dev bypass: NEXT_PUBLIC_DEV_BYPASS=true skips auth for local QA testing
   if (process.env.NEXT_PUBLIC_DEV_BYPASS === 'true' && process.env.NODE_ENV !== 'production') {
     return NextResponse.next()

@@ -13,6 +13,26 @@ export async function PATCH(_request: NextRequest, { params }: RouteContext) {
   if (!UUID_RE.test(id)) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
   const supabase = await createServiceClient()
 
+  // Fetch the application with grant deadline before approving
+  const { data: app, error: fetchError } = await (supabase as any)
+    .from('grant_applications')
+    .select('id, grant_match_id, grants(deadline)')
+    .eq('id', id)
+    .single()
+
+  if (fetchError || !app) {
+    return NextResponse.json({ error: 'Application not found' }, { status: 404 })
+  }
+
+  // Block approval on expired grants — never submit past deadline
+  const deadline = app.grants?.deadline
+  if (deadline && new Date(deadline) < new Date()) {
+    return NextResponse.json(
+      { error: 'Cannot approve: grant deadline has passed', deadline },
+      { status: 422 }
+    )
+  }
+
   // Update the application status
   const { data, error } = await (supabase as any)
     .from('grant_applications')

@@ -39,12 +39,28 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
   const { notes } = parsed.data
   const supabase = await createServiceClient()
 
-  // Cast bypasses placeholder database.types.ts that lacks grant_applications table yet.
+  // Fetch existing application first so we can merge notes without destroying the draft
+  const { data: existing, error: fetchError } = await (supabase as any)
+    .from('grant_applications')
+    .select('draft_content')
+    .eq('id', id)
+    .single()
+
+  if (fetchError || !existing) {
+    console.error(`POST /api/applications/${id}/revise — fetch failed:`, fetchError)
+    return NextResponse.json({ error: 'Application not found' }, { status: 404 })
+  }
+
+  const mergedContent = {
+    ...(existing.draft_content ?? {}),
+    user_revision_notes: notes,
+  }
+
   const { data, error } = await (supabase as any)
     .from('grant_applications')
     .update({
-      status: 'drafting',
-      draft_content: { user_revision_notes: notes },
+      status: 'pending_review',
+      draft_content: mergedContent,
     })
     .eq('id', id)
     .select()
@@ -53,8 +69,8 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
   if (error || !data) {
     console.error(`POST /api/applications/${id}/revise failed:`, error)
     return NextResponse.json(
-      { error: 'Application not found' },
-      { status: 404 }
+      { error: 'Failed to save revision notes' },
+      { status: 500 }
     )
   }
 

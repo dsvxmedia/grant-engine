@@ -1,8 +1,12 @@
 import type { RawGrant } from './types'
 
 // SBIR solicitations via SAM.gov opportunities API (sbir.gov API is no longer publicly accessible)
-const SAM_SBIR_URL =
-  'https://api.sam.gov/opportunities/v2/search?api_key=DEMO_KEY&limit=100&typeOfSetAsideDescription=Small+Business+Innovation+Research&ptype=k&active=true'
+// Requires SAM_GOV_API_KEY — register at https://sam.gov/content/entity-information to obtain one
+function getSamSbirUrl(): string | null {
+  const apiKey = process.env.SAM_GOV_API_KEY
+  if (!apiKey) return null
+  return `https://api.sam.gov/opportunities/v2/search?api_key=${apiKey}&limit=100&typeOfSetAsideDescription=Small+Business+Innovation+Research&ptype=k&active=true`
+}
 
 type SamOpportunity = {
   noticeId?: string
@@ -41,8 +45,13 @@ function mapSamSbir(opp: SamOpportunity): RawGrant | null {
 }
 
 export async function scrapeSbir(): Promise<RawGrant[]> {
+  const url = getSamSbirUrl()
+  if (!url) {
+    console.warn('[sbir] SAM_GOV_API_KEY not set — skipping SBIR scrape. Register at https://sam.gov/content/entity-information')
+    return []
+  }
   try {
-    const res = await fetch(SAM_SBIR_URL)
+    const res = await fetch(url)
     if (!res.ok) {
       console.error(`[sbir] SAM.gov HTTP ${res.status}`)
       return []

@@ -1,7 +1,7 @@
 import { differenceInCalendarDays } from 'date-fns'
 
 export const WEIGHTS = {
-  MISSION_ALIGNMENT: 0.30,
+  MISSION_ALIGNMENT: 0.35,
   ANGLE_MATCH: 0.25,
   AWARD_SIZE: 0.15,
   DEADLINE_URGENCY: 0.10,

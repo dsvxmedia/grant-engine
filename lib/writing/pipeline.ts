@@ -366,7 +366,7 @@ export async function runWritingPipeline(grantMatchId: string): Promise<Pipeline
       const qaCritique = { ...critique, summary: `QA feedback:\n${qaResult.feedback.join('\n')}` }
       const qaRevision = await reviseApplication(draft, qaCritique, passInput)
       const qaHumanized = await humanizeApplication(qaRevision, founderStory)
-      qaFinal = await checkUniqueness(qaHumanized)
+      qaFinal = await checkUniqueness(qaHumanized, { excludeId: savedApplication.id })
       qaResult = await runQAGate(qaFinal, passInput)
     }
 

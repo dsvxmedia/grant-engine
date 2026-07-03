@@ -238,6 +238,11 @@ describe('scrapeSamGov', () => {
 describe('scrapeSbir', () => {
   beforeEach(() => {
     fetchMock.mockReset()
+    vi.stubEnv('SAM_GOV_API_KEY', 'test-api-key')
+  })
+
+  afterEach(() => {
+    vi.unstubAllEnvs()
   })
 
   it('returns mapped RawGrant[] with sbir_eligible and tech_company tags', async () => {

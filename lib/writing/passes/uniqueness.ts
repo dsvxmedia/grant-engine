@@ -27,7 +27,10 @@ function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
   return unionCount === 0 ? 0 : intersectionCount / unionCount
 }
 
-export async function checkUniqueness(humanized: HumanizerOutput): Promise<UniquenessOutput> {
+export async function checkUniqueness(
+  humanized: HumanizerOutput,
+  options?: { excludeId?: string }
+): Promise<UniquenessOutput> {
   const passthroughFields = {
     sections: humanized.sections,
     rawText: humanized.rawText,
@@ -45,10 +48,17 @@ export async function checkUniqueness(humanized: HumanizerOutput): Promise<Uniqu
     const cutoffDate = new Date()
     cutoffDate.setDate(cutoffDate.getDate() - LOOKBACK_DAYS)
 
-    const { data, error } = await supabase
+    let query = supabase
       .from('grant_applications')
       .select('draft_content')
       .gte('created_at', cutoffDate.toISOString())
+
+    // Exclude the current application to prevent self-comparison in QA retry
+    if (options?.excludeId) {
+      query = query.neq('id', options.excludeId)
+    }
+
+    const { data, error } = await query
 
     if (error) {
       console.error('[uniqueness] Supabase query failed:', error)

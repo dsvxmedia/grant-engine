@@ -20,19 +20,23 @@ Every nonprofit and small business leaves money on the table because grant resea
   6 SCRAPER CATEGORIES           MATCHING ENGINE
   ─────────────────              ───────────────
   Federal (Grants.gov,           Eligibility hard filter
-  SAM.gov, SBIR/STTR,    ──▶    (location, org type,
+  SBIR/STTR via SAM.gov, ──▶    (location, org type,
   Federal Register)              award size, deadline)
   State grant portals                    │
   Corporate CSR programs                 ▼
-  Private foundations            Semantic fit score (0–100)
-  Niche / community              via pgvector embeddings:
+  Private foundations            Fit score (0–100)
+  Niche / community              via keyword matching:
   sources                        Mission alignment   35%
                                  Angle match         25%
          ▼                       Award size fit      15%
                                  Deadline urgency    10%
   SCORES 70+: AUTO-DRAFT         Funder prestige     10%
   SCORES 50–69: REVIEW LIST      Win/Loss (V2)       10%
-  SCORES <50: DEPRIORITIZED              │
+  SCORES <50: DEPRIORITIZED
+                                 pgvector schema ready;
+                                 semantic embeddings
+                                 planned for V1.5
+                                         │
                                          ▼
                              5-PASS WRITING PIPELINE
                              ────────────────────────
@@ -49,7 +53,7 @@ Every nonprofit and small business leaves money on the table because grant resea
                                      (removes AI patterns,
                                       varies sentence structure)
                              Pass 5: Uniqueness guard
-                                     (cosine similarity check
+                                     (Jaccard similarity check
                                       vs. active applications)
                                          │
                                          ▼
@@ -84,7 +88,7 @@ Every nonprofit and small business leaves money on the table because grant resea
 | Monthly cost | $0 (+ API usage) | ~$179–499/mo | ~$179–399/mo |
 | 5-pass AI writing pipeline | ✅ | Partial | ❌ |
 | Multi-model QA gate | ✅ | ❌ | ❌ |
-| Federal sources | ✅ Grants.gov, SAM.gov, SBIR, Federal Register | ✅ | ✅ |
+| Federal sources | ✅ Grants.gov, SBIR (SAM.gov API key req'd), Federal Register | ✅ | ✅ |
 | State grant portals | ✅ (expanding) | ✅ | Partial |
 | Custom scraper sources | ✅ Contribute your own | ❌ | ❌ |
 | Humanizer pass (anti-AI-detection) | ✅ | ❌ | ❌ |

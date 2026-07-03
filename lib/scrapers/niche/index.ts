@@ -25,6 +25,7 @@ import { scrapeRwjf } from './rwjf'
 import { scrapeLisc } from './lisc'
 import { scrapeUrbanLeague } from './urban-league'
 import { scrapeBlackEnterprise } from './black-enterprise'
+import { scrapeIFundWomen } from './ifundwomen'
 import type { RawGrant } from '../types'
 
 export async function scrapeNiche(): Promise<RawGrant[]> {
@@ -56,6 +57,7 @@ export async function scrapeNiche(): Promise<RawGrant[]> {
     scrapeLisc(),
     scrapeUrbanLeague(),
     scrapeBlackEnterprise(),
+    scrapeIFundWomen(),
   ])
   return results.flatMap((r) => (r.status === 'fulfilled' ? r.value : []))
 }

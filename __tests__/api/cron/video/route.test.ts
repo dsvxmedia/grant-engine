@@ -29,10 +29,13 @@ function makeSupabaseMock(grants: { id: string; title: string }[]) {
   // notifications
   const notifInsert = vi.fn().mockResolvedValue({ error: null })
 
-  // video_submissions: select → eq → maybeSingle
+  // video_submissions: select → eq → maybeSingle (dedup check)
   const submissionMaybeSingle = vi.fn().mockResolvedValue({ data: null, error: null })
   const submissionEq = vi.fn().mockReturnValue({ maybeSingle: submissionMaybeSingle })
   const submissionSelect = vi.fn().mockReturnValue({ eq: submissionEq })
+
+  // video_submissions: insert (creates the row so the dedup check works next run)
+  const submissionInsert = vi.fn().mockResolvedValue({ error: null })
 
   // grants: select → eq('requires_video') → eq('status') — last eq must return a thenable
   const grantsEq2 = vi.fn().mockResolvedValue({ data: grants, error: null })
@@ -41,12 +44,12 @@ function makeSupabaseMock(grants: { id: string; title: string }[]) {
 
   const from = vi.fn().mockImplementation((table: string) => {
     if (table === 'grants') return { select: grantsSelect }
-    if (table === 'video_submissions') return { select: submissionSelect }
+    if (table === 'video_submissions') return { select: submissionSelect, insert: submissionInsert }
     if (table === 'notifications') return { insert: notifInsert }
     return {}
   })
 
-  return { from, notifInsert, submissionMaybeSingle, submissionEq }
+  return { from, notifInsert, submissionMaybeSingle, submissionEq, submissionInsert }
 }
 
 describe('GET /api/cron/video', () => {
