@@ -1,0 +1,237 @@
+[
+ {
+  "id": "dem1e4fb-e128-4adc-af78-21ca11a8cd38",
+  "grant_id": "d535334d-6c63-42c3-8225-ccb7978ef363",
+  "entity_id": "dem0bf02-e956-4c0c-ac79-affd29238884",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 88.5,
+  "matched_angles": [
+   "Employer-designed technician pipeline",
+   "Two-year college partnership in place",
+   "Adult reskilling in a manufacturing region"
+  ],
+  "status": "pending_review",
+  "score_components": {
+   "mission_alignment": 31.0,
+   "angle_match": 22.1,
+   "award_size_fit": 13.3,
+   "deadline_urgency": 8.8,
+   "funder_prestige": 8.8
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem1bb5d-89f8-4ee7-a811-4022bd569136",
+  "grant_id": "26f9df24-616b-441b-873d-981453b952f8",
+  "entity_id": "dem0bf02-e956-4c0c-ac79-affd29238884",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 71.0,
+  "matched_angles": [
+   "Instructor development component",
+   "Existing cohort infrastructure"
+  ],
+  "status": "queued",
+  "score_components": {
+   "mission_alignment": 24.8,
+   "angle_match": 17.8,
+   "award_size_fit": 10.7,
+   "deadline_urgency": 7.1,
+   "funder_prestige": 7.1
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem17356-abc7-4479-af28-0b72ac9b37d6",
+  "grant_id": "64ca87e0-5468-4f92-abe4-7e804f8d54a0",
+  "entity_id": "dem0bf02-e956-4c0c-ac79-affd29238884",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 54.0,
+  "matched_angles": [
+   "Course design capacity"
+  ],
+  "status": "queued",
+  "score_components": {
+   "mission_alignment": 18.9,
+   "angle_match": 13.5,
+   "award_size_fit": 8.1,
+   "deadline_urgency": 5.4,
+   "funder_prestige": 5.4
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem133de-ec3e-4661-ad43-25c77067d75b",
+  "grant_id": "44339b7d-d5d8-435c-8858-0d8df7802df5",
+  "entity_id": "dem0bf02-e956-4c0c-ac79-affd29238884",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 47.5,
+  "matched_angles": [],
+  "status": "archived",
+  "score_components": {
+   "mission_alignment": 16.6,
+   "angle_match": 11.9,
+   "award_size_fit": 7.1,
+   "deadline_urgency": 4.8,
+   "funder_prestige": 4.8
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem114c9-0ec0-4c3b-a0d0-4b5a5150fda3",
+  "grant_id": "b2e20e08-3392-4b4e-99a1-b5e3cadbdd46",
+  "entity_id": "dem00331-353f-4ca4-af3f-4ee21493316a",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 84.0,
+  "matched_angles": [
+   "Working prototype ready for validation",
+   "University clinical partner identified",
+   "Rural access framing"
+  ],
+  "status": "pending_review",
+  "score_components": {
+   "mission_alignment": 29.4,
+   "angle_match": 21.0,
+   "award_size_fit": 12.6,
+   "deadline_urgency": 8.4,
+   "funder_prestige": 8.4
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem1e3e6-7934-46a5-a915-8c7ca14f9f52",
+  "grant_id": "1eb79b6b-1e5f-4375-bb0d-52163d569b73",
+  "entity_id": "dem00331-353f-4ca4-af3f-4ee21493316a",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 76.5,
+  "matched_angles": [
+   "Early-stage device development fit",
+   "Small team, focused aim"
+  ],
+  "status": "pending_review",
+  "score_components": {
+   "mission_alignment": 26.8,
+   "angle_match": 19.1,
+   "award_size_fit": 11.5,
+   "deadline_urgency": 7.7,
+   "funder_prestige": 7.7
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem1cfd5-7820-40d9-ab5b-264cf1c03507",
+  "grant_id": "e17baded-b82d-4e96-b649-4ef58ba27864",
+  "entity_id": "dem00331-353f-4ca4-af3f-4ee21493316a",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 62.0,
+  "matched_angles": [
+   "Instrumentation development overlap"
+  ],
+  "status": "queued",
+  "score_components": {
+   "mission_alignment": 21.7,
+   "angle_match": 15.5,
+   "award_size_fit": 9.3,
+   "deadline_urgency": 6.2,
+   "funder_prestige": 6.2
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem110fb-ea5c-4887-a124-0b4f267ed5ca",
+  "grant_id": "bfb6ec6c-df93-466f-8526-ba56ed5e538a",
+  "entity_id": "dem00331-353f-4ca4-af3f-4ee21493316a",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 58.5,
+  "matched_angles": [
+   "Device prototype optimization stage"
+  ],
+  "status": "queued",
+  "score_components": {
+   "mission_alignment": 20.5,
+   "angle_match": 14.6,
+   "award_size_fit": 8.8,
+   "deadline_urgency": 5.9,
+   "funder_prestige": 5.9
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem14f19-38e5-4fed-ac8d-7b1939ea5593",
+  "grant_id": "66e1301d-6a38-42d0-946a-f25473d9b804",
+  "entity_id": "dem09a2a-291e-476b-a173-80b2000c799f",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 81.0,
+  "matched_angles": [
+   "Documented access gap in the service area",
+   "Community health worker delivery model",
+   "Outcome data already collected"
+  ],
+  "status": "pending_review",
+  "score_components": {
+   "mission_alignment": 28.3,
+   "angle_match": 20.2,
+   "award_size_fit": 12.2,
+   "deadline_urgency": 8.1,
+   "funder_prestige": 8.1
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem1b1fb-b30b-4336-ac2d-a0c1ae7bf352",
+  "grant_id": "babf78ca-48dd-4e6d-a9ad-9af9987d8b58",
+  "entity_id": "dem09a2a-291e-476b-a173-80b2000c799f",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 49.0,
+  "matched_angles": [],
+  "status": "archived",
+  "score_components": {
+   "mission_alignment": 17.1,
+   "angle_match": 12.2,
+   "award_size_fit": 7.3,
+   "deadline_urgency": 4.9,
+   "funder_prestige": 4.9
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem163e4-6620-4cf0-a353-bd0bfd365e43",
+  "grant_id": "ada525ac-d977-4d55-a331-3c395d553111",
+  "entity_id": "dem09a2a-291e-476b-a173-80b2000c799f",
+  "hard_filter_passed": true,
+  "hard_filter_failures": [],
+  "fit_score": 52.5,
+  "matched_angles": [
+   "Behavioral health program overlap"
+  ],
+  "status": "queued",
+  "score_components": {
+   "mission_alignment": 18.4,
+   "angle_match": 13.1,
+   "award_size_fit": 7.9,
+   "deadline_urgency": 5.2,
+   "funder_prestige": 5.2
+  },
+  "competitive_density_score": null,
+  "created_at": "2026-09-04T00:36:53.027368+00:00"
+ }
+]

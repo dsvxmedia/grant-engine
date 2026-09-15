@@ -1,0 +1,160 @@
+[
+ {
+  "id": "dem0bf02-e956-4c0c-ac79-affd29238884",
+  "name": "Meridian Technical Institute",
+  "type": "nonprofit",
+  "industry": "Technical Education",
+  "naics_codes": [
+   "611519"
+  ],
+  "founding_date": "2009-08-01",
+  "state": "OH",
+  "city": "Dayton",
+  "revenue_range": "1m_5m",
+  "employee_count": 34,
+  "mission": "Preparing adults in the Miami Valley for skilled technical careers through short-cycle, employer-designed training programs.",
+  "focus_area": "advanced manufacturing technician training, community college partnerships, adult reskilling",
+  "is_african_american_owned": false,
+  "is_minority_owned": false,
+  "is_tech_company": false,
+  "is_social_enterprise": true,
+  "is_community_serving": true,
+  "is_underserved_community_tied": true,
+  "sam_registered": true,
+  "sbir_eligible": false,
+  "matching_active": true,
+  "owner_demographics": null,
+  "pitch_angles_generated": [
+   {
+    "angle": "Employer-designed technician pipeline in a manufacturing region",
+    "strength": "high"
+   },
+   {
+    "angle": "Adult learners returning to school after job loss",
+    "strength": "high"
+   },
+   {
+    "angle": "Two-year college partnership already in place",
+    "strength": "medium"
+   }
+  ],
+  "parent_id": null,
+  "zip_codes_served": null,
+  "who_we_serve": null,
+  "sam_uei": null,
+  "cage_code": null,
+  "sbir_phases": null,
+  "geographic_ties": {
+   "state": "OH"
+  },
+  "uploaded_documents": null,
+  "grant_narrative": null,
+  "created_at": "2026-06-11T00:36:53.027368+00:00",
+  "updated_at": "2026-09-12T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem00331-353f-4ca4-af3f-4ee21493316a",
+  "name": "Halcyon Bio Devices",
+  "type": "llc",
+  "industry": "Medical Devices",
+  "naics_codes": [
+   "334510",
+   "541714"
+  ],
+  "founding_date": "2022-03-14",
+  "state": "WI",
+  "city": "Madison",
+  "revenue_range": "under_50k",
+  "employee_count": 4,
+  "mission": "Building low-cost bedside monitoring hardware for rural hospitals that cannot justify the price of full-size clinical systems.",
+  "focus_area": "medical device prototyping, rural hospital access, bioengineering",
+  "is_african_american_owned": false,
+  "is_minority_owned": true,
+  "is_tech_company": true,
+  "is_social_enterprise": false,
+  "is_community_serving": false,
+  "is_underserved_community_tied": true,
+  "sam_registered": true,
+  "sbir_eligible": true,
+  "matching_active": true,
+  "owner_demographics": null,
+  "pitch_angles_generated": [
+   {
+    "angle": "Working prototype with a clear path to a clinical study",
+    "strength": "high"
+   },
+   {
+    "angle": "Rural hospital access gap",
+    "strength": "medium"
+   },
+   {
+    "angle": "Small team, university partnership for validation",
+    "strength": "medium"
+   }
+  ],
+  "parent_id": null,
+  "zip_codes_served": null,
+  "who_we_serve": null,
+  "sam_uei": null,
+  "cage_code": null,
+  "sbir_phases": [
+   "I"
+  ],
+  "geographic_ties": {
+   "state": "WI"
+  },
+  "uploaded_documents": null,
+  "grant_narrative": null,
+  "created_at": "2026-06-11T00:36:53.027368+00:00",
+  "updated_at": "2026-09-12T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem09a2a-291e-476b-a173-80b2000c799f",
+  "name": "Cedar Commons Health Collective",
+  "type": "nonprofit",
+  "industry": "Community Health",
+  "naics_codes": [
+   "621498"
+  ],
+  "founding_date": "2015-06-22",
+  "state": "OH",
+  "city": "Toledo",
+  "revenue_range": "500k_1m",
+  "employee_count": 11,
+  "mission": "Bringing preventive care and behavioral health support to neighborhoods where the nearest clinic is a bus transfer away.",
+  "focus_area": "community health workers, preventive care access, behavioral health",
+  "is_african_american_owned": false,
+  "is_minority_owned": true,
+  "is_tech_company": false,
+  "is_social_enterprise": true,
+  "is_community_serving": true,
+  "is_underserved_community_tied": true,
+  "sam_registered": true,
+  "sbir_eligible": false,
+  "matching_active": true,
+  "owner_demographics": null,
+  "pitch_angles_generated": [
+   {
+    "angle": "Community health worker model with measured outcomes",
+    "strength": "high"
+   },
+   {
+    "angle": "Transit-poor neighborhoods with documented care gaps",
+    "strength": "high"
+   }
+  ],
+  "parent_id": null,
+  "zip_codes_served": null,
+  "who_we_serve": null,
+  "sam_uei": null,
+  "cage_code": null,
+  "sbir_phases": null,
+  "geographic_ties": {
+   "state": "OH"
+  },
+  "uploaded_documents": null,
+  "grant_narrative": null,
+  "created_at": "2026-06-11T00:36:53.027368+00:00",
+  "updated_at": "2026-09-12T00:36:53.027368+00:00"
+ }
+]

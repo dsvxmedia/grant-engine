@@ -1,0 +1,358 @@
+[
+ {
+  "id": "dem28a3f-60ee-4e3e-a0d7-148026f08841",
+  "grant_match_id": "dem1e4fb-e128-4adc-af78-21ca11a8cd38",
+  "loi_submission_id": null,
+  "entity_id": "dem0bf02-e956-4c0c-ac79-affd29238884",
+  "grant_id": "d535334d-6c63-42c3-8225-ccb7978ef363",
+  "draft_content": {
+   "executive_summary": "Meridian Technical Institute requests support to expand its advanced manufacturing technician program from two cohorts a year to four, adding a night track for adults working day shifts. The expansion is built on an existing employer advisory board of nine regional manufacturers who review the curriculum each term and interview every graduate.",
+   "sections": [
+    {
+     "heading": "Project Description",
+     "text": "Meridian runs a 16-week technician program covering industrial controls, precision measurement, and preventive maintenance. Graduates currently enter a labor market where regional employers report unfilled technician openings each quarter. This project adds a night cohort, a second lab bench set, and an instructor development stipend so working adults can complete the program without leaving their current jobs."
+    },
+    {
+     "heading": "Intellectual Merit",
+     "text": "The program pairs classroom instruction with an employer-reviewed competency checklist. Each competency is assessed on equipment identical to what partner plants run, which removes the translation gap between classroom practice and the first day on the floor."
+    },
+    {
+     "heading": "Broader Impacts",
+     "text": "Dayton's manufacturing employment base has shifted toward automation roles that require certification most adult learners cannot access on a day schedule. A night track opens the pipeline to shift workers, caregivers, and career changers who are currently excluded by scheduling alone."
+    },
+    {
+     "heading": "Evaluation Plan",
+     "text": "An external evaluator will track completion rate, credential attainment, job placement at 90 and 180 days, and wage change against a baseline of the two most recent day cohorts. Data will be reported annually and at project close."
+    }
+   ],
+   "budget": {
+    "csvRows": [
+     [
+      "Personnel - Night Instructor (1.0 FTE)",
+      "Instructor for the new evening cohort, including preparation and lab supervision hours.",
+      "78000"
+     ],
+     [
+      "Personnel - Program Coordinator (0.5 FTE)",
+      "Scheduling, employer liaison, and student support for the evening track.",
+      "31000"
+     ],
+     [
+      "Fringe Benefits",
+      "Calculated at 27% of personnel costs.",
+      "29430"
+     ],
+     [
+      "Equipment - Lab Bench Set",
+      "Second set of industrial control trainers so two cohorts can run concurrently.",
+      "64000"
+     ],
+     [
+      "Evaluation",
+      "External evaluator contract across the project period.",
+      "18000"
+     ],
+     [
+      "Indirect Costs",
+      "Negotiated rate applied to modified total direct costs.",
+      "22040"
+     ]
+    ]
+   }
+  },
+  "draft_pdf_url": null,
+  "draft_docx_url": null,
+  "selected_angles": [
+   "Employer-designed technician pipeline",
+   "Two-year college partnership in place"
+  ],
+  "selected_framework": "narrative",
+  "humanizer_applied": true,
+  "uniqueness_score": 0.62,
+  "qa_scores": {
+   "narrative": 7.4,
+   "clarity": 7.8,
+   "compliance": 8.1
+  },
+  "qa_passed": true,
+  "qa_retry_count": 1,
+  "status": "pending_review",
+  "submission_url": null,
+  "deadline": "2026-10-01T00:00:00+00:00",
+  "submitted_at": null,
+  "outcome": null,
+  "outcome_amount": null,
+  "rejection_reason": null,
+  "feedback_requested_at": null,
+  "research_notes": null,
+  "created_at": "2026-09-06T00:36:53.027368+00:00",
+  "updated_at": "2026-09-13T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem24199-3493-4bf0-a4c4-35fa9a71ea9f",
+  "grant_match_id": "dem114c9-0ec0-4c3b-a0d0-4b5a5150fda3",
+  "loi_submission_id": null,
+  "entity_id": "dem00331-353f-4ca4-af3f-4ee21493316a",
+  "grant_id": "b2e20e08-3392-4b4e-99a1-b5e3cadbdd46",
+  "draft_content": {
+   "executive_summary": "Halcyon Bio Devices requests support to move its bedside monitoring prototype from bench validation to a supervised clinical evaluation with a regional hospital partner. The device targets facilities that have never been able to justify the cost of a full-size monitoring system.",
+   "sections": [
+    {
+     "heading": "Specific Aims",
+     "text": "Aim 1 completes environmental and electrical safety testing on the current prototype. Aim 2 runs a supervised, non-interventional accuracy comparison against an installed reference monitor. Aim 3 produces the documentation package required before any clinical trial submission."
+    },
+    {
+     "heading": "Significance",
+     "text": "Small rural hospitals operate on margins that make standard monitoring hardware difficult to purchase and maintain. A lower-cost device with comparable accuracy in a defined range of use would extend continuous monitoring to units currently checked by hand."
+    },
+    {
+     "heading": "Approach",
+     "text": "Testing follows the reference standards for electrical safety and electromagnetic compatibility. The accuracy comparison will collect paired readings from the prototype and the installed reference system, with agreement analyzed using standard limits-of-agreement methods."
+    },
+    {
+     "heading": "Investigator Capacity",
+     "text": "The team is four people with prior device development experience, working with a university biomedical engineering lab for independent measurement. Manufacturing is contracted, which keeps overhead low and the timeline tied to test results rather than facility build-out."
+    }
+   ],
+   "budget": {
+    "csvRows": [
+     [
+      "Personnel - Principal Investigator (0.5 FTE)",
+      "Technical lead for testing, analysis, and documentation.",
+      "62000"
+     ],
+     [
+      "Personnel - Test Engineer (0.75 FTE)",
+      "Executes safety and accuracy testing, maintains the test record.",
+      "58500"
+     ],
+     [
+      "Fringe Benefits",
+      "Calculated at 22% of personnel costs.",
+      "26510"
+     ],
+     [
+      "Contracted Testing",
+      "Independent safety and electromagnetic compatibility testing at an accredited lab.",
+      "41000"
+     ],
+     [
+      "Materials and Prototype Builds",
+      "Components and assembly for the test units.",
+      "23500"
+     ],
+     [
+      "Indirect Costs",
+      "Applied to modified total direct costs.",
+      "21100"
+     ]
+    ]
+   }
+  },
+  "draft_pdf_url": null,
+  "draft_docx_url": null,
+  "selected_angles": [
+   "Working prototype ready for validation",
+   "University clinical partner identified"
+  ],
+  "selected_framework": "narrative",
+  "humanizer_applied": true,
+  "uniqueness_score": 0.69,
+  "qa_scores": {
+   "narrative": 7.6,
+   "clarity": 7.9,
+   "compliance": 8.2
+  },
+  "qa_passed": true,
+  "qa_retry_count": 0,
+  "status": "pending_review",
+  "submission_url": null,
+  "deadline": "2027-09-07T00:00:00+00:00",
+  "submitted_at": null,
+  "outcome": null,
+  "outcome_amount": null,
+  "rejection_reason": null,
+  "feedback_requested_at": null,
+  "research_notes": null,
+  "created_at": "2026-09-07T00:36:53.027368+00:00",
+  "updated_at": "2026-09-13T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem259dc-83bc-4444-a394-b07816ebf00f",
+  "grant_match_id": "dem1e3e6-7934-46a5-a915-8c7ca14f9f52",
+  "loi_submission_id": null,
+  "entity_id": "dem00331-353f-4ca4-af3f-4ee21493316a",
+  "grant_id": "1eb79b6b-1e5f-4375-bb0d-52163d569b73",
+  "draft_content": {
+   "executive_summary": "Halcyon Bio Devices requests support to move its bedside monitoring prototype from bench validation to a supervised clinical evaluation with a regional hospital partner. The device targets facilities that have never been able to justify the cost of a full-size monitoring system.",
+   "sections": [
+    {
+     "heading": "Specific Aims",
+     "text": "Aim 1 completes environmental and electrical safety testing on the current prototype. Aim 2 runs a supervised, non-interventional accuracy comparison against an installed reference monitor. Aim 3 produces the documentation package required before any clinical trial submission."
+    },
+    {
+     "heading": "Significance",
+     "text": "Small rural hospitals operate on margins that make standard monitoring hardware difficult to purchase and maintain. A lower-cost device with comparable accuracy in a defined range of use would extend continuous monitoring to units currently checked by hand."
+    },
+    {
+     "heading": "Approach",
+     "text": "Testing follows the reference standards for electrical safety and electromagnetic compatibility. The accuracy comparison will collect paired readings from the prototype and the installed reference system, with agreement analyzed using standard limits-of-agreement methods."
+    },
+    {
+     "heading": "Investigator Capacity",
+     "text": "The team is four people with prior device development experience, working with a university biomedical engineering lab for independent measurement. Manufacturing is contracted, which keeps overhead low and the timeline tied to test results rather than facility build-out."
+    }
+   ],
+   "budget": {
+    "csvRows": [
+     [
+      "Personnel - Principal Investigator (0.5 FTE)",
+      "Technical lead for testing, analysis, and documentation.",
+      "62000"
+     ],
+     [
+      "Personnel - Test Engineer (0.75 FTE)",
+      "Executes safety and accuracy testing, maintains the test record.",
+      "58500"
+     ],
+     [
+      "Fringe Benefits",
+      "Calculated at 22% of personnel costs.",
+      "26510"
+     ],
+     [
+      "Contracted Testing",
+      "Independent safety and electromagnetic compatibility testing at an accredited lab.",
+      "41000"
+     ],
+     [
+      "Materials and Prototype Builds",
+      "Components and assembly for the test units.",
+      "23500"
+     ],
+     [
+      "Indirect Costs",
+      "Applied to modified total direct costs.",
+      "21100"
+     ]
+    ]
+   }
+  },
+  "draft_pdf_url": null,
+  "draft_docx_url": null,
+  "selected_angles": [
+   "Early-stage device development fit",
+   "Small team, focused aim"
+  ],
+  "selected_framework": "narrative",
+  "humanizer_applied": true,
+  "uniqueness_score": 0.76,
+  "qa_scores": {
+   "narrative": 7.8,
+   "clarity": 8.0,
+   "compliance": 8.3
+  },
+  "qa_passed": true,
+  "qa_retry_count": 0,
+  "status": "pending_review",
+  "submission_url": null,
+  "deadline": "2028-01-07T00:00:00+00:00",
+  "submitted_at": null,
+  "outcome": null,
+  "outcome_amount": null,
+  "rejection_reason": null,
+  "feedback_requested_at": null,
+  "research_notes": null,
+  "created_at": "2026-09-08T00:36:53.027368+00:00",
+  "updated_at": "2026-09-13T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem2e98f-0ce7-4e69-a16d-89db1d3fbcf1",
+  "grant_match_id": "dem14f19-38e5-4fed-ac8d-7b1939ea5593",
+  "loi_submission_id": null,
+  "entity_id": "dem09a2a-291e-476b-a173-80b2000c799f",
+  "grant_id": "66e1301d-6a38-42d0-946a-f25473d9b804",
+  "draft_content": {
+   "executive_summary": "Cedar Commons Health Collective requests support to extend its community health worker program into two additional Toledo neighborhoods where the nearest primary care site requires a bus transfer, and to formalize the outcome tracking it has been keeping by hand since 2021.",
+   "sections": [
+    {
+     "heading": "Statement of Need",
+     "text": "In the two target neighborhoods, residents reach primary care by a transfer route that takes over an hour each way. Preventive visits in those census tracts trail the county rate, and the gap shows up downstream as emergency department use for conditions that routine care manages."
+    },
+    {
+     "heading": "Program Design",
+     "text": "Four community health workers, hired from the neighborhoods they serve, will carry a caseload of residents identified through partner referrals and walk-in intake. The model pairs each resident with a single worker who handles scheduling, transportation vouchers, follow-up, and the handoff back to a clinical provider."
+    },
+    {
+     "heading": "Measurement",
+     "text": "The project replaces the current paper log with a shared record capturing referral source, visit completion, and follow-up contact. Outcomes reported: completed preventive visits, follow-up completion within 30 days, and self-reported access barriers at intake and at six months."
+    },
+    {
+     "heading": "Sustainability",
+     "text": "Two payer partners have expressed interest in contracting for the community health worker model once outcome data covers a full year. The measurement work in this project is what makes that contract conversation possible."
+    }
+   ],
+   "budget": {
+    "csvRows": [
+     [
+      "Personnel - Community Health Workers (4 x 1.0 FTE)",
+      "Neighborhood-based outreach, scheduling support, and follow-up.",
+      "186000"
+     ],
+     [
+      "Personnel - Program Manager (0.6 FTE)",
+      "Supervision, partner coordination, and reporting.",
+      "43200"
+     ],
+     [
+      "Fringe Benefits",
+      "Calculated at 24% of personnel costs.",
+      "55008"
+     ],
+     [
+      "Transportation Support",
+      "Transit vouchers and mileage reimbursement for resident visits.",
+      "19000"
+     ],
+     [
+      "Data System",
+      "Shared record setup, licensing, and training for the project period.",
+      "14500"
+     ],
+     [
+      "Indirect Costs",
+      "Applied at the organization's negotiated rate.",
+      "31770"
+     ]
+    ]
+   }
+  },
+  "draft_pdf_url": null,
+  "draft_docx_url": null,
+  "selected_angles": [
+   "Documented access gap in the service area",
+   "Community health worker delivery model"
+  ],
+  "selected_framework": "narrative",
+  "humanizer_applied": true,
+  "uniqueness_score": 0.83,
+  "qa_scores": {
+   "narrative": 8.0,
+   "clarity": 8.1,
+   "compliance": 8.4
+  },
+  "qa_passed": true,
+  "qa_retry_count": 0,
+  "status": "pending_review",
+  "submission_url": null,
+  "deadline": "2027-01-07T00:00:00+00:00",
+  "submitted_at": null,
+  "outcome": null,
+  "outcome_amount": null,
+  "rejection_reason": null,
+  "feedback_requested_at": null,
+  "research_notes": null,
+  "created_at": "2026-09-09T00:36:53.027368+00:00",
+  "updated_at": "2026-09-13T00:36:53.027368+00:00"
+ }
+]

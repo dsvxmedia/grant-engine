@@ -105,7 +105,9 @@ _Competitor pricing and features based on publicly available information as of J
 |---|---|---|
 | ![Kanban board showing grants moving through Queued → Drafting → Review stages](https://grant-engine-snowy.vercel.app/og-kanban.png) | ![Grant detail sheet with fit score breakdown and AI-written draft](https://grant-engine-snowy.vercel.app/og-detail.png) | ![Review queue with approve/reject controls](https://grant-engine-snowy.vercel.app/og-review.png) |
 
-_Screenshots from the [live demo](https://grant-engine-snowy.vercel.app). Demo is read-only — all write operations return 423._
+_Screenshots from the [live demo](https://grant-engine-snowy.vercel.app). The demo is read-only: write operations return 423._
+
+**About the demo data.** With `DEMO_MODE=true` the app serves a fictional dataset from `lib/demo/fixtures` and never opens a database connection for page or API reads. The organizations, matches and drafted applications you see there are invented. The grant listings are real public postings captured from the discovery sources, so funders and deadlines are genuine. Scheduled jobs are the one exception: cron handlers run against the real database so a demo deployment keeps discovering grants.
 
 ---
 

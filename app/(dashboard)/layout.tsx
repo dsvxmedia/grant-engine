@@ -1,6 +1,10 @@
 import { Sidebar } from '@/components/layout/Sidebar'
 import { createServiceClient } from '@/lib/supabase/server'
 
+// Dashboard data (deadlines, counts, review queue) must reflect the moment of
+// the request, not build time. Prerendering froze the countdowns on the demo.
+export const dynamic = 'force-dynamic'
+
 async function getUnreadCount(): Promise<number> {
   try {
     const supabase = await createServiceClient()

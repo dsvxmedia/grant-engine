@@ -14,6 +14,7 @@ import { cleanupExpiredGrants } from '@/lib/scrapers/cleanup'
 import { createServiceClient } from '@/lib/supabase/server'
 import { runMatching } from '@/lib/matching'
 import type { NormalizedGrant, RawGrant } from '@/lib/scrapers/types'
+import { runWithRealDb } from '@/lib/demo/context'
 
 type SourceResult = {
   source: string
@@ -63,115 +64,117 @@ async function logScraperRun(input: {
 export const maxDuration = 300
 
 export async function GET(request: Request) {
-  const authHeader = request.headers.get('authorization')
-  if (!process.env.CRON_SECRET || authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
-  const startedAt = new Date().toISOString()
-
-  // Expire past-deadline and stale grants before running new discovery
-  const cleanupResult = await cleanupExpiredGrants()
-
-  const settled = await Promise.allSettled(
-    SCRAPERS.map(async (job) => ({
-      source: job.source,
-      grants: await job.run(),
-    }))
-  )
-
-  const perSource: SourceResult[] = []
-  let succeeded = 0
-  let failed = 0
-
-  for (let i = 0; i < settled.length; i++) {
-    const job = SCRAPERS[i]
-    const result = settled[i]
-    if (result.status === 'fulfilled') {
-      succeeded++
-      const raw = result.value.grants
-      const normalized: NormalizedGrant[] = []
-      for (const r of raw) {
-        const n = normalizeGrant(r)
-        if (n) normalized.push(n)
-      }
-      perSource.push({
-        source: job.source,
-        raw,
-        normalized,
-        success: true,
-        errorMessage: null,
-      })
-    } else {
-      failed++
-      console.error(`[cron/discover] scraper ${job.source} failed`, result.reason)
-      const errorMessage =
-        result.reason instanceof Error
-          ? result.reason.message
-          : String(result.reason)
-      perSource.push({
-        source: job.source,
-        raw: [],
-        normalized: [],
-        success: false,
-        errorMessage,
-      })
+  return runWithRealDb(async () => {
+    const authHeader = request.headers.get('authorization')
+    if (!process.env.CRON_SECRET || authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-  }
 
-  const rawAll = perSource.flatMap((s) => s.raw)
-  const normalized = perSource.flatMap((s) => s.normalized)
-  const newGrants = await filterNewGrants(normalized)
-  const persistResult = await persistGrants(newGrants)
-  const matchingResult = await runMatching()
-  const newHashes = new Set(newGrants.map((g) => g.content_hash))
+    const startedAt = new Date().toISOString()
 
-  await Promise.all(
-    perSource.map((s) =>
-      logScraperRun({
-        source: s.source,
-        startedAt,
-        grantsFound: s.raw.length,
-        grantsNew: s.normalized.filter((g) => newHashes.has(g.content_hash)).length,
-        success: s.success,
-        errorMessage: s.errorMessage,
-      })
+    // Expire past-deadline and stale grants before running new discovery
+    const cleanupResult = await cleanupExpiredGrants()
+
+    const settled = await Promise.allSettled(
+      SCRAPERS.map(async (job) => ({
+        source: job.source,
+        grants: await job.run(),
+      }))
     )
-  )
 
-  if (failed > 0) {
-    const failures = perSource
-      .filter((s) => !s.success)
-      .map((s) => ({ source: s.source, error: s.errorMessage ?? 'unknown error' }))
-    await sendScraperAlert(failures)
-  }
+    const perSource: SourceResult[] = []
+    let succeeded = 0
+    let failed = 0
 
-  return NextResponse.json({
-    ok: true,
-    cleanup: {
-      deleted: cleanupResult.deleted,
-      expired: cleanupResult.expired,
-    },
-    scrapers: {
-      total: SCRAPERS.length,
-      succeeded,
-      failed,
-    },
-    grants: {
-      raw: rawAll.length,
-      normalized: normalized.length,
-      new: newGrants.length,
-      inserted: persistResult.inserted,
-      errors: persistResult.errors,
-    },
-    matching: {
-      grants_checked: matchingResult.grants_checked,
-      entities_checked: matchingResult.entities_checked,
-      pairs_queued: matchingResult.pairs_queued,
-      pairs_pending_review: matchingResult.pairs_pending_review,
-      pairs_archived: matchingResult.pairs_archived,
-      pairs_rejected: matchingResult.pairs_rejected,
-    },
-    timestamp: new Date().toISOString(),
+    for (let i = 0; i < settled.length; i++) {
+      const job = SCRAPERS[i]
+      const result = settled[i]
+      if (result.status === 'fulfilled') {
+        succeeded++
+        const raw = result.value.grants
+        const normalized: NormalizedGrant[] = []
+        for (const r of raw) {
+          const n = normalizeGrant(r)
+          if (n) normalized.push(n)
+        }
+        perSource.push({
+          source: job.source,
+          raw,
+          normalized,
+          success: true,
+          errorMessage: null,
+        })
+      } else {
+        failed++
+        console.error(`[cron/discover] scraper ${job.source} failed`, result.reason)
+        const errorMessage =
+          result.reason instanceof Error
+            ? result.reason.message
+            : String(result.reason)
+        perSource.push({
+          source: job.source,
+          raw: [],
+          normalized: [],
+          success: false,
+          errorMessage,
+        })
+      }
+    }
+
+    const rawAll = perSource.flatMap((s) => s.raw)
+    const normalized = perSource.flatMap((s) => s.normalized)
+    const newGrants = await filterNewGrants(normalized)
+    const persistResult = await persistGrants(newGrants)
+    const matchingResult = await runMatching()
+    const newHashes = new Set(newGrants.map((g) => g.content_hash))
+
+    await Promise.all(
+      perSource.map((s) =>
+        logScraperRun({
+          source: s.source,
+          startedAt,
+          grantsFound: s.raw.length,
+          grantsNew: s.normalized.filter((g) => newHashes.has(g.content_hash)).length,
+          success: s.success,
+          errorMessage: s.errorMessage,
+        })
+      )
+    )
+
+    if (failed > 0) {
+      const failures = perSource
+        .filter((s) => !s.success)
+        .map((s) => ({ source: s.source, error: s.errorMessage ?? 'unknown error' }))
+      await sendScraperAlert(failures)
+    }
+
+    return NextResponse.json({
+      ok: true,
+      cleanup: {
+        deleted: cleanupResult.deleted,
+        expired: cleanupResult.expired,
+      },
+      scrapers: {
+        total: SCRAPERS.length,
+        succeeded,
+        failed,
+      },
+      grants: {
+        raw: rawAll.length,
+        normalized: normalized.length,
+        new: newGrants.length,
+        inserted: persistResult.inserted,
+        errors: persistResult.errors,
+      },
+      matching: {
+        grants_checked: matchingResult.grants_checked,
+        entities_checked: matchingResult.entities_checked,
+        pairs_queued: matchingResult.pairs_queued,
+        pairs_pending_review: matchingResult.pairs_pending_review,
+        pairs_archived: matchingResult.pairs_archived,
+        pairs_rejected: matchingResult.pairs_rejected,
+      },
+      timestamp: new Date().toISOString(),
+    })
   })
 }

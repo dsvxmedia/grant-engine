@@ -1,0 +1,44 @@
+[
+ {
+  "id": "dem3870b-2e97-42a4-a32e-7ce8fbbb757c",
+  "type": "new_match",
+  "title": "New match: Advanced Technological Education",
+  "body": "Fit score 88.5. Deadline 2026-10-01.",
+  "metadata": {
+   "match_id": "dem1e4fb-e128-4adc-af78-21ca11a8cd38"
+  },
+  "read": false,
+  "created_at": "2026-09-13T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem356ac-4841-4e16-a367-d2f8af44ea36",
+  "type": "new_match",
+  "title": "New match: Innovative Programs to Enhance Research Training (IPERT) (R2",
+  "body": "Fit score 71.0. Deadline 2026-10-14.",
+  "metadata": {
+   "match_id": "dem1bb5d-89f8-4ee7-a811-4022bd569136"
+  },
+  "read": false,
+  "created_at": "2026-09-13T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem30a34-9c7a-446e-afe7-5f6c2bff219e",
+  "type": "new_match",
+  "title": "New match: Cancer Research Education Grants Program - Courses for Skill",
+  "body": "Fit score 54.0. Deadline 2027-01-07.",
+  "metadata": {
+   "match_id": "dem17356-abc7-4479-af28-0b72ac9b37d6"
+  },
+  "read": false,
+  "created_at": "2026-09-13T00:36:53.027368+00:00"
+ },
+ {
+  "id": "dem350e7-f3b5-4879-a991-6c473223234a",
+  "type": "weekly_summary",
+  "title": "Weekly pipeline summary",
+  "body": "192 active grants tracked. 11 matches scored. 4 drafts waiting on your review.",
+  "metadata": {},
+  "read": false,
+  "created_at": "2026-09-14T00:36:53.027368+00:00"
+ }
+]

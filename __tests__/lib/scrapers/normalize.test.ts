@@ -137,7 +137,9 @@ describe('normalizeGrant', () => {
   })
 
   it('produces a consistent content_hash for the same input', () => {
-    const raw = baseRaw({ funderName: 'NSF', deadline: '2026-09-15T00:00:00.000Z' })
+    // A fixed date here rots: normalizeGrant drops grants whose deadline has passed.
+    const deadline = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+    const raw = baseRaw({ funderName: 'NSF', deadline })
     expect(normalizeGrant(raw)!.content_hash).toBe(normalizeGrant(raw)!.content_hash)
   })
 
